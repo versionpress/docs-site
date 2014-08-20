@@ -1,0 +1,155 @@
+﻿//
+// Base styles for the whole website. Some simple sites like PayPal processing ones
+// use this stylesheet directly while others like homepage or checkout
+// include this base stylesheet and further expand on it.
+//
+
+@import "bootstrap/bootstrap.less";
+
+body {
+}
+
+.condensed-font {
+    font-family: "Open Sans Condensed", @font-family-base;
+    font-weight: 700;
+}
+
+
+@darker-background-base: #D3DFEB;
+@darker-background: fade(@darker-background-base, 25%);
+@darker-background-border: darken(@darker-background, 20%);
+@border-definition: 1px solid @darker-background-border;
+
+.darker-background() {
+
+    background-color: @darker-background;
+    border-top: @border-definition;
+    border-bottom: @border-definition;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+.border-top-divider {
+    border-top: 1px solid #ededed;
+}
+
+hr {
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+
+section {
+    padding: 20px 0;
+}
+
+li {
+    margin-top: 8px;
+}
+
+.lead {
+    text-align: center;
+    font-weight: 600;
+}
+
+code {
+    color: @text-color;
+}
+
+
+//
+// Nav bar
+//
+
+.navbar {
+    .darker-background;
+}
+
+.navbar-brand img {
+    margin-top: -4px;
+    margin-right: 5px;
+}
+
+.nav li {
+    margin-top: 0;
+}
+
+.navbar-nav > .active > a {
+    &,
+    &:hover,
+    &:focus {
+        background-color: darken(@darker-background, 2%);
+    }
+}
+
+
+
+//
+// Footer
+//
+
+// Sticky footer, see http://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+// In browser that don't support flexbox, the footer just not sticks but all else is OK
+body {
+    display: flex;
+    min-height: 100vh;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding-bottom: 70px;
+}
+
+.footer-section-wrapper {
+    .darker-background;
+}
+
+#footer {
+    .make-row();
+    padding: 60px 0 80px;
+}
+
+.links {
+    .make-sm-column(6);
+}
+
+#footer h2 {
+    font-size: 26px;
+    margin: 10px 0 30px;
+    text-align: left;
+}
+
+.links dl {
+    .dl-horizontal;
+    font-size: 1.2em;
+}
+
+.links dl dt, .links dl dd {
+    font-weight: normal;
+    padding-bottom: 6px;
+    text-align: left;
+}
+
+.links dl dt {
+    width: auto;
+    float: left;
+}
+
+.links dl dd {
+    margin-left: 130px;
+}
+
+
+
+.footer-rest {
+    .make-sm-column(6);
+    padding-top: 70px;
+}
+
+.copyright-info {
+    text-align: center;
+    font-size: 12px;
+}
