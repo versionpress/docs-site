@@ -13,13 +13,18 @@ namespace VersionPress.DocsSite.Controllers
     [HandleError]
     public class DocsController : Controller
     {
-        public ActionResult DisplayArticle(string language, string path)
+        public ActionResult DisplayArticle(string path)
         {
+
+            if (path == null)
+            {
+                path = "en";
+            }
 
             FileInfo markdownFile;
             try
             {
-                markdownFile = DocsData.GetFileInfoForArticlePath(language + "/" + path);
+                markdownFile = DocsData.GetFileInfoForArticlePath(path);
             }
             catch (Exception e)
             {

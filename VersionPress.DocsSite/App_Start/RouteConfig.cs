@@ -15,7 +15,7 @@ namespace VersionPress.DocsSite
 
             routes.MapRoute(
                 name: "CatchAll",
-                url: "{language}/{*path}",
+                url: "{*path}",
                 defaults: new { controller = "Docs", action = "DisplayArticle" }
             );
         }
