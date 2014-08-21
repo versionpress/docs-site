@@ -47,7 +47,15 @@ namespace VersionPress.DocsSite.Data
 
             }
 
-            throw new Exception("Couldn't find " + articlePath);
+            var indexFile = new FileInfo(Path.Combine(currentDir.FullName, "_index.md"));
+            if (indexFile.Exists)
+            {
+                return indexFile;
+            }
+            else
+            {
+                throw new Exception("Couldn't find " + articlePath);
+            }
 
         }
 
