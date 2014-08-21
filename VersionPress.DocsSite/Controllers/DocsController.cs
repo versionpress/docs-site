@@ -8,6 +8,8 @@ using VersionPress.DocsSite.Models;
 
 namespace VersionPress.DocsSite.Controllers
 {
+
+    [HandleError]
     public class DocsController : Controller
     {
         public ActionResult DisplayArticle(string language, string path)
