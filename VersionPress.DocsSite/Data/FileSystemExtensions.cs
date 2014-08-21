@@ -37,5 +37,37 @@ namespace VersionPress.DocsSite.Data
             return cleanNamePattern.Match(fileSystemInfo.Name).Groups[1].Value;
         }
 
+        public static string GetArticleTitle(this FileSystemInfo fileSystemInfo)
+        {
+
+            var markdownFile = GetMarkdownFile(fileSystemInfo);
+            var firstLine = "";
+            using (var streamReader = new StreamReader(markdownFile.OpenRead()))
+            {
+                firstLine = streamReader.ReadLine();
+            }
+
+            return new Regex(@"^(?:\#{1,6}\ *)?(.+?)(?:\ *\#*)$").Match(firstLine).Groups[1].Value;
+
+
+        }
+
+        /// <summary>
+        /// Return Markdown file for the given file or directory. If it is a file,
+        /// it returns the file itself. If it is a directory, it returns the nested `_index.md` file.
+        /// </summary>
+        /// <param name="fileSystemInfo"></param>
+        /// <returns></returns>
+        public static FileInfo GetMarkdownFile(this FileSystemInfo fileSystemInfo)
+        {
+            if (fileSystemInfo is FileInfo)
+            {
+                return fileSystemInfo as FileInfo;
+            }
+            else
+            {
+                return new FileInfo(Path.Combine(fileSystemInfo.FullName, "_index.md"));
+            }
+        }
     }
 }

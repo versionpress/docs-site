@@ -113,9 +113,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="YamlDotNet">
-      <HintPath>..\packages\YamlDotNet.3.2.2\lib\net35\YamlDotNet.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -130,7 +127,6 @@
     <Compile Include="Data\DocsData.cs" />
     <Compile Include="Data\FileSystemExtensions.cs" />
     <Compile Include="Data\MenuNodeProvider.cs" />
-    <Compile Include="Data\YamlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

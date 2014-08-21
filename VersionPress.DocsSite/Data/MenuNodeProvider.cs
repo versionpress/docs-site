@@ -21,11 +21,8 @@ namespace VersionPress.DocsSite.Data
             foreach (var directory in directories)
             {
 
-                var indexFile = new FileInfo(Path.Combine(directory.FullName, "_index.md"));
-                var frontMatter = indexFile.YamlHeader();
-
                 var dynamicNode = new DynamicNode();
-                dynamicNode.Title = (string)frontMatter["sectionTitle"];
+                dynamicNode.Title = directory.GetArticleTitle();
                 dynamicNode.Url = "/en/" + directory.GetNameWithoutPrefix();
                 dynamicNode.Key = keyPrefix + directory.GetNameWithoutPrefix();
                 var parentKey = dynamicNode.Key;
@@ -36,10 +33,8 @@ namespace VersionPress.DocsSite.Data
 
                 foreach (var file in files)
                 {
-                    frontMatter = file.YamlHeader();
-
                     dynamicNode = new DynamicNode();
-                    dynamicNode.Title = (string)frontMatter["title"];
+                    dynamicNode.Title = file.GetArticleTitle();
                     dynamicNode.Url = "/en/" + directory.GetNameWithoutPrefix() + "/" + file.GetNameWithoutPrefix();
                     dynamicNode.ParentKey = parentKey;
 
