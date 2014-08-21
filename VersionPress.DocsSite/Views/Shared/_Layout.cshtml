@@ -12,12 +12,22 @@
 </head>
 <body>
 
-    <div>
-        @Html.MvcSiteMap().Menu()
-    </div>
+    <div class="container body-content">
 
-    <div class="container body-content markdown-body">
-        @RenderBody()
+        <div class="row">
+
+            <div class="col-md-4 col-md-push-9">
+                @Html.MvcSiteMap().Menu()
+            </div>
+
+
+            <div class="markdown-body col-md-8 col-md-pull-4">
+                @RenderBody()
+            </div>
+
+        </div>
+
+
     </div>
 
 </body>
