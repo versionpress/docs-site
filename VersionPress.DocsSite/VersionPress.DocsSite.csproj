@@ -313,6 +313,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\content\en\_index.md" />
+    <Content Include="App_Code\VersionPressHelper.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
