@@ -10,36 +10,64 @@ namespace VersionPress.DocsSite.Data
 {
     public class MenuNodeProvider : DynamicNodeProviderBase 
     {
+
+        /// <summary>
+        /// Builds nodes of the navigation.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         public override IEnumerable<DynamicNode> GetDynamicNodeCollection(ISiteMapNode node)
         {
 
             var baseDir = new DirectoryInfo(HostingEnvironment.MapPath("~/App_Data/content/en"));
 
-            var directories = baseDir.EnumerateDirectories().OrderBy(dir => dir.Name);
+            var fileSystemInfos = baseDir.EnumerateFileSystemInfos()
+                                         .Where(fsi => !fsi.IsIndexFile())
+                                         .OrderBy(fsi => fsi.Name);
             var keyPrefix = "content_";
 
-            foreach (var directory in directories)
+            // The current implementation is a bit simplistic, only supporting single level
+            // of directories. So e.g. inside a `xy-getting-started` directory, there can only
+            // content files and no further nested directories.
+
+            foreach (var fileSystemInfo in fileSystemInfos)
             {
 
-                var dynamicNode = new DynamicNode();
-                dynamicNode.Title = directory.GetArticleTitle();
-                dynamicNode.Url = "/en/" + directory.GetNameWithoutPrefix();
-                dynamicNode.Key = keyPrefix + directory.GetNameWithoutPrefix();
-                var parentKey = dynamicNode.Key;
-
-                yield return dynamicNode;
-
-                var files = directory.EnumerateFiles().Where(f => f.Name != "_index.md").OrderBy(f => f.Name);
-
-                foreach (var file in files)
+                if (fileSystemInfo is DirectoryInfo)
                 {
-                    dynamicNode = new DynamicNode();
-                    dynamicNode.Title = file.GetArticleTitle();
-                    dynamicNode.Url = "/en/" + directory.GetNameWithoutPrefix() + "/" + file.GetNameWithoutPrefix();
-                    dynamicNode.ParentKey = parentKey;
+
+                    var directory = fileSystemInfo as DirectoryInfo;
+
+                    var dynamicNode = new DynamicNode();
+                    dynamicNode.Title = directory.GetArticleTitle();
+                    dynamicNode.Url = "~/en/" + directory.GetNameWithoutPrefix();
+                    dynamicNode.Key = keyPrefix + directory.GetNameWithoutPrefix();
+                    var parentKey = dynamicNode.Key;
 
                     yield return dynamicNode;
+
+                    var files = directory.EnumerateFiles().Where(f => !f.IsIndexFile()).OrderBy(f => f.Name);
+
+                    foreach (var file in files)
+                    {
+                        dynamicNode = new DynamicNode();
+                        dynamicNode.Title = file.GetArticleTitle();
+                        dynamicNode.Url = "~/en/" + directory.GetNameWithoutPrefix() + "/" + file.GetNameWithoutPrefix();
+                        dynamicNode.ParentKey = parentKey;
+
+                        yield return dynamicNode;
+                    }
                 }
+                else
+                {
+                    var dynamicNode = new DynamicNode();
+                    dynamicNode.Title = fileSystemInfo.GetArticleTitle();
+                    dynamicNode.Url = "~/en/" + fileSystemInfo.GetNameWithoutPrefix();
+
+                    yield return dynamicNode;
+
+                }
+
 
 
             }

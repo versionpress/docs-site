@@ -69,5 +69,10 @@ namespace VersionPress.DocsSite.Data
                 return new FileInfo(Path.Combine(fileSystemInfo.FullName, "_index.md"));
             }
         }
+
+        public static bool IsIndexFile(this FileSystemInfo fileSystemInfo)
+        {
+            return fileSystemInfo is FileInfo && fileSystemInfo.Name == "_index.md";
+        }
     }
 }
