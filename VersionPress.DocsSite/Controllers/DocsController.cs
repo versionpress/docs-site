@@ -1,8 +1,10 @@
-﻿using System;
+﻿using MvcSiteMapProvider;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using VersionPress.DocsSite.Data;
 using VersionPress.DocsSite.Models;
@@ -32,6 +34,15 @@ namespace VersionPress.DocsSite.Controllers
             }
 
             var article = new DocsArticle(markdownFile);
+
+            // Possibly invalidate navigation cache
+            var changeFile = new FileInfo(HostingEnvironment.MapPath("~/App_Data/content/.changed"));
+            if (changeFile.Exists)
+            {
+                SiteMaps.ReleaseSiteMap();
+                changeFile.Delete();
+            }
+
 
             return View(article);
         }
