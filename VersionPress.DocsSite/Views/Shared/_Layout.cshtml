@@ -15,12 +15,16 @@
     <header class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <a href="~/" class="navbar-brand">VersionPress Documentation <span class="docs-for-version">for version @VersionPressHelper.DocsVersion()</span></a>
-                
+                <a href="~/" class="navbar-brand">
+                    <img src="~/img/icon.png" alt="VersionPress icon" style="margin-right: 10px;" />
+                    VersionPress Documentation
+                    <span class="docs-for-version">for version @VersionPressHelper.DocsVersion()</span>
+                </a>
+
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">VersionPress homepage</a></li>
+                <li><a href="#">VersionPress home</a></li>
             </ul>
         </div>
     </header>
@@ -29,12 +33,17 @@
 
         <div class="row">
 
-            <div class="col-md-4 col-md-push-9">
+            <div id="sidebar">
+
+                <div id="sidebar-header">
+                    Docs for <strong>VersionPress @VersionPressHelper.DocsVersion()</strong>
+                </div>
+
                 @Html.MvcSiteMap().Menu()
             </div>
 
 
-            <div class="markdown-body col-md-8 col-md-pull-4">
+            <div class="markdown-body main-content">
                 @RenderBody()
             </div>
 

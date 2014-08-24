@@ -158,6 +158,7 @@
     <Content Include="App_Data\content\en\01-getting-started\01-versionpress-basics.md" />
     <Content Include="App_Data\content\en\01-getting-started\02-installation-uninstallation.md" />
     <Content Include="App_Data\content\en\09-known-issues.md" />
+    <Content Include="img\icon.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

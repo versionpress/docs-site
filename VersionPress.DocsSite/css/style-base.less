@@ -7,6 +7,8 @@
 @import "bootstrap/bootstrap.custom.less";
 @import "github.less";
 
+@darker-navbar-color: darken(@navbar-default-brand-color, 15%);
+
 body {
     font-family: @font-family-base;
 }
@@ -16,14 +18,29 @@ body {
     margin-bottom: 20px;
 }
 
-#menu {
-    margin-top: 50px;
+#sidebar {
+    .make-md-column(3);
+    .make-md-column-push(9);
+    .navbar-default;
+    border: 1px solid @navbar-default-border;
+    font-size: 0.9em;
+}
+
+#sidebar-header {
+    color: @darker-navbar-color;
+    margin: 15px auto 15px;
+    text-align: center;
+}
+
+.main-content {
+    .make-md-column(8);
+    .make-md-column-pull(3);
 }
 
 .docs-for-version {
     font-size: 0.7em;
     padding-left: 5px;
-    color: lighten(black, 20%);
+    color: @darker-navbar-color;
 }
 
 .docs-for-version .docs-version {
