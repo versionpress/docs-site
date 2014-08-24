@@ -11,7 +11,7 @@ namespace VersionPress.DocsSite.Data
     {
 
         /// <summary>
-        /// For something like 'intro/getting-started', it finds the physical path, e.g.,
+        /// For something like 'intro/getting-started', finds the physical path, e.g.,
         /// '01-intro/03-getting-started.md'
         /// </summary>
         /// <param name="ArticlePath"></param>
