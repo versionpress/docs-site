@@ -14,6 +14,12 @@ namespace VersionPress.DocsSite
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Homepage",
+                url: "",
+                defaults: new { controller = "Home", action="HandleHomepage" }
+                );
+
+            routes.MapRoute(
                 name: "CatchAll",
                 url: "{*path}",
                 defaults: new { controller = "Docs", action = "DisplayArticle" }

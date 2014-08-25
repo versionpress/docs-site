@@ -4,7 +4,7 @@
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
 
-  <mvcSiteMapNode key="home" title="Home" url="/">
+  <mvcSiteMapNode key="home" title="Home" url="~/en">
     <mvcSiteMapNode title="Dynamic" dynamicNodeProvider="VersionPress.DocsSite.Data.MenuNodeProvider, VersionPress.DocsSite" />
   </mvcSiteMapNode>
   
