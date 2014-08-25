@@ -10,7 +10,7 @@ namespace VersionPress.DocsSite.Data
     public static class FileSystemExtensions
     {
 
-        private static readonly Regex cleanNamePattern = new Regex(@"(?:\d{2}-)?([^\.]*)(?:\.md)?");
+        private static readonly Regex cleanNamePattern = new Regex(@"(?:\d{2}-)?(.+?)(?:\.md)?$");
 
         /// <summary>
         /// Returns true if FileSystemInfo's name without the optional two-digit prefix
