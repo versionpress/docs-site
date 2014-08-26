@@ -135,18 +135,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\bootstrap\bootstrap.custom.css">
-      <DependentUpon>bootstrap.custom.less</DependentUpon>
-    </Content>
-    <Content Include="css\bootstrap\bootstrap.custom.min.css">
-      <DependentUpon>bootstrap.custom.css</DependentUpon>
-    </Content>
-    <Content Include="css\github.css">
-      <DependentUpon>github.less</DependentUpon>
-    </Content>
-    <Content Include="css\github.min.css">
-      <DependentUpon>github.css</DependentUpon>
-    </Content>
     <Content Include="css\style-base.css">
       <DependentUpon>style-base.less</DependentUpon>
     </Content>
@@ -155,10 +143,6 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="App_Data\content\en\01-getting-started\_index.md" />
-    <Content Include="App_Data\content\en\01-getting-started\01-versionpress-basics.md" />
-    <Content Include="App_Data\content\en\01-getting-started\02-installation-uninstallation.md" />
-    <Content Include="App_Data\content\en\09-known-issues.md" />
     <Content Include="img\icon.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -173,9 +157,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Docs\DisplayArticle.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\content\media\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -265,11 +247,6 @@
     <Content Include="css\github.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\github.css.map">
-      <DependentUpon>github.css</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="css\bootstrap\variables.custom.less" />
   </ItemGroup>
   <ItemGroup>
@@ -277,11 +254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\bootstrap\bootstrap.custom.less" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="css\bootstrap\bootstrap.custom.css.map">
-      <DependentUpon>bootstrap.custom.css</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\NotFound.cshtml" />
@@ -314,11 +286,12 @@
     <Content Include="Mvc.sitemap">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_Data\content\en\_index.md" />
     <Content Include="App_Code\VersionPressHelper.cshtml" />
+    <Content Include="App_Data\README.md" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\versionpress.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
