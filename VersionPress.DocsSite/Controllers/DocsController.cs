@@ -30,7 +30,7 @@ namespace VersionPress.DocsSite.Controllers
             }
             catch (Exception e)
             {
-                return HttpNotFound("Could not found documentation topic on " + path);
+                return HttpNotFound("Could not find documentation topic on " + path);
             }
 
             var article = new DocsArticle(markdownFile);
