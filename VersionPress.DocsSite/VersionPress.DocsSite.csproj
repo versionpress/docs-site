@@ -134,7 +134,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\NextHelper.cs" />
+    <Compile Include="HtmlHelpers\PreviousHelper.cs" />
     <Compile Include="Models\DocsArticle.cs" />
+    <Compile Include="Models\DocumentNavigationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +298,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\PublishProfiles\versionpress-docs.pubxml" />
+    <Content Include="Views\Shared\DisplayTemplates\DocumentNavigationModel.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

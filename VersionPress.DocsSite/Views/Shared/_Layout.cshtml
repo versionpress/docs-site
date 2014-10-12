@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using VersionPress.DocsSite.HtmlHelpers
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -59,7 +60,19 @@
 
             <div class="markdown-body main-content">
                 @RenderBody()
+                
+                <div class="prev-next-navigation">
+                    <div class="previous-topic">
+                        @Html.MvcSiteMap().Previous("Previous:")
+                    </div>
+
+                    <div class="next-topic">
+                        @Html.MvcSiteMap().Next("Next:")
+                    </div>
+                </div>
+
             </div>
+            
 
         </div>
 
