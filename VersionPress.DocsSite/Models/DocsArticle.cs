@@ -1,4 +1,4 @@
-﻿using MarkdownDeep;
+﻿using CommonMark;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +23,7 @@ namespace VersionPress.DocsSite.Models
 
         public string Html { 
             get {
-                var md = new Markdown();
-                md.ExtraMode = true;
-                var output = md.Transform(File.ReadAllText(MarkdownSourceFile.FullName));
+                var output = CommonMarkConverter.Convert(File.ReadAllText(MarkdownSourceFile.FullName));
                 return output;
             }
         }
