@@ -1,7 +1,7 @@
 ﻿@model VersionPress.DocsSite.Models.DocsArticle
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "VersionPress docs article";
+    ViewBag.Title = Model.Title;
 }
 
 @Html.Raw(Model.Html)

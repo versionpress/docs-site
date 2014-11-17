@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using VersionPress.DocsSite.Data;
 
 namespace VersionPress.DocsSite.Models
 {
@@ -13,6 +14,7 @@ namespace VersionPress.DocsSite.Models
         public DocsArticle(FileInfo sourceFile)
         {
             MarkdownSourceFile = sourceFile;
+            Title = sourceFile.GetArticleTitle();
         }
 
         public string Title { get; set; }
