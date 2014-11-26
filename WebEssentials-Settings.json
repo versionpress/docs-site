@@ -47,7 +47,9 @@
   "General": {
     "AllMessagesToOutputWindow": false,
     "KeepImportantComments": true,
-    "SvgPreviewPane": true
+    "SvgPreviewPane": true,
+    "ShowLogoWatermark": true,
+    "ShowWEIgnoreLogs": true
   },
   "Html": {
     "AutoMinify": false,
@@ -77,7 +79,12 @@
     "MakeMinified": true,
     "MinificationMode": "KeepQuotes",
     "OutputDirectory": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "AttributeQuotesRemovalMode": "KeepQuotes",
+    "CustomAngularDirectiveList": null,
+    "MinifyAngularBindingExpressions": false,
+    "MinifyKnockoutBindingExpressions": false,
+    "ProcessableScriptTypeList": null
   },
   "JavaScript": {
     "AutoMinify": true,
@@ -149,7 +156,8 @@
     "RunOnBuild": false,
     "ScssOutputDirectory": null,
     "UseAbsoluteUrl": false,
-    "UseFullPathForIdentifierName": true
+    "UseFullPathForIdentifierName": true,
+    "Margin": 1
   },
   "SweetJs": {
     "CompileOnBuild": false,
