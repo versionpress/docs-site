@@ -25,6 +25,9 @@ namespace VersionPress.DocsSite.Models
             get {
                 var md = new Markdown();
                 md.ExtraMode = true;
+                md.SafeMode = false;
+                md.AutoHeadingIDs = true;
+                md.MarkdownInHtml = true;
                 var output = md.Transform(File.ReadAllText(MarkdownSourceFile.FullName));
                 return output;
             }
