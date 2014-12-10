@@ -11,6 +11,9 @@
 
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="~/js/home.js"></script>
+    <script src="~/js/toc.min.js"></script>
+    <script src="~/js/jquery.equalheights.min.js"></script>
+    <script src="~/js/stickyfill.min.js"></script>
 
     @if (!Request.IsLocal)
     {
@@ -53,11 +56,23 @@
 
             <div id="sidebar">
 
-                <div id="sidebar-header">
-                    Docs for <strong>VersionPress @VersionPressHelper.DocsVersion()</strong>
+                <div id="docs-navigation" class="outline-box">
+                    <div class="outline-header">
+                        Docs for <strong>VersionPress @VersionPressHelper.DocsVersion()</strong>
+                    </div>
+
+                    @Html.MvcSiteMap().Menu()
+
                 </div>
 
-                @Html.MvcSiteMap().Menu()
+
+
+                <div id="page-navigation" class="outline-box">
+                    <div class="outline-header">
+                        <strong>On this page:</strong>
+                    </div>
+                    <div id="page-toc"><!-- Filled with JavaScript --></div>
+                </div>
             </div>
 
 
