@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "VersionPress docs site",
   "main": "index.js",
-  "dependencies": {
-    "gulp-less": "^1.3.6"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "autoprefixer-core": "^4.0.2",
     "gulp": "^3.8.10",
-    "gulp-less-sourcemap": "^1.3.3"
+    "gulp-less-sourcemap": "^1.3.3",
+    "gulp-postcss": "^3.0.0",
+    "gulp-sourcemaps": "^1.2.8"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
