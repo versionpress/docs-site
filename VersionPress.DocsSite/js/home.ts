@@ -36,16 +36,16 @@ $(document).ready(() => {
         // make sidebar as high as the main content area for position:sticky to work
         // see https://github.com/mattbanks/jQuery.equalHeights
 
-        setTimeout(makeColsEqualHeight, 200);
-        $(window).resize(function () {
-            makeColsEqualHeight();
-        });
-
         function makeColsEqualHeight() {
             var cols = $('.main-content, #sidebar');
             cols.height('auto');
             cols.equalHeights();
         }
+
+        setTimeout(makeColsEqualHeight, 200);
+        $(window).resize(function () {
+            makeColsEqualHeight();
+        });
 
         // and also use sticky polyfill, see https://github.com/wilddeer/stickyfill
         $('#page-navigation').Stickyfill();
