@@ -27,22 +27,33 @@ $(document).ready(() => {
         'highlightOffset': 0
     });
 
-    // make sidebar as high as the main content area for position:sticky to work
-    // see https://github.com/mattbanks/jQuery.equalHeights
+    if ($('#page-toc li').length == 0) {
 
-    setTimeout(makeColsEqualHeight, 200);
-    $(window).resize(function () {
-        makeColsEqualHeight();
-    });
+        $('#page-navigation').hide();
 
-    function makeColsEqualHeight() {
-        var cols = $('.main-content, #sidebar');
-        cols.height('auto');
-        cols.equalHeights();
+    } else {
+
+        // make sidebar as high as the main content area for position:sticky to work
+        // see https://github.com/mattbanks/jQuery.equalHeights
+
+        setTimeout(makeColsEqualHeight, 200);
+        $(window).resize(function () {
+            makeColsEqualHeight();
+        });
+
+        function makeColsEqualHeight() {
+            var cols = $('.main-content, #sidebar');
+            cols.height('auto');
+            cols.equalHeights();
+        }
+
+        // and also use sticky polyfill, see https://github.com/wilddeer/stickyfill
+        $('#page-navigation').Stickyfill();
+
     }
 
-    // and also use sticky polyfill, see https://github.com/wilddeer/stickyfill
-    $('#page-navigation').Stickyfill();
+
+    
 
 
 });
