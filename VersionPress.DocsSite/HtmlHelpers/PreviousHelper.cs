@@ -228,6 +228,11 @@ namespace VersionPress.DocsSite.HtmlHelpers
 
         private static ISiteMapNode GetPreviousNode(ISiteMapNode startingNode, IDictionary<string, object> sourceMetadata)
         {
+            if (startingNode == null)
+            {
+                return null;
+            }
+
             ISiteMapNode previousNode = null;
 
             // Get the previous sibling

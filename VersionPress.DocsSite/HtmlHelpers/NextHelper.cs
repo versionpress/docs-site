@@ -227,6 +227,12 @@ namespace VersionPress.DocsSite.HtmlHelpers
 
         private static ISiteMapNode GetNextNode(ISiteMapNode startingNode, IDictionary<string, object> sourceMetadata)
         {
+
+            if (startingNode == null)
+            {
+                return null;
+            }
+
             ISiteMapNode nextNode = null;
             if (startingNode.HasChildNodes)
             {
