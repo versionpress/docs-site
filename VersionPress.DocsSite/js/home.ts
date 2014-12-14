@@ -1,6 +1,7 @@
-﻿/// <reference path="jquery.d.ts" />
-/// <reference path="jquery.toc.d.ts" />
-/// <reference path="jquery.equalheights.d.ts" />
+﻿/// <reference path="libs/jquery.d.ts" />
+/// <reference path="libs/jquery.toc.d.ts" />
+/// <reference path="libs/jquery.equalheights.d.ts" />
+/// <reference path="libs/stickyfill.d.ts" />
 
 $(document).ready(() => {
 
