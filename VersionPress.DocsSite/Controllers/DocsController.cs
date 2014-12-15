@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -23,6 +24,14 @@ namespace VersionPress.DocsSite.Controllers
                 path = "en";
             }
 
+            var versionMatch = new Regex(@"^(\d+\.[^\/]*)\/(.*)$").Match(path);
+            if (versionMatch.Success)
+            {
+                ControllerContext.HttpContext.Items.Add("displayVersion", versionMatch.Groups[1].Value);
+                path = versionMatch.Groups[2].Value;
+            }
+
+
             FileInfo markdownFile;
             try
             {
@@ -35,14 +44,7 @@ namespace VersionPress.DocsSite.Controllers
 
             var article = new DocsArticle(markdownFile);
 
-            // Possibly invalidate navigation cache
-            var changeFile = new FileInfo(HostingEnvironment.MapPath("~/App_Data/content/.changed"));
-            if (changeFile.Exists)
-            {
-                SiteMaps.ReleaseSiteMap();
-                changeFile.Delete();
-            }
-
+            SiteMaps.ReleaseSiteMap();
 
             return View(article);
         }

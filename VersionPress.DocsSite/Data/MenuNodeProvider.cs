@@ -25,6 +25,8 @@ namespace VersionPress.DocsSite.Data
                                          .Where(fsi => !fsi.IsIndexFile())
                                          .OrderBy(fsi => fsi.Name);
             var keyPrefix = "content_";
+            var urlStart = "~/" + (HttpContext.Current.Items.Contains("displayVersion") ? HttpContext.Current.Items["displayVersion"] + "/" : "") + "en/";
+
 
             // The current implementation is a bit simplistic, only supporting single level
             // of directories. So e.g. inside a `xy-getting-started` directory, there can only
@@ -38,9 +40,14 @@ namespace VersionPress.DocsSite.Data
 
                     var directory = fileSystemInfo as DirectoryInfo;
 
+                    if (!directory.IsValidForCurrentDocsVersion())
+                    {
+                        continue;
+                    }
+
                     var dynamicNode = new DynamicNode();
                     dynamicNode.Title = directory.GetArticleTitle();
-                    dynamicNode.Url = "~/en/" + directory.GetNameWithoutPrefix();
+                    dynamicNode.Url = urlStart + directory.GetNameWithoutPrefix();
                     dynamicNode.Key = keyPrefix + directory.GetNameWithoutPrefix();
                     var parentKey = dynamicNode.Key;
 
@@ -50,9 +57,15 @@ namespace VersionPress.DocsSite.Data
 
                     foreach (var file in files)
                     {
+
+                        if (!file.ShouldAppearInMenu() || !file.IsValidForCurrentDocsVersion())
+                        {
+                            continue;
+                        }
+
                         dynamicNode = new DynamicNode();
                         dynamicNode.Title = file.GetArticleTitle();
-                        dynamicNode.Url = "~/en/" + directory.GetNameWithoutPrefix() + "/" + file.GetNameWithoutPrefix();
+                        dynamicNode.Url = urlStart + directory.GetNameWithoutPrefix() + "/" + file.GetNameWithoutPrefix();
                         dynamicNode.ParentKey = parentKey;
 
                         yield return dynamicNode;

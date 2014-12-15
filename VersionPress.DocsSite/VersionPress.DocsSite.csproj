@@ -51,6 +51,9 @@
     <Reference Include="NotFoundMvc">
       <HintPath>..\packages\NotFoundMvc.1.2.0\lib\net40\NotFoundMvc.dll</HintPath>
     </Reference>
+    <Reference Include="Semver">
+      <HintPath>..\packages\semver.1.1.2\lib\net45\Semver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -115,8 +118,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="YamlDotNet">
-      <HintPath>..\packages\YamlDotNet.3.3.0\lib\net35\YamlDotNet.dll</HintPath>
+    <Reference Include="YamlDotNet, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YamlDotNet.3.4.0\lib\net35\YamlDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet.Dynamic">
+      <HintPath>..\packages\YamlDotNet.Dynamic.3.2.3\lib\net40\YamlDotNet.Dynamic.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +140,7 @@
     <Compile Include="Data\DocsData.cs" />
     <Compile Include="Data\FileSystemExtensions.cs" />
     <Compile Include="Data\MenuNodeProvider.cs" />
+    <Compile Include="Data\YamlExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,7 +173,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\bootstrap\alerts.less" />

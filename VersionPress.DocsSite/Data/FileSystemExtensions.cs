@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Semver;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using YamlDotNet.Dynamic;
 
 namespace VersionPress.DocsSite.Data
 {
@@ -41,16 +43,73 @@ namespace VersionPress.DocsSite.Data
         {
 
             var markdownFile = GetMarkdownFile(fileSystemInfo);
-            var firstLine = "";
+            var titleLine = "";
+            var titleLineRegex = new Regex(@"^(?:\#{1}\ *)(.+?)(?:\ *\#*)$");
             using (var streamReader = new StreamReader(markdownFile.OpenRead()))
             {
-                firstLine = streamReader.ReadLine();
+                var titleLineFound = false;
+                while (!titleLineFound)
+                {
+                    titleLine = streamReader.ReadLine();
+                    if (titleLine == null)
+                    {
+                        break;
+                    }
+
+                    if (titleLineRegex.IsMatch(titleLine))
+                    {
+                        titleLineFound = true;
+                    }
+                }
+
             }
 
-            return new Regex(@"^(?:\#{1,6}\ *)?(.+?)(?:\ *\#*)$").Match(firstLine).Groups[1].Value;
+            return titleLineRegex.Match(titleLine).Groups[1].Value;
 
 
         }
+
+        public static DynamicYaml GetFrontMatter(this FileSystemInfo fileSystemInfo)
+        {
+            var markdownFile = GetMarkdownFile(fileSystemInfo);
+            var frontMatter = "";
+            using (var streamReader = new StreamReader(markdownFile.OpenRead()))
+            {
+
+                var firstLine = streamReader.ReadLine();
+                if (firstLine != "---")
+                {
+                    return null;
+                } else
+                {
+                    var frontMatterEndReached = false;
+
+                    while (!frontMatterEndReached)
+                    {
+                        var line = streamReader.ReadLine();
+                        if (line == "---")
+                        {
+                            frontMatterEndReached = true;
+                        } else
+                        {
+                            frontMatter += line + "\n";
+                        }
+
+                    }
+                }
+
+            }
+
+            return frontMatter.ToDynamicYaml();
+        }
+
+        public static string GetMarkdownWithoutFrontMatter(this FileInfo fileInfo)
+        {
+            var wholeFile = File.ReadAllText(fileInfo.FullName);
+            var whereH1Starts = wholeFile.IndexOf('#');
+            return wholeFile.Substring(whereH1Starts);
+        }
+
 
         /// <summary>
         /// Return Markdown file for the given file or directory. If it is a file,
@@ -74,5 +133,55 @@ namespace VersionPress.DocsSite.Data
         {
             return fileSystemInfo is FileInfo && fileSystemInfo.Name == "_index.md";
         }
+
+        public static bool ShouldAppearInMenu(this FileSystemInfo fileSystemInfo)
+        {
+            return fileSystemInfo is FileInfo && !(new[] { "_index.md", "config.yaml" }.Contains(fileSystemInfo.Name));
+        }
+
+        public static bool IsValidForCurrentDocsVersion(this FileSystemInfo fileSystemInfo)
+        {
+
+            var displayedDocsVersion = SemVersion.Parse(DocsData.GetDocsVersion());
+
+            if (fileSystemInfo is DirectoryInfo)
+            {
+                var configFile = Path.Combine(fileSystemInfo.FullName, "config.yaml");
+                if (!File.Exists(configFile))
+                {
+                    return true;
+                }
+                else
+                {
+                    dynamic config = File.ReadAllText(configFile).ToDynamicYaml();
+                    var validSince = (string)config.since;
+
+                    return displayedDocsVersion >= validSince;
+                }
+            }
+
+            if (fileSystemInfo is FileInfo)
+            {
+                dynamic frontMatter = fileSystemInfo.GetFrontMatter();
+                if (frontMatter == null)
+                {
+                    return true;
+                }
+
+                var validSince = (string)frontMatter.since;
+                if (validSince == null)
+                {
+                    return true;
+                }
+
+                return displayedDocsVersion >= validSince;
+
+
+            }
+
+            return false;
+
+        }
+
     }
 }

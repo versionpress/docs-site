@@ -28,7 +28,7 @@ namespace VersionPress.DocsSite.Models
                 md.SafeMode = false;
                 md.AutoHeadingIDs = true;
                 md.MarkdownInHtml = true;
-                var output = md.Transform(File.ReadAllText(MarkdownSourceFile.FullName));
+                var output = md.Transform(MarkdownSourceFile.GetMarkdownWithoutFrontMatter());
                 return output;
             }
         }

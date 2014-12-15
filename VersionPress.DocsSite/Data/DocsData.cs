@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Hosting;
+using YamlDotNet.Dynamic;
 using YamlDotNet.RepresentationModel;
 
 namespace VersionPress.DocsSite.Data
@@ -62,13 +63,17 @@ namespace VersionPress.DocsSite.Data
 
         public static string GetDocsVersion()
         {
-            var config = new StringReader(File.ReadAllText(HostingEnvironment.MapPath("~/App_Data/content/config.yaml")));
-            var yaml = new YamlStream();
-            yaml.Load(config);
 
-            var root = yaml.Documents[0].RootNode;
-            var docsVersion = (root as YamlMappingNode).Children[new YamlScalarNode("version")];
-            return docsVersion.ToString();
+            if (HttpContext.Current.Items.Contains("displayVersion"))
+            {
+                return (string)HttpContext.Current.Items["displayVersion"];
+            }
+            else
+            {
+                dynamic config = File.ReadAllText(HostingEnvironment.MapPath("~/App_Data/content/config.yaml")).ToDynamicYaml();
+                return (string)config.displayVersion;
+            }
+
         }
 
 
