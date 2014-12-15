@@ -76,6 +76,11 @@ namespace VersionPress.DocsSite.Data
 
         }
 
+        public static void SetDocsVersionOverride(string version)
+        {
+            HttpContext.Current.Items["displayVersion"] = version;
+        }
+
 
     }
 }

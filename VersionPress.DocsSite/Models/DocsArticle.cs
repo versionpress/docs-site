@@ -19,6 +19,8 @@ namespace VersionPress.DocsSite.Models
 
         public string Title { get; set; }
 
+        public bool IsValidForCurrentVersion { get; set; }
+
         public FileInfo MarkdownSourceFile { get; set; }
 
         public string Html { 

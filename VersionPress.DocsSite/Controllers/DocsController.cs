@@ -27,7 +27,7 @@ namespace VersionPress.DocsSite.Controllers
             var versionMatch = new Regex(@"^(\d+\.[^\/]*)\/(.*)$").Match(path);
             if (versionMatch.Success)
             {
-                ControllerContext.HttpContext.Items.Add("displayVersion", versionMatch.Groups[1].Value);
+                DocsData.SetDocsVersionOverride(versionMatch.Groups[1].Value);
                 path = versionMatch.Groups[2].Value;
             }
 
@@ -42,9 +42,10 @@ namespace VersionPress.DocsSite.Controllers
                 return HttpNotFound("Could not find documentation topic on " + path);
             }
 
-            var article = new DocsArticle(markdownFile);
-
             SiteMaps.ReleaseSiteMap();
+
+            var article = new DocsArticle(markdownFile);
+            article.IsValidForCurrentVersion = markdownFile.IsValidForCurrentDocsVersion();
 
             return View(article);
         }

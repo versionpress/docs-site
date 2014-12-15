@@ -69,7 +69,7 @@ namespace VersionPress.DocsSite.Data
 
         }
 
-        public static DynamicYaml GetFrontMatter(this FileSystemInfo fileSystemInfo)
+        public static dynamic GetFrontMatter(this FileSystemInfo fileSystemInfo)
         {
             var markdownFile = GetMarkdownFile(fileSystemInfo);
             var frontMatter = "";
@@ -165,7 +165,7 @@ namespace VersionPress.DocsSite.Data
                 dynamic frontMatter = fileSystemInfo.GetFrontMatter();
                 if (frontMatter == null)
                 {
-                    return true;
+                    return IsValidForCurrentDocsVersion(((FileInfo)fileSystemInfo).Directory);
                 }
 
                 var validSince = (string)frontMatter.since;

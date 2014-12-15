@@ -4,4 +4,26 @@
     ViewBag.Title = Model.Title;
 }
 
-@Html.Raw(Model.Html)
+@if (!Model.IsValidForCurrentVersion)
+{
+    <h1>@Model.Title</h1>
+
+    <div class="note">
+
+        <p><strong>Oh, you've hit a future doc topic!</strong></p>
+
+        <p style="margin-top: 20px;">We maintain a couple of versions of both VersionPress and these doc topics in parallel, including future versions. You have been pointed to a topic that applies to a future currently under development and although we have some documentation written on it already, it will be available only when the feature actually ships.</p>
+
+    </div>
+    
+    if (Request.UrlReferrer != null)
+    {
+        <p>Please <a href="@Request.UrlReferrer" onclick="history.back(); return false;">go back</a> to the previous page.</p>
+    }
+}
+else
+{
+
+    @Html.Raw(Model.Html)
+    
+}
