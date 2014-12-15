@@ -1,4 +1,4 @@
-/// <binding AfterBuild='less' />
+/// <vs AfterBuild='less' />
 var gulp = require('gulp');
 var less = require('gulp-less-sourcemap');
 var postcss = require('gulp-postcss');
