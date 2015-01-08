@@ -1,0 +1,217 @@
+﻿//
+// Docs site uses this single stylesheet
+//
+
+@import "lib/versionpress-common.less";
+@import "lib/github.less";
+
+@darker-navbar-color: darken(@navbar-default-brand-color, 15%);
+@code-color: #333;
+
+/* Global styles
+-------------------------------------------------- */
+//body {
+//    font-family: @font-family-base;
+//}
+
+.body-content {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.docs-for-version {
+    font-size: 0.7em;
+    padding-left: 5px;
+    color: @darker-navbar-color;
+}
+
+.docs-for-version .docs-version {
+    font-weight: bold;
+}
+
+
+
+/* Navigation sidebar
+-------------------------------------------------- */
+
+#sidebar {
+    .make-md-column(3);
+    .make-md-column-push(9);
+    font-size: 0.9em;
+    padding-right: 0;
+}
+
+.outline-box {
+    .navbar-default;
+    border: 1px solid @navbar-default-border;
+    margin-bottom: 20px;
+
+
+    .outline-header {
+        color: @darker-navbar-color;
+        margin: 15px auto 15px;
+        text-align: center;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 20px;
+    }
+
+    &>ul>li {
+        margin-top: 8px;
+    }
+
+    ul li ul {
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    ul .current {
+        font-weight: bold;
+
+        &:before {
+            content: '» ';
+        }
+
+        &:after {
+            content: ' «';
+        }
+
+    }
+
+    .toc-h2 {
+        // zero padding left
+    }
+
+    .toc-h3 {
+        padding-left: 20px;
+    }
+
+    .toc-h4 {
+        padding-left: 40px;
+    }
+
+    .toc-h5 {
+        padding-left: 60px;
+    }
+
+    .toc-h6 {
+        padding-left: 80px;
+    }
+
+    .toc-active {
+        &:after {
+            content: ' «';
+        }
+    }
+
+}
+
+#page-navigation {
+    position: sticky;
+    top: 10px;
+}
+
+
+
+
+
+
+
+/* Main content
+-------------------------------------------------- */
+
+.main-content {
+    .make-md-column(8);
+    .make-md-column-pull(3);
+}
+
+.main-content .prev-next-navigation {
+    margin-top: 60px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.main-content .prev-next-navigation>div {
+    
+}
+
+.main-content .prev-next-navigation .previous-topic {
+    float: left;
+}
+
+.main-content .prev-next-navigation .next-topic {
+    float: right;
+}
+
+.main-content .prev-next-navigation .caption {
+    color: #404040;
+    font-size: 0.9em;
+}
+
+
+
+
+
+/* Callout boxes
+-------------------------------------------------- */
+.callout-box {
+    padding: 18px 18px 18px 30px;
+    background-color: darken(@navbar-default-bg, 4%);
+    border-left: 4px solid white;
+    margin-bottom: 16px; // same as `.markdown-body p`
+
+    p:first-child {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.main-content .note {
+    .callout-box();
+    border-left-color: #97CA41;
+}
+
+.main-content .warning {
+    .callout-box();
+    border-left-color: #ff3535;
+}
+
+.main-content .tip {
+    .callout-box();
+    border-left-color: #3596ff;
+}
+
+
+
+
+/* Sticky footer styles, copied from http://getbootstrap.com/examples/sticky-footer/
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 100px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+
+    // Custom footer styles
+    padding-top: 20px;
+    text-align: center;
+
+    border-top: 1px solid @navbar-default-border;
+
+}
