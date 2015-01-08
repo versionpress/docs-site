@@ -44,7 +44,7 @@ gulp.task('less', function () {
         .on('error', function (error) {
             console.log(error);
         })
-        .pipe(sourcemaps.write(destFolder))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(destFolder));
 
 });
