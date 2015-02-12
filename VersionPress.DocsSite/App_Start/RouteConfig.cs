@@ -20,6 +20,12 @@ namespace VersionPress.DocsSite
                 );
 
             routes.MapRoute(
+                name: "Media",
+                url: "media/{*path}",
+                defaults: new { controller = "Home", action = "HandleMedia" }
+                );
+
+            routes.MapRoute(
                 name: "CatchAll",
                 url: "{*path}",
                 defaults: new { controller = "Docs", action = "DisplayArticle" }
