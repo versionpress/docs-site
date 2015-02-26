@@ -151,7 +151,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\lib\versionpress-common-bgnoise.png" />
     <Content Include="css\style-docs.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
