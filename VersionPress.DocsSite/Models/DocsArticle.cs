@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using VersionPress.DocsSite.Data;
 
@@ -31,6 +32,10 @@ namespace VersionPress.DocsSite.Models
                 md.AutoHeadingIDs = true;
                 md.MarkdownInHtml = true;
                 var output = md.Transform(MarkdownSourceFile.GetMarkdownWithoutFrontMatter());
+
+                // custom to-do handler
+                output = Regex.Replace(output, @"(\[TODO[^\[]*\])", "<span class=\"todo\">$1</span>");
+
                 return output;
             }
         }
