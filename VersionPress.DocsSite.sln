@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22310.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionPress.DocsSite", "VersionPress.DocsSite\VersionPress.DocsSite.csproj", "{80CEE741-5415-4FED-B88D-860C3C1499D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{46B96E2B-3DC3-4B9E-8301-89E52040413A}"
 	ProjectSection(SolutionItems) = preProject
 		gulpfile.js = gulpfile.js
+		package.json = package.json
 		WebEssentials-Settings.json = WebEssentials-Settings.json
 	EndProjectSection
 EndProject
