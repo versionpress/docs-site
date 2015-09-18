@@ -62,7 +62,7 @@ gulp.task('less-production', function (cb) {
  */
 gulp.task('prepare-production-less-build', function () {
     lessPlugins = [
-        new autoprefixer()
+        //new autoprefixer() // disabling until https://github.com/less/less-plugin-autoprefix/issues/17 is fixed
     ];
     compileOnlyChangedFiles = false;
 });
