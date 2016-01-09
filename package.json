@@ -1,0 +1,53 @@
+{
+  "name": "docs-site",
+  "version": "2.0.0",
+  "repository": "https://github.com/versionpress/docs-site",
+  "private": true,
+  "scripts": {
+    "postinstall": "./node_modules/.bin/tsd reinstall --save",
+    "prebuild": "npm run clean",
+    "build": "node ./config/webpack/webpack-build.js",
+    "dev": "node ./config/webpack/webpack-dev-server.js",
+    "lint": "gulp tslint"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "react-server": "0.0.1",
+    "serve-favicon": "^2.3.0",
+    "serve-static": "^1.10.0"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "css-loader": "^0.23.1",
+    "del": "^2.2.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "gulp": "^3.9.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-tslint": "^4.2.2",
+    "gulp-typescript": "^2.10.0",
+    "gulp-util": "^3.0.7",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
+    "node-notifier": "^4.4.0",
+    "react-hot-loader": "^1.3.0",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.5",
+    "ts-loader": "^0.7.2",
+    "tsd": "^0.6.5",
+    "tslint": "^3.2.1",
+    "typescript": "^1.7.5",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.10",
+    "webpack-dev-server": "^1.14.0"
+  }
+}

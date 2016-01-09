@@ -1,0 +1,40 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "express/express.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "cookie-parser/cookie-parser.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "serve-favicon/serve-favicon.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "react/react.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "react/react-dom.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "node/node.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "81b951f1ac437d1eb5ff5171a0bfa6c467634b13"
+    },
+    "debug/debug.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "morgan/morgan.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    }
+
+  }
+}
