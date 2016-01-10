@@ -39,7 +39,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// On off
+
 app.use("/public",express.static(path.join(__dirname, 'public'))); // Serve public files
 
 app.use(function (req, res) {
