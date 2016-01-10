@@ -53,7 +53,9 @@ app.use(function (req, res) {
         }else if (renderProps == null) {
             res.status(404).send('Not found');
         }else {
-            res.status(200).send(ReactDOM.renderToString(<RoutingContext {...renderProps} />));
+            console.log(renderProps);
+            let content = ReactDOM.renderToString(<RoutingContext {...renderProps} />)
+            res.status(200).render('index', { content: content });
         }
     });
 });
