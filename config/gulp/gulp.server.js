@@ -6,10 +6,14 @@ let gulp = require('gulp'),
     }),
     environment = require('./lib/environment.js');
 
-gulp.task('serve', 'Launch the server on development mode, autoreloads it when there are code changes', ['build'], function() {
+gulp.task('webpack-dev-server','Launches webpack-dev-server', function() {
+    require("../webpack/webpack.dev.server.js");
+});
+
+gulp.task('serve', 'Launch the server on development mode, autoreloads it when there are code changes', ['build','webpack-dev-server'], function() {
 
     var nodemonConfiguration = {
-        script: './dist/server.js',
+        script: './dist/app.js',
         ext: 'jade ts', //reload when any of these file extensions changes
         ignore: [],
         env : {

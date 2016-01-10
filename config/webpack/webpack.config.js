@@ -1,7 +1,7 @@
 'use strict';
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var NotifyPlugin = require('./webpack-notify');
+//var NotifyPlugin = require('./webpack-notify');
 var path = require('path');
 var webpack = require('webpack');
 
@@ -10,9 +10,9 @@ module.exports = function (isDevelopment) {
         app: isDevelopment ? [
             'webpack-dev-server/client?http://localhost:8888',
             'webpack/hot/only-dev-server',
-            './src/main.tsx'
+            './src/client/entry.tsx'
         ] : [
-            './src/main.tsx'
+            './src/client/entry.tsx'
         ]
     };
 
@@ -37,11 +37,11 @@ module.exports = function (isDevelopment) {
     };
 
     var output = isDevelopment ? {
-        path: path.join(__dirname, 'build'),
+        path: path.join(__dirname, 'dist'),
         filename: '[name].js',
-        publicPath: 'http://localhost:8888/build/'
+        publicPath: 'http://localhost:8888/public/'
     } : {
-        path: 'build/',
+        path: 'dist/public',
         filename: '[name].js'
     };
 
@@ -55,7 +55,7 @@ module.exports = function (isDevelopment) {
     ];
     if (isDevelopment) {
         plugins.push(
-            NotifyPlugin,
+//            NotifyPlugin,
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin()
         );

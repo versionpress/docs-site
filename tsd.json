@@ -34,7 +34,9 @@
     },
     "morgan/morgan.d.ts": {
       "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "react-router/react-router.d.ts": {
+      "commit": "b4646ff708f39d2896bcb3e3974667f92e26c5a4"
     }
-
   }
 }

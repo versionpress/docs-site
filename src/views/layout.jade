@@ -1,7 +1,13 @@
-doctype html
 html
   head
     title= title
-    link(rel="icon", href="data:;base64,iVBORw0KGgo=")
+    link(rel="icon", href="/public/favicon.ico")
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
   body
-    block content
+    #app!= content
+
+  script(src='http://localhost:8888/public/app.js', defer)

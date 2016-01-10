@@ -6,21 +6,16 @@ let gulp = require('gulp'),
         pattern: ['gulp-*', 'del', 'run-sequence']
     }),
     config = require('./gulp.config.json'),
-    tsConfig = require('../../tsconfig.json');
-
+    tsConfig = require('../../tsconfig.json'),
+    webpack = require('webpack'),
+    webpackConfig = require('../webpack/webpack.config.js')(false);
 
 /**
  * Create typescript project build reference for incremental compilation under watch tasks
  *
  * @link https://github.com/ivogabe/gulp-typescript
  */
-var tsProject = $.typescript.createProject('./tsconfig.json', {
-   //  Override package version of typescript to use latest compiler version
-    typescript: require('typescript')
-});
-
-//var tsProject = $.typescript.createProject('tsconfig.json');
-
+var tsProject = $.typescript.createProject('tsconfig.json');
 /**
  * Cleans the dist folder
  */
@@ -30,7 +25,8 @@ gulp.task('clean', function(){ $.del(['dist'])});
  * Precopies all non-ts files into the dist folder
  */
 gulp.task('copyNonTs', false, function(){
-gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts'])
+gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts', '!src/**/*.tsx'])
+    .pipe($.chmod(666))
     .pipe(gulp.dest('dist'))}
 );
 
@@ -48,10 +44,32 @@ gulp.src(config.tsLinter.sources)
  */
 gulp.task('compile', false, function(){
     var tsResult = gulp.src(tsConfig.files)
-       .pipe($.typescript(tsProject, undefined, $.typescript.reporter.longReporter()));
+        .pipe($.sourcemaps.init())
+        .pipe($.typescript(tsProject));
 
 return tsResult.js
     .pipe(gulp.dest('dist'));
+});
+
+gulp.task('webpack','Builds sources for client side', function() {
+
+     webpack(webpackConfig, function(err, stats) {
+        var jsonStats = stats.toJson();
+        var buildError = err || jsonStats.errors[0] || jsonStats.warnings[0];
+
+        if (buildError) {
+            throw new $.util.PluginError('webpack', buildError);
+        }
+        if(err) throw new $.util.PluginError("webpack", err);
+        $.util.log("[webpack]", stats.toString({
+            colors: true,
+            version: false,
+            hash: false,
+            timings: false,
+            chunks: false,
+            chunkModules: false
+        }));
+    });
 });
 
 /**

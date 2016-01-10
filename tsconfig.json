@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "sourceMap": false,
+    "sourceMap": true,
     "target": "es5",
     "jsx": "react",
     "outDir":"dist"
   },
   "files": [
-    "src/**/*.ts",
-    "typings/**/*.ts"
+    "typings/tsd.d.ts",
+    "src/shared/routes.tsx",
+    "src/controllers/IndexController.tsx",
+    "src/controllers/TextController.tsx",
+    "src/services/ErrorHandler.ts",
+    "src/client/entry.tsx",
+    "src/app.tsx"
   ],
   "exclude" : [
     "node_modules"
