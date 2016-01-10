@@ -1,7 +1,7 @@
 'use strict';
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-//var NotifyPlugin = require('./webpack-notify');
+var NotifyPlugin = require('./webpack-notify');
 var path = require('path');
 var webpack = require('webpack');
 
@@ -55,7 +55,7 @@ module.exports = function (isDevelopment) {
     ];
     if (isDevelopment) {
         plugins.push(
-//            NotifyPlugin,
+            NotifyPlugin,
             new webpack.HotModuleReplacementPlugin(),
             new webpack.NoErrorsPlugin()
         );

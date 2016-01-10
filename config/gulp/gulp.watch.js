@@ -5,19 +5,19 @@ let gulp = require('gulp');
 /**
  * Watches for ts files
  */
-gulp.task('tsWatcher', false, function() { gulp.watch('**/*.ts', ['lint', 'compile'])});
+gulp.task('tsWatcher', false, function() { gulp.watch(['src/**/*.ts', 'src/**/*.tsx'], ['tslint', 'compile'])});
 
 /**
  * Watches for non-ts files
  */
 gulp.task('nonTsWatcher', false, function() {
-    gulp.watch(['src/.env','src/**/*', '!src/**/*.ts'], ['copyNonTs']);
+    gulp.watch(['src/.env','src/**/*', '!src/**/*.ts', '!src/**/*.tsx'], ['copyNonTs']);
 });
 
 /**
  * Combined watcher
  */
-gulp.task('watch', 'Master watch task, adds cumulative watches (test/lint)', ['tdd', 'tsWatcher', 'nonTsWatcher'], function() {});
+gulp.task('watch', 'Master watch task, adds cumulative watches', [ 'tsWatcher', 'nonTsWatcher'], function() {});
 
 /**
  * Combined watch and server
