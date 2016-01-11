@@ -14,6 +14,6 @@ import  {createHistory} from 'history';
 export default (
     <Router>
         <Route path="/" component={IndexController}/>
-        <Route path="text" component={TextController}/>
+        <Route path="text/:message" component={TextController}/>
     </Router>
 );
