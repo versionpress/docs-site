@@ -10,17 +10,17 @@ module.exports = function (isDevelopment) {
         app: isDevelopment ? [
             'webpack-dev-server/client?http://localhost:8888',
             'webpack/hot/only-dev-server',
-            './src/client/entry.tsx'
+            './src/client/entry.ts'
         ] : [
-            './src/client/entry.tsx'
+            './src/client/entry.ts'
         ]
     };
 
     var loaders = [
         {
             exclude: /node_modules/,
-            loaders: ['react-hot','ts-loader'],
-            test: /\.tsx?$/
+            loaders: ['ts-loader'],
+            test: /\.ts$/
         },
         {
             loader: 'url-loader?limit=32768',
@@ -97,7 +97,7 @@ module.exports = function (isDevelopment) {
         output: output,
         plugins: plugins,
         resolve: {
-            extensions: ['', '.js', '.json', '.ts', '.tsx']
+            extensions: ['', '.js', '.json', '.ts']
         }
     }
 

@@ -25,7 +25,7 @@ gulp.task('clean', function(){ $.del(['dist'])});
  * Precopies all non-ts files into the dist folder
  */
 gulp.task('copyNonTs', false, function(){
-gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts', '!src/**/*.tsx'])
+gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts'])
     .pipe($.chmod(666))
     .pipe(gulp.dest('dist'))}
 );
@@ -43,7 +43,7 @@ gulp.src(config.tsLinter.sources)
  * Compiles typescript app into js
  */
 gulp.task('compile', false, function(){
-    var tsResult = gulp.src(tsConfig.files)
+    var tsResult = gulp.src(tsConfig.filesGlob)
         .pipe($.sourcemaps.init())
         .pipe($.typescript(tsProject));
 

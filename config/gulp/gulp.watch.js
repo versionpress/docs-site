@@ -5,13 +5,13 @@ let gulp = require('gulp');
 /**
  * Watches for ts files
  */
-gulp.task('tsWatcher', false, function() { gulp.watch(['src/**/*.ts', 'src/**/*.tsx'], ['tslint', 'compile'])});
+gulp.task('tsWatcher', false, function() { gulp.watch(['src/**/*.ts',], ['compile'])});
 
 /**
  * Watches for non-ts files
  */
 gulp.task('nonTsWatcher', false, function() {
-    gulp.watch(['src/.env','src/**/*', '!src/**/*.ts', '!src/**/*.tsx'], ['copyNonTs']);
+    gulp.watch(['src/.env','src/**/*', '!src/**/*.ts'], ['copyNonTs']);
 });
 
 /**

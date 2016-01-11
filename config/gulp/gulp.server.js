@@ -13,7 +13,7 @@ gulp.task('webpack-dev-server','Launches webpack-dev-server', function() {
 gulp.task('serve', 'Launch the server on development mode, autoreloads it when there are code changes', ['build','webpack-dev-server'], function() {
 
     var nodemonConfiguration = {
-        script: './dist/app.js',
+        script: './dist/server.js',
         ext: 'jade ts', //reload when any of these file extensions changes
         ignore: [],
         env : {
