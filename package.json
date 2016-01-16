@@ -16,6 +16,7 @@
     "express": "^4.13.3",
     "history": "^1.17.0",
     "jade": "^1.11.0",
+    "jquery": "^2.2.0",
     "morgan": "^1.6.1",
     "serve-favicon": "^2.3.0",
     "serve-static": "^1.10.0"
@@ -40,6 +41,7 @@
     "node-notifier": "^4.4.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
+    "style-loader": "^0.13.0",
     "ts-jsx-loader": "^0.2.1",
     "ts-loader": "^0.7.2",
     "tsd": "^0.6.5",

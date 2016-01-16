@@ -13,7 +13,7 @@ module Example {
      * Return an empty 200 response
      */
     export function printMessage (req: Request, res: Response) {
-        res.status(200).render('index',{content: 'Hello ' + req.params.message});
+        res.status(200).render('index',{content: 'Hello ' + req.params.message, title: 'index', prevTopic:"aaa", nextTopic:"bbb"});
     }
 
 }
