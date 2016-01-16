@@ -79,6 +79,7 @@ gulp.task('build', 'Builds the server app (compiles & copies)', function(callbac
         $.runSequence('clean',
             ['compile'],
             'copyNonTs',
+            'webpack',
             callback)
     }
 );

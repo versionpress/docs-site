@@ -5,7 +5,7 @@ let gulp = require('gulp');
 /**
  * Watches for ts files
  */
-gulp.task('tsWatcher', false, function() { gulp.watch(['src/**/*.ts',], ['compile'])});
+gulp.task('tsWatcher', false, function() { gulp.watch(['src/**/*.ts'], ['compile'])});
 
 /**
  * Watches for non-ts files
