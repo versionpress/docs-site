@@ -9,6 +9,7 @@ import * as logger from 'morgan';
 import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
+import * as moment from 'moment';
 
 // Modular Route definitions
 import * as exampleRoute from './routes/example';
@@ -22,6 +23,9 @@ const app = express();
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// add moment.
+app.locals.moment = moment;
 
 app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
