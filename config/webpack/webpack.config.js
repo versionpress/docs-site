@@ -94,15 +94,13 @@ module.exports = function (isDevelopment) {
         module: {
             loaders: loaders
         },
-        resolve: {
-            alias: {
-                jquery: "jquery/src/jquery"
-            }
-        },
         output: output,
         plugins: plugins,
         resolve: {
-            extensions: ['', '.js', '.json', '.ts']
+            extensions: ['', '.js', '.json', '.ts'],
+            alias: {
+                jquery: "jquery/dist/jquery"
+            }
         }
     }
 
