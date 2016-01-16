@@ -1,10 +1,12 @@
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../typings/typings.d.ts" />
+/// <reference path="../models/DocsArticle.ts" />
+/// <reference path="../models/Page.ts" />
 
 import { Request, Response } from 'express';
+import {DocsArticle} from '../models/DocsArticle';
+import {Page} from '../models/Page';
 
-/**
- * Example controller that provides a healthcheck endpoint
- */
+
 module Example {
 
     'use strict';
@@ -13,7 +15,10 @@ module Example {
      * Return an empty 200 response
      */
     export function printMessage (req: Request, res: Response) {
-        res.status(200).render('index',{content: 'Hello ' + req.params.message, title: 'index', prevTopic:"aaa", nextTopic:"bbb"});
+        let docsArticle = new DocsArticle();
+        docsArticle.title=req.params.message;
+        let page = new Page(docsArticle,"2.0");
+        res.status(200).render('index', page);
     }
 
 }
