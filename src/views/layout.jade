@@ -15,7 +15,9 @@ html
           a(href="/").navbar-brand
             img(src="/public/img/icon.png" alt="VersionPress icon" style="margin-right:10px")
             |VersionPress Documentation
-            span.docs-for-version #{version)
+            span.docs-for-version for version
+              = ' '
+              span.docs.version #{version)
         ul(class="nav navbar-nav navbar-right")
           li
             a(href="http://versionpress.net/") VersionPress Home
@@ -24,6 +26,7 @@ html
         div#sidebar
           div#docs-navigation.outline-box
             div.outline-header: |Docs for
+              = ' '
               strong: |VersionPress #{version}
             ul#menu
               li

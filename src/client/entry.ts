@@ -12,7 +12,7 @@ window['$'] = $;
 
 require("../public/js/libs/toc.min.js");
 require("../public/js/libs/jquery.equalheights.min.js");
-
+require("../public/js/libs/stickyfill.min.js");
 
 
 $(document).ready(() => {
@@ -62,6 +62,7 @@ $(document).ready(() => {
 
         // and also use sticky polyfill, see https://github.com/wilddeer/stickyfill
         $('#page-navigation').Stickyfill();
+        console.log("Docs site scripts loaded");
 
     }
 
