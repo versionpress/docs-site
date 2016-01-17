@@ -34,6 +34,9 @@
     },
     "moment/moment-node.d.ts": {
       "commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
+    },
+    "yamljs/yamljs.d.ts": {
+      "commit": "70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
     }
   }
 }

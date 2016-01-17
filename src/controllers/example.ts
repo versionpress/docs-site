@@ -5,7 +5,7 @@
 import { Request, Response } from 'express';
 import {DocsArticle} from '../models/DocsArticle';
 import {Page} from '../models/Page';
-
+import {ConfigServiceClass} from '../services/ConfigServiceClass';
 
 module Example {
 
@@ -15,10 +15,12 @@ module Example {
      * Return an empty 200 response
      */
     export function printMessage (req: Request, res: Response) {
+        var cfg : ConfigServiceClass = ConfigServiceClass.getInstance();
         let docsArticle = new DocsArticle();
         docsArticle.title=req.params.message;
-        let page = new Page(docsArticle,"2.0");
+        let page = new Page(docsArticle,cfg.config.displayVersion);
         res.status(200).render('index', page);
+
     }
 
 }

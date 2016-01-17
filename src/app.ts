@@ -1,5 +1,5 @@
 /// <reference path="../typings/typings.d.ts" />
-
+/// <reference path="services/ConfigServiceClass.ts" />
 'use strict';
 
 // Include dependencies
@@ -32,9 +32,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// On off
+
 app.use('/public/img', express.static(__dirname + '/public/img')); // Serve public files
 app.use('/public/css', express.static(__dirname + '/public/css'));
+
 // Register routes (as middleware layer through express.Router())
 app.use(exampleRoute);
 
