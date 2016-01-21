@@ -13,5 +13,9 @@
 /src/**/*.js
 /src/**/*.map
 
+# Environment configuration
+.env
+
+
 # Other
 tsd-debug.log

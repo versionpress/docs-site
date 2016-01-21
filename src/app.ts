@@ -10,9 +10,10 @@ import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as moment from 'moment';
+import {ConfigServiceClass} from './services/ConfigServiceClass';
 
 // Modular Route definitions
-import * as exampleRoute from './routes/example';
+import * as routes from './routes/routes';
 
 // Error handler service
 import { development as DevelopmentErrorHandler, production as ProductionErrorHandler } from './services/ErrorHandler';
@@ -36,8 +37,10 @@ app.use(cookieParser());
 app.use('/public/img', express.static(__dirname + '/public/img')); // Serve public files
 app.use('/public/css', express.static(__dirname + '/public/css'));
 
+app.use('/media', express.static(ConfigServiceClass.getInstance().docsDir+ '/media'));
+
 // Register routes (as middleware layer through express.Router())
-app.use(exampleRoute);
+app.use(routes);
 
 // Catch 404 and forward to error handler
 app.use((req: express.Request, res: express.Response, next: Function) => {
