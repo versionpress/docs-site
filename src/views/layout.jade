@@ -1,7 +1,8 @@
+include ./mixins.jade
 doctype html
 html
   head
-    title= title + ' | VersionPress docs'
+    title= docsArticle.title + ' | VersionPress docs'
     link(rel="icon", href="/public/img/favicon.ico")
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -31,6 +32,10 @@ html
             ul#menu
               li
                 a(href="/") Home
+               each val in rootRoute['_routes']
+                  +traverseRoutes(val)
+
+
           div#page-navigation.outline-box
               div.outline.header
                 strong On this page:
@@ -46,5 +51,3 @@ html
       div.container
         p.text-muted  &copy; #{moment().format("YYYY")}  VersionPress
   script(src='http://localhost:8888/public/app.js', defer)
-
-
