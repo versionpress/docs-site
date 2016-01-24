@@ -28,7 +28,7 @@ export class Route extends BaseModel{
         }
         this.title=this.getRouteTitle(file);
         this._routes= new Array();
-
+        this.lastModified=this._getFileMTime(this.path);
 
     }
     language:string;
@@ -40,6 +40,13 @@ export class Route extends BaseModel{
     level: number;
     name: string;
     _routes:Array<Route>;
+    lastModified:Date;
+
+
+    private _getFileMTime(path:string) {
+        var stats = fs.statSync(path);
+        return stats.mtime;
+    }
 
 
     private getUrl(pathComponents) {
