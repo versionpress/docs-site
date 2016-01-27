@@ -8,7 +8,7 @@ module RenderService{
          var output;
          var data = fs.readFileSync(file, 'utf8');
         output =  Marked(data.toString());
-        console.log(output);
+        //console.log(output);
         return output;
     }
 

@@ -9,6 +9,8 @@ export class Page extends BaseModel{
     version: string;
     docsArticle: DocsArticle;
     rootRoute: Route;
+    previousRoute: Route;
+    nextRoute: Route;
 
     constructor(article: DocsArticle, version: string, rootRoute:Route) {
         super();

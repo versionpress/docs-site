@@ -45,8 +45,16 @@ html
         div(class="markdown-body main-content")
           block content
           div.prev-next-navigation
-            div.previous-topic #{prevTopic}
-            div.next-topic #{nextTopic}
+            if(previousRoute)
+              div.previous-topic
+                div.caption Previous:
+                  div.link
+                    a(href="/#{previousRoute.language}/#{previousRoute.url}") #{previousRoute.url=="" ? "Home" : previousRoute.title}
+            if(nextRoute)
+              div.next-topic
+                div.caption Next:
+                div.link
+                  a(href="/#{nextRoute.language}/#{nextRoute.url}") #{nextRoute.title}
     div.footer
       div.container
         p.text-muted  &copy; #{moment().format("YYYY")}  VersionPress

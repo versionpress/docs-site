@@ -10,6 +10,8 @@ export class RoutingServiceClass {
 
     private _routes:Array<Route> = new Array();
 
+    private _flatRoutes:Array<String> = new Array();
+
     private _languages: Array<string>;
 
     constructor() {
@@ -25,6 +27,9 @@ export class RoutingServiceClass {
         return RoutingServiceClass._instance;
     }
 
+    get flatRoutes() {
+        return this._flatRoutes;
+    }
 
 
 
@@ -42,34 +47,68 @@ export class RoutingServiceClass {
     }
 
     public getRouteByUrl(url:string){
-        console.log(" Searching for "+ url );
+        //console.log(" Searching for "+ url );
         var u = url.split("/");
         u = u.filter(function(v){return v!==''});
-        console.log(u);
         return this._findRoute(u, this._routes);
     }
 
     private _findRoute(u:Array<String>, routes:Array<Route>){
-                console.log(routes[0].name);
-                for(var j=0;j<routes.length; j++) {
-                    console.log(routes[j].name+" -- "+ u[0]);
-                    if(routes[j].name===u[0]) {
-                        if(routes[j]._routes.length!=0) {
-                            u.shift();
-                            if(typeof u[0]=="undefined") {
-                                return routes[j];
-                            }
-                            console.log("Scanning subroutes -" + u[0]);
-                            var routes = routes[j]._routes;
-                            return this._findRoute(u,routes);
-                        } else {
-                            console.log("Route found "+routes[j].path);
-                            return routes[j];
-                        }
+        for(var j=0;j<routes.length; j++) {
+            if(routes[j].name===u[0]) {
+                if(routes[j]._routes.length!=0) {
+                    u.shift();
+                    if(typeof u[0]=="undefined") {
+                        return routes[j];
                     }
+                    //console.log("Scanning subroutes -" + u[0]);
+                    var routes = routes[j]._routes;
+                    return this._findRoute(u,routes);
+                } else {
+                    //console.log("Route found "+routes[j].path);
+                    return routes[j];
                 }
-            //console.log(u[i]+" "+(u.length-1));
+            }
         }
+        //console.log(u[i]+" "+(u.length-1));
+    }
+
+    public getNext(url:string, language:string){
+        console.log(" Searching for next for "+ url );
+        return this._findSibling(url, language, 1);
+    }
+
+    public getPrevious(url:string, language:string){
+        console.log(" Searching for previous for "+ url );
+        return this._findSibling(url, language, -1);
+    }
+
+    private _findSibling(url:string, language:string, direction:number) {
+        var routeUrl:string = "/"+language+"/"+this._flatRoutes[this._flatRoutes.indexOf(url)+direction];
+        console.log("searching route for "+routeUrl);
+        if(typeof routeUrl !=="undefined") {
+
+            return this.getRouteByUrl(routeUrl);
+        }
+        return null;
+    }
+
+
+    private flatten(routes:Array<Route>) {
+        var flat = [];
+        for (var i = 0; i < routes.length; i++) {
+            if (routes[i]._routes.length!=0) {
+                flat.push(routes[i].url);
+                flat.push.apply(flat, this.flatten(routes[i]._routes));
+            } else {
+                flat.push(routes[i].url);
+            }
+        }
+        return flat;
+    }
+
+
+
 
 
      public getRoutesForLanguage(language:string) {
@@ -85,6 +124,8 @@ export class RoutingServiceClass {
         RoutingServiceClass._walkDir(path, path, null, version, language, (err,routes) => {
             if(!err) {
                 this._routes.push(routes);
+                //TODO add language specific flattening
+                this._flatRoutes=this.flatten(this._routes);
             }
         });
     }
@@ -121,6 +162,7 @@ export class RoutingServiceClass {
                 list.splice(index, 1);
                 var file = dir + '/_index.md';
                 var parentRoute = new Route(rootPath, file, since, language);
+               // this._flatRoutes.push(parentRoute.url);
                 var i = 0;
                 (function next(parentRoute:Route) {
                     var file = list[i++];
@@ -143,10 +185,14 @@ export class RoutingServiceClass {
                                     if (Number(fMatter.since) > Number(limitVersion)) {
                                         console.log("skipping file " + file);
                                     } else {
-                                        parentRoute.addChild(new Route(rootPath, file, fMatter.since, language));
+                                        var newRoute = new Route(rootPath, file, fMatter.since, language);
+                                        //this._flatRoutes.push(newRoute.url);
+                                        parentRoute.addChild(newRoute);
                                     }
                                 } else {
-                                    parentRoute.addChild(new Route(rootPath, file, since, language));
+                                    var newRoute = new Route(rootPath, file, since, language);
+                                   // this._flatRoutes.push(newRoute.url);
+                                    parentRoute.addChild(newRoute);
                                 }
                             }
                             next(parentRoute);

@@ -32,9 +32,11 @@ module Example {
         var route:Route = rs.getRouteByUrl(req.path);
         docsArticle.content=renderDocument(route.path);
         docsArticle.title = route.title;
-        console.log(route);
+        //console.log(route);
         let page = new Page(docsArticle,cfg.appConfig.displayVersion,rs.getRoutesForLanguage(language));
-        console.log(page);
+        page.nextRoute =rs.getNext(route.url, language);
+        page.previousRoute = rs.getPrevious(route.url, language);
+        //console.log(page);
         //console.log(rs.getRouteByUrl(req.path))
         res.status(200).render('index', page);
 
