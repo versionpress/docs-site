@@ -89,9 +89,9 @@ export class Route extends BaseModel{
             var lines = data.split("\n");
             if(lines.length>0) {
                 //console.log(lines[0]);
-                    for(var i = 1, iMax = lines.length; i < iMax; i++){
+                    for(var i = 0, iMax = lines.length; i < iMax; i++){
                             //console.log(lines[0]+"...");
-                            match = re.exec(lines[0].trim().toString());
+                            match = re.exec(lines[i].trim().toString());
                             if(match!=null) {
                                 //console.log(match[1]);
                                 return match[1];
