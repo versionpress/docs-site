@@ -13,6 +13,8 @@ export class ConfigServiceClass {
 
     private _docsDir: string;
 
+    private _siteRoot:string;
+
     private _config_file_name = "config.yaml";
 
     constructor() {
@@ -52,10 +54,15 @@ export class ConfigServiceClass {
     private _init():void {
         this._docsDir =  process.env.DOCS_SOURCE_FOLDER || '.';
         this._appConfig = YAML.load(path.resolve(this._docsDir,this._config_file_name));
+        this._siteRoot = process.env.WEBSITE_ROOT;
     }
 
     get docsDir(){
         return this._docsDir;
+    }
+
+    get siteRoot(){
+        return this._siteRoot;
     }
 
 
