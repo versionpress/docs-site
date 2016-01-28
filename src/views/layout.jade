@@ -13,7 +13,7 @@ html
     header(class="navbar navbar-default")
       div.container
         div.navbar-header
-          a(href="/").navbar-brand
+          a(href="/#{language}").navbar-brand
             img(src="/public/img/icon.png" alt="VersionPress icon" style="margin-right:10px")
             |VersionPress Documentation
             span.docs-for-version for version
@@ -21,7 +21,7 @@ html
               span.docs.version #{version)
         ul(class="nav navbar-nav navbar-right")
           li
-            a(href="http://versionpress.net/") VersionPress Home
+            a(href="http://versionpress.net") VersionPress Home
     div(class="container body-content")
       div.row
         div#sidebar
@@ -31,7 +31,7 @@ html
               strong: |VersionPress #{version}
             ul#menu
               li
-                a(href="/") Home
+                a(href="/#{language}") Home
                each val in rootRoute['_routes']
                   +traverseRoutes(val)
 
@@ -49,12 +49,12 @@ html
               div.previous-topic
                 div.caption Previous:
                   div.link
-                    a(href="/#{previousRoute.language}/#{previousRoute.url}") #{previousRoute.url=="" ? "Home" : previousRoute.title}
+                    a(href="/#{language}/#{previousRoute.url}") #{previousRoute.url=="" ? "Home" : previousRoute.title}
             if(nextRoute)
               div.next-topic
                 div.caption Next:
                 div.link
-                  a(href="/#{nextRoute.language}/#{nextRoute.url}") #{nextRoute.title}
+                  a(href="/#{language}/#{nextRoute.url}") #{nextRoute.title}
     div.footer
       div.container
         p.text-muted  &copy; #{moment().format("YYYY")}  VersionPress
