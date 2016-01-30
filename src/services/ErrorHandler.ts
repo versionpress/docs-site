@@ -18,6 +18,7 @@ module ErrorHandler {
     let handler = (err: Error, req: Request, res: Response, next: Function, includeStackTrace: boolean) => {
         var cfg : ConfigServiceClass = ConfigServiceClass.getInstance();
         var rs : RoutingServiceClass = RoutingServiceClass.getInstance();
+        var language: string = req.path.split("/")[1];
         res.status(res.statusCode || 500);
         if(res.statusCode==400) {
             var docsArticle = new DocsArticle();
