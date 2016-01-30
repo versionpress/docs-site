@@ -13,6 +13,7 @@ export class Page extends BaseModel{
     previousRoute: Route;
     nextRoute: Route;
     language: Language;
+    url: string;
 
     constructor(article: DocsArticle, version: string, rootRoute:Route) {
         super();
