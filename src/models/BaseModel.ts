@@ -1,5 +1,5 @@
-export class BaseModel{
-    toJson() : string {
-     return JSON.stringify(this);
+export class BaseModel {
+    toJson():string {
+        return JSON.stringify(this);
     }
 }

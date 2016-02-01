@@ -5,17 +5,17 @@ import {Route} from './Route';
 import {DocsArticle} from './DocsArticle';
 import {Language} from "./Language";
 
-export class Page extends BaseModel{
+export class Page extends BaseModel {
 
-    version: string;
-    docsArticle: DocsArticle;
-    rootRoute: Route;
-    previousRoute: Route;
-    nextRoute: Route;
-    language: Language;
-    url: string;
+    version:string;
+    docsArticle:DocsArticle;
+    rootRoute:Route;
+    previousRoute:Route;
+    nextRoute:Route;
+    language:Language;
+    url:string;
 
-    constructor(article: DocsArticle, version: string, rootRoute:Route) {
+    constructor(article:DocsArticle, version:string, rootRoute:Route) {
         super();
         this.docsArticle = article;
         this.version = version;

@@ -19,7 +19,7 @@ module PageController {
      * Return an empty 200 response
      */
     export function renderPage (req: Request, res: Response) {
-        var language: string = req.path.split("/")[1];
+        var language:string = req.path.split("/")[1];
         return _renderPage(req,res,language);
     }
 

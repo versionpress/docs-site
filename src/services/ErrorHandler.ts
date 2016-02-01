@@ -15,17 +15,17 @@ module ErrorHandler {
     /**
      * Generates a 500 response
      */
-    let handler = (err: Error, req: Request, res: Response, next: Function, includeStackTrace: boolean) => {
-        var cfg : ConfigServiceClass = ConfigServiceClass.getInstance();
-        var rs : RoutingServiceClass = RoutingServiceClass.getInstance();
-        var language: string = req.path.split("/")[1];
+    let handler = (err:Error, req:Request, res:Response, next:Function, includeStackTrace:boolean) => {
+        var cfg:ConfigServiceClass = ConfigServiceClass.getInstance();
+        var rs:RoutingServiceClass = RoutingServiceClass.getInstance();
+        var language:string = req.path.split("/")[1];
         res.status(res.statusCode || 500);
-        if(res.statusCode==400) {
+        if (res.statusCode == 400) {
             var docsArticle = new DocsArticle();
             let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
             page.language = Language[language];
-            page.url = req.protocol+"://"+cfg.siteRoot+req.path;
-            docsArticle.title="Page Not Found";
+            page.url = req.protocol + "://" + cfg.siteRoot + req.path;
+            docsArticle.title = "Page Not Found";
             res.render('404', page);
 
         } else {
@@ -42,14 +42,14 @@ module ErrorHandler {
     /**
      * 500 error development response
      */
-    export function development (err: Error, req: Request, res: Response, next: Function) {
+    export function development(err:Error, req:Request, res:Response, next:Function) {
         return handler(err, req, res, next, true);
     };
 
     /**
      * 500 error production response
      */
-    export function production (err: Error, req: Request, res: Response, next: Function) {
+    export function production(err:Error, req:Request, res:Response, next:Function) {
         return handler(err, req, res, next, false);
     };
 

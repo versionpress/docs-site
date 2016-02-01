@@ -9,9 +9,9 @@ export class ConfigServiceClass {
 
     private static _instance:ConfigServiceClass = new ConfigServiceClass();
 
-    private _appConfig: any;
+    private _appConfig:any;
 
-    private _docsDir: string;
+    private _docsDir:string;
 
     private _siteRoot:string;
 
@@ -30,19 +30,21 @@ export class ConfigServiceClass {
         return ConfigServiceClass._instance;
     }
 
-    public static getDirConfig(file: string){
+    public static getDirConfig(file:string) {
         return YAML.load(file);
     }
 
-    public static getFrontMatter(file: string) {
+    public static getFrontMatter(file:string) {
         var data = fs.readFileSync(file, 'utf8');
         var lines = data.split("\n");
         var fMatter = "";
-        if(lines.length>0) {
-            if (lines[0]==='---') {
-                for(var i = 1, iMax = lines.length; i < iMax; i++){
-                    if(lines[i]==='---') {break;}
-                    fMatter+=lines[i];
+        if (lines.length > 0) {
+            if (lines[0] === '---') {
+                for (var i = 1, iMax = lines.length; i < iMax; i++) {
+                    if (lines[i] === '---') {
+                        break;
+                    }
+                    fMatter += lines[i];
                 }
                 return YAML.parse(fMatter);
             } else {
@@ -52,16 +54,16 @@ export class ConfigServiceClass {
     }
 
     private _init():void {
-        this._docsDir =  process.env.DOCS_SOURCE_FOLDER || '.';
-        this._appConfig = YAML.load(path.resolve(this._docsDir,this._config_file_name));
+        this._docsDir = process.env.DOCS_SOURCE_FOLDER || '.';
+        this._appConfig = YAML.load(path.resolve(this._docsDir, this._config_file_name));
         this._siteRoot = process.env.WEBSITE_ROOT;
     }
 
-    get docsDir(){
+    get docsDir() {
         return this._docsDir;
     }
 
-    get siteRoot(){
+    get siteRoot() {
         return this._siteRoot;
     }
 

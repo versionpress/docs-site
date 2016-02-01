@@ -11,11 +11,11 @@ module SitemapController {
     /*
      * Return an sitemap.xml
      */
-    export function renderSitemap (req: Request, res: Response) {
-        var cfg : ConfigServiceClass = ConfigServiceClass.getInstance();
-        var rs : RoutingServiceClass = RoutingServiceClass.getInstance();
+    export function renderSitemap(req:Request, res:Response) {
+        var cfg:ConfigServiceClass = ConfigServiceClass.getInstance();
+        var rs:RoutingServiceClass = RoutingServiceClass.getInstance();
         res.set('Content-Type', 'text/xml');
-        res.status(200).render('sitemap', {'routes':rs.flatRoutes,'siteRoot':cfg.siteRoot});
+        res.status(200).render('sitemap', {'routes': rs.flatRoutes, 'siteRoot': cfg.siteRoot});
 
     }
 }

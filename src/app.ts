@@ -31,19 +31,19 @@ app.locals.moment = moment;
 app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use('/public/img', express.static(__dirname + '/public/img')); // Serve public files
 app.use('/public/css', express.static(__dirname + '/public/css'));
 
-app.use('/media', express.static(ConfigServiceClass.getInstance().docsDir+ '/media'));
+app.use('/media', express.static(ConfigServiceClass.getInstance().docsDir + '/media'));
 
 // Register routes (as middleware layer through express.Router())
 app.use(routes);
 
 // Catch 404 and forward to error handler
-app.use((req: express.Request, res: express.Response, next: Function) => {
+app.use((req:express.Request, res:express.Response, next:Function) => {
     let err = new Error('Not Found');
     res.status(404);
     console.log('catching 404 error');
