@@ -1,13 +1,19 @@
 /// <reference path="../../typings/typings.d.ts" />
-import * as Marked from 'marked';
+//import * as Marked from 'marked';
+var Markdown = require('markdowndeep');
 import fs = require("fs");
 
 module RenderService{
 
+    var md = new Markdown.Markdown();
+    md.ExtraMode = true;
+    md.SafeMode = false;
+    md.AutoHeadingIDs = true;
+    md.MarkdownInHtml = true;
     export function renderDocument(file:string) {
          var output:string;
          var data = fs.readFileSync(file, 'utf8');
-        output =  Marked(removeFrontMatter(data).toString());
+        output =  md.Transform(removeFrontMatter(data).toString());
         //console.log(output);
         return output;
     }
