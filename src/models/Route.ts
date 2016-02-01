@@ -81,7 +81,7 @@ export class Route extends BaseModel {
     }
 
     public addChilds(routes:Array<Route>) {
-        this._routes = this._routes.concat(routes);
+        this._routes = this._routes.concat(routes).filter(n => n != null);
     }
 
     private getRouteTitle(file:string) {
