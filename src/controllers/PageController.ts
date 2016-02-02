@@ -32,13 +32,10 @@ module PageController {
     if (typeof route !== "undefined") {
       docsArticle.content = renderDocument(route.path);
       docsArticle.title = route.title;
-      //console.log(route);
       let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
       page.nextRoute = rs.getNext(route.url, language);
       page.previousRoute = rs.getPrevious(route.url, language);
       page.language = Language[language];
-      //console.log(page);
-      //console.log(rs.getRouteByUrl(req.path))
       res.status(200).render('index', page);
     } else {
       docsArticle.title = "Page Not Found";

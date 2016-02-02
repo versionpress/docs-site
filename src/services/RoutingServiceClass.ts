@@ -46,7 +46,6 @@ export class RoutingServiceClass {
   }
 
   public getRouteByUrl(url:string) {
-    //console.log(" Searching for "+ url );
     var u = url.split("/");
     u = u.filter(function (v) {
       return v !== ''
@@ -62,20 +61,16 @@ export class RoutingServiceClass {
           if (typeof u[0] == "undefined") {
             return routes[j];
           }
-          //console.log("Scanning subroutes -" + u[0]);
           var routes = routes[j]._routes;
           return this._findRoute(u, routes);
         } else {
-          //console.log("Route found "+routes[j].path);
           return routes[j];
         }
       }
     }
-    //console.log(u[i]+" "+(u.length-1));
   }
 
   public getNext(url:string, language:string) {
-    console.log(" Searching for next for " + url);
     return this._findSibling(url, language, 1);
   }
 
@@ -161,7 +156,6 @@ export class RoutingServiceClass {
         list.splice(index, 1);
         var file = dir + '/_index.md';
         var parentRoute = new Route(rootPath, file, since, language);
-        // this._flatRoutes.push(parentRoute.url);
         var i = 0;
         (function next(parentRoute:Route) {
           var file = list[i++];
@@ -185,12 +179,10 @@ export class RoutingServiceClass {
                     console.log("skipping file " + file);
                   } else {
                     var newRoute = new Route(rootPath, file, fMatter.since, language);
-                    //this._flatRoutes.push(newRoute.url);
                     parentRoute.addChild(newRoute);
                   }
                 } else {
                   var newRoute = new Route(rootPath, file, since, language);
-                  // this._flatRoutes.push(newRoute.url);
                   parentRoute.addChild(newRoute);
                 }
               }

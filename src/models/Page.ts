@@ -1,11 +1,10 @@
 /// <reference path="DocsArticle.ts" />
 /// <reference path="Route.ts" />
-import {BaseModel} from "./BaseModel";
 import {Route} from './Route';
 import {DocsArticle} from './DocsArticle';
 import {Language} from "./Language";
 
-export class Page extends BaseModel {
+export class Page {
 
   version:string;
   docsArticle:DocsArticle;
@@ -19,7 +18,6 @@ export class Page extends BaseModel {
 
 
   constructor(article:DocsArticle, version:string, rootRoute:Route) {
-    super();
     this.docsArticle = article;
     this.version = version;
     this.rootRoute = rootRoute;

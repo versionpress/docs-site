@@ -1,11 +1,9 @@
-import {BaseModel} from "./BaseModel";
 import fs = require("fs");
 
-export class Route extends BaseModel {
+export class Route {
 
 
   constructor(rootPath:string, file:string, since:string, language:string) {
-    super();
     this.since = since;
     let relativePath = file.replace(rootPath, "");
     let pathComponents = relativePath.split("/");
@@ -90,12 +88,9 @@ export class Route extends BaseModel {
     var data = fs.readFileSync(file, 'utf8');
     var lines = data.split("\n");
     if (lines.length > 0) {
-      //console.log(lines[0]);
       for (var i = 0, iMax = lines.length; i < iMax; i++) {
-        //console.log(lines[0]+"...");
         match = re.exec(lines[i].trim().toString());
         if (match != null) {
-          //console.log(match[1]);
           return match[1];
         }
       }

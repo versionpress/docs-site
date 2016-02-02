@@ -1,6 +1,5 @@
 /// <reference path="Language.ts" />
-import {BaseModel} from "./BaseModel";
-export class DocsArticle extends BaseModel {
+export class DocsArticle{
   since:string;
   content:string;
   url:string;

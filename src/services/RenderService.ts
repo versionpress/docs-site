@@ -1,5 +1,4 @@
 /// <reference path="../../typings/typings.d.ts" />
-//import * as Marked from 'marked';
 var Markdown = require('markdowndeep');
 import fs = require("fs");
 
@@ -14,7 +13,6 @@ module RenderService {
     var output:string;
     var data = fs.readFileSync(file, 'utf8');
     output = md.Transform(removeFrontMatter(data).toString());
-    //console.log(output);
     return output;
   }
 
