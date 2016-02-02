@@ -14,6 +14,9 @@ export class Page extends BaseModel {
     nextRoute:Route;
     language:Language;
     url:string;
+    errorMessage:string;
+    error:any;
+
 
     constructor(article:DocsArticle, version:string, rootRoute:Route) {
         super();
