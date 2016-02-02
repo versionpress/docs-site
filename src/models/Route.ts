@@ -4,7 +4,7 @@ import fs = require("fs");
 export class Route extends BaseModel {
 
 
-    constructor(rootPath:string, file:string, since:string, language:string) {
+    constructor(rootPath:string, file:string, since:number, language:string) {
         super();
         this.since = since;
         let relativePath = file.replace(rootPath, "");
@@ -26,15 +26,36 @@ export class Route extends BaseModel {
         } else {
             this.name = u[u.length - 1];
         }
-        this.title = this.getRouteTitle(file);
-        this._routes = new Array();
-        this.lastModified = this._getFileMTime(this.path);
+        if(file!=="") {
+            this.title = this.getRouteTitle(file);
+            this.lastModified = this._getFileMTime(this.path);
+        }
+        this._routes = [];
 
+    }
+
+    public isValidForCurrentVersion(version:string):boolean {
+        return Number(this.since) <= Number(version);
+    }
+
+    public static newFromRoute(route:Route) {
+        var newRoute = new Route("","",0,"");
+        newRoute.since = route.since;
+        newRoute.file = route.file;
+        newRoute.url = route.url;
+        newRoute.level = route.level;
+        newRoute.path = route.path;
+        newRoute.language = route.language;
+        newRoute.name = route.name;
+        newRoute.title = route.title;
+        newRoute._routes = [];
+        newRoute.lastModified=route.lastModified;
+        return newRoute;
     }
 
     language:string;
     title:string;
-    since:string;
+    since:number;
     url:string;
     path:string;
     file:string;
@@ -90,12 +111,9 @@ export class Route extends BaseModel {
         var data = fs.readFileSync(file, 'utf8');
         var lines = data.split("\n");
         if (lines.length > 0) {
-            //console.log(lines[0]);
             for (var i = 0, iMax = lines.length; i < iMax; i++) {
-                //console.log(lines[0]+"...");
                 match = re.exec(lines[i].trim().toString());
                 if (match != null) {
-                    //console.log(match[1]);
                     return match[1];
                 }
             }

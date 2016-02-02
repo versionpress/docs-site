@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 #{title}
+  div.note
+    p
+      strong Oh, you've hit a future doc topic!
+      p(style="margin-top: 20px;")
+      | We maintain a couple of versions of both VersionPress and these doc topics in parallel, including future versions. You have been pointed to a topic that applies to a feature currently under development and although we have some documentation written on it already, it will be available only when the feature ships.</p>
+  p
+  | Please
+  = ' '
+  a(href="#" onclick="history.back(); return false;") go back
+  |  to previous page
+
