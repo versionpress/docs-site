@@ -7,8 +7,8 @@ import {DocsArticle} from '../models/DocsArticle';
 import {Page} from '../models/Page';
 import {Route} from '../models/Route';
 import {Language} from '../models/Language';
-import {ConfigServiceClass} from '../services/ConfigServiceClass';
-import {RoutingServiceClass} from '../services/RoutingServiceClass';
+import {ConfigService} from '../services/ConfigService';
+import {RoutingService} from '../services/RoutingService';
 import {renderDocument} from '../services/RenderService';
 
 module PageController {
@@ -24,8 +24,8 @@ module PageController {
   }
 
   function _renderPage(req:Request, res:Response, language:string) {
-    var cfg:ConfigServiceClass = ConfigServiceClass.getInstance();
-    var rs:RoutingServiceClass = RoutingServiceClass.getInstance();
+    var cfg:ConfigService = ConfigService.getInstance();
+    var rs:RoutingService = RoutingService.getInstance();
     let docsArticle = new DocsArticle();
     docsArticle.title = req.params.article;
     var route:Route = rs.getRouteByUrl(req.path);

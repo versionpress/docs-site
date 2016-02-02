@@ -5,9 +5,9 @@ import fs = require("fs");
 import readline = require("readline");
 
 
-export class ConfigServiceClass {
+export class ConfigService {
 
-  private static _instance:ConfigServiceClass = new ConfigServiceClass();
+  private static _instance:ConfigService = new ConfigService();
 
   private _appConfig:any;
 
@@ -18,16 +18,16 @@ export class ConfigServiceClass {
   private _config_file_name = "config.yaml";
 
   constructor() {
-    if (ConfigServiceClass._instance) {
-      throw new Error("Error: Instantiation failed: Use ConfigServicClass.getInstance() instead of new.");
+    if (ConfigService._instance) {
+      throw new Error("Error: Instantiation failed: Use ConfigService.getInstance() instead of new.");
     }
-    ConfigServiceClass._instance = this;
-    console.log("ConfigServiceClass initialized");
+    ConfigService._instance = this;
+    console.log("ConfigService initialized");
     this._init();
   }
 
-  public static getInstance():ConfigServiceClass {
-    return ConfigServiceClass._instance;
+  public static getInstance():ConfigService {
+    return ConfigService._instance;
   }
 
   public static getDirConfig(file:string) {

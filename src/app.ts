@@ -1,5 +1,4 @@
 /// <reference path="../typings/typings.d.ts" />
-/// <reference path="services/ConfigServiceClass.ts" />
 'use strict';
 
 // Include dependencies
@@ -10,7 +9,7 @@ import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as moment from 'moment';
-import {ConfigServiceClass} from './services/ConfigServiceClass';
+import {ConfigService} from './services/ConfigService';
 
 // Modular Route definitions
 import * as routes from './routes/routes';
@@ -37,7 +36,7 @@ app.use(cookieParser());
 app.use('/public/img', express.static(__dirname + '/public/img')); // Serve public files
 app.use('/public/css', express.static(__dirname + '/public/css'));
 
-app.use('/media', express.static(ConfigServiceClass.getInstance().docsDir + '/media'));
+app.use('/media', express.static(ConfigService.getInstance().docsDir + '/media'));
 
 // Register routes (as middleware layer through express.Router())
 app.use(routes);

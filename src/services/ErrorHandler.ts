@@ -1,8 +1,8 @@
 /// <reference path="../../typings/typings.d.ts" />
 import { Request, Response } from 'express';
 import {DocsArticle} from '../models/DocsArticle';
-import {ConfigServiceClass} from '../services/ConfigServiceClass';
-import {RoutingServiceClass} from '../services/RoutingServiceClass';
+import {ConfigService} from '../services/ConfigService';
+import {RoutingService} from '../services/RoutingService';
 import {Language} from '../models/Language';
 import {Page} from '../models/Page';
 
@@ -16,8 +16,8 @@ module ErrorHandler {
    * Generates a 500 response
    */
   let handler = (err:Error, req:Request, res:Response, next:Function, includeStackTrace:boolean) => {
-    var cfg:ConfigServiceClass = ConfigServiceClass.getInstance();
-    var rs:RoutingServiceClass = RoutingServiceClass.getInstance();
+    var cfg:ConfigService = ConfigService.getInstance();
+    var rs:RoutingService = RoutingService.getInstance();
     var language:string = Language[req.path.split("/")[1]];
     var docsArticle = new DocsArticle();
     if (typeof language === "undefined") {

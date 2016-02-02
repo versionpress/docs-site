@@ -5,13 +5,13 @@ import { Router } from 'express';
 import { renderPage } from '../controllers/PageController';
 import { renderSitemap } from '../controllers/SitemapController';
 
-import { RoutingServiceClass } from '../services/RoutingServiceClass';
+import { RoutingService} from '../services/RoutingService';
 
 
 let router = Router();
 
 // Simple argument passing
-var service = RoutingServiceClass.getInstance();
+var service = RoutingService.getInstance();
 
 for (var language of service.languages) {
   router.get('/' + language + '/*', renderPage);

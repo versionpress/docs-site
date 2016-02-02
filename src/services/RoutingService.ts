@@ -2,11 +2,11 @@
 import fs = require("fs");
 import * as path from 'path';
 import {Route} from '../models/Route';
-import {ConfigServiceClass} from '../services/ConfigServiceClass';
+import {ConfigService} from '../services/ConfigService';
 
-export class RoutingServiceClass {
+export class RoutingService {
 
-  private static _instance:RoutingServiceClass = new RoutingServiceClass();
+  private static _instance:RoutingService = new RoutingService();
 
   private _routes:Array<Route> = new Array();
 
@@ -15,16 +15,16 @@ export class RoutingServiceClass {
   private _languages:Array<string>;
 
   constructor() {
-    if (RoutingServiceClass._instance) {
-      throw new Error("Error: Instantiation failed: Use RoutingServiceClass.getInstance() instead of new.");
+    if (RoutingService._instance) {
+      throw new Error("Error: Instantiation failed: Use RoutingService.getInstance() instead of new.");
     }
-    RoutingServiceClass._instance = this;
+    RoutingService._instance = this;
     this._init();
-    console.log("RoutingServiceClass initialized");
+    console.log("RoutingService initialized");
   }
 
-  public static getInstance():RoutingServiceClass {
-    return RoutingServiceClass._instance;
+  public static getInstance():RoutingService {
+    return RoutingService._instance;
   }
 
   get flatRoutes() {
@@ -37,7 +37,7 @@ export class RoutingServiceClass {
     const lng = process.env.AVAILABLE_LANGUAGES || 'en';
     this._languages = lng.split(',');
     for (var language of this._languages) {
-      this._initializeRoutes(docs_root_folder, language, ConfigServiceClass.getInstance().appConfig.displayVersion);
+      this._initializeRoutes(docs_root_folder, language, ConfigService.getInstance().appConfig.displayVersion);
     }
   }
 
@@ -114,7 +114,7 @@ export class RoutingServiceClass {
 
   private  _initializeRoutes(rootPath:string, language:string, version:string) {
     var path = rootPath + "/" + language;
-    RoutingServiceClass._walkDir(path, path, null, version, language, (err, routes) => {
+    RoutingService._walkDir(path, path, null, version, language, (err, routes) => {
       if (!err) {
         this._routes.push(routes);
         //TODO add language specific flattening
@@ -126,7 +126,7 @@ export class RoutingServiceClass {
   private static skipDir(dir:string, limitVersion:string) {
     var configFile = path.resolve(dir, "config.yaml");
     if (fs.existsSync(configFile)) {
-      var since = ConfigServiceClass.getDirConfig(configFile).since;
+      var since = ConfigService.getDirConfig(configFile).since;
       if (Number(since) > Number(limitVersion)) {
         console.log("Skipping dir " + dir);
         return true;
@@ -146,7 +146,7 @@ export class RoutingServiceClass {
    */
   private static _walkDir(dir:string, rootPath:string, version:string, limitVersion:string, language:string, callback:Function) {
 
-    if (!RoutingServiceClass.skipDir(dir, limitVersion)) {
+    if (!RoutingService.skipDir(dir, limitVersion)) {
       fs.readdir(dir, function (err, list) {
         if (err) return callback(err);
 
@@ -163,7 +163,7 @@ export class RoutingServiceClass {
           file = dir + '/' + file;
           fs.stat(file, function (err, stat) {
             if (stat && stat.isDirectory()) {
-              RoutingServiceClass._walkDir(file, rootPath, since, limitVersion, language, function (err, res) {
+              RoutingService._walkDir(file, rootPath, since, limitVersion, language, function (err, res) {
                 parentRoute.addChilds(res);
                 next(parentRoute);
               });
@@ -173,7 +173,7 @@ export class RoutingServiceClass {
               if (fName === 'config.yaml') {
                 console.log('skipping CONFIG ' + file);
               } else {
-                var fMatter = ConfigServiceClass.getFrontMatter(file);
+                var fMatter = ConfigService.getFrontMatter(file);
                 if (fMatter != null) {
                   if (Number(fMatter.since) > Number(limitVersion)) {
                     console.log("skipping file " + file);
