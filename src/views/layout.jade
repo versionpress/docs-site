@@ -1,0 +1,62 @@
+include ./mixins.jade
+doctype html
+html
+  head
+    title= docsArticle.title + ' | VersionPress docs'
+    link(rel="icon", href="/public/img/favicon.ico")
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,600', rel='stylesheet', type='text/css')
+  body
+    header(class="navbar navbar-default")
+      div.container
+        div.navbar-header
+          a(href="/#{language}").navbar-brand
+            img(src="/public/img/icon.png" alt="VersionPress icon" style="margin-right:10px")
+            | VersionPress Documentation
+            span.docs-for-version for version
+              = ' '
+              span.docs-version #{version)
+        ul(class="nav navbar-nav navbar-right")
+          li
+            a(href="http://versionpress.net") VersionPress Home
+    div(class="container body-content")
+      div.row
+        div#sidebar
+          div#docs-navigation.outline-box
+            div.outline-header
+              | Docs for
+              = ' '
+              strong: | VersionPress #{version}
+            ul#menu
+              li
+                a(href="/#{language}") Home
+              each val in rootRoute['_routes']
+                +traverseRoutes(val)
+
+
+          div#page-navigation.outline-box
+            div.outline-header
+              strong On this page:
+            div#page-toc
+              ul
+                li
+        div(class="markdown-body main-content")
+          block content
+          div.prev-next-navigation
+            if(previousRoute)
+              div.previous-topic
+                div.caption Previous:
+                  div.link
+                    a(href="/#{language}/#{previousRoute.url}") #{previousRoute.url == "" ? "Home" : previousRoute.title}
+            if(nextRoute)
+              div.next-topic
+                div.caption Next:
+                div.link
+                  a(href="/#{language}/#{nextRoute.url}") #{nextRoute.title}
+    div.footer
+      div.container
+        p.text-muted  &copy; #{moment().format("YYYY")}  VersionPress
+  script(src='http://localhost:8888/public/app.js', defer)

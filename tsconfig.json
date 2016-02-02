@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "outDir":"dist"
+  },
+  "filesGlob" :[
+    "src/**/*.ts",
+    "typings/typings.d.ts",
+    "!./node_modules/**/*.ts"
+  ],
+  "files": [
+    "typings/typings.d.ts"
+  ],
+  "exclude" : [
+    "node_modules"
+  ]
+}

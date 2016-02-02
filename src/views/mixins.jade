@@ -1,0 +1,9 @@
+mixin traverseRoutes(obj)
+  each val, key in obj
+    if(key === "path")
+      li
+        <a href="/#{language}/#{obj['url']}" title="#{obj['title']}">#{obj['title']}</a>
+        if(obj['_routes'].length > 0)
+          ul
+            each val in obj['_routes']
+              +traverseRoutes(val)

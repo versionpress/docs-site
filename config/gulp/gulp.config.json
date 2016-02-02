@@ -1,0 +1,14 @@
+{
+  "tsLinter": {
+    "options": {
+      "configuration": {},
+      "rulesDirectory": null,
+      "emitError": true,
+      "reportLimit": 0
+    },
+    "sources": [
+      "./src/**/*.ts"
+    ],
+    "reporter": "prose"
+  }
+}
