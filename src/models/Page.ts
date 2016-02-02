@@ -7,22 +7,22 @@ import {Language} from "./Language";
 
 export class Page extends BaseModel {
 
-    version:string;
-    docsArticle:DocsArticle;
-    rootRoute:Route;
-    previousRoute:Route;
-    nextRoute:Route;
-    language:Language;
-    url:string;
-    errorMessage:string;
-    error:any;
+  version:string;
+  docsArticle:DocsArticle;
+  rootRoute:Route;
+  previousRoute:Route;
+  nextRoute:Route;
+  language:Language;
+  url:string;
+  errorMessage:string;
+  error:any;
 
 
-    constructor(article:DocsArticle, version:string, rootRoute:Route) {
-        super();
-        this.docsArticle = article;
-        this.version = version;
-        this.rootRoute = rootRoute;
-    }
+  constructor(article:DocsArticle, version:string, rootRoute:Route) {
+    super();
+    this.docsArticle = article;
+    this.version = version;
+    this.rootRoute = rootRoute;
+  }
 
 }

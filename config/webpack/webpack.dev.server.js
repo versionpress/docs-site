@@ -5,9 +5,10 @@ var webpack = require("webpack");
 var config = require("./webpack.config.js")(true);
 
 var server = new WebpackDevServer(webpack(config), {
-    // webpack-dev-server options
-    publicPath: config.output.publicPath,
-    hot: true,
-    stats: { colors: true }
+  // webpack-dev-server options
+  publicPath: config.output.publicPath,
+  hot: true,
+  stats: {colors: true}
 });
-server.listen(8888, "localhost", function() {});
+server.listen(8888, "localhost", function () {
+});
