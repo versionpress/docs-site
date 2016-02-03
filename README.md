@@ -9,7 +9,7 @@ The engine powering [docs.versionpress.net](http://docs.versionpress.net/en). Th
 2. Install TSD: `npm install -g tsd`
 3. Run `npm install`
 4. Run `tsd install`
-5. Create `.env` file from `.env.example` and set path to documentation folder (probably a cloned [docs repo](https://github.com/versionpress/docs) somewhere on the local drive)
+5. In the `src` folder, create `.env` file from `.env.example` and set path to documentation folder (probably a cloned [docs repo](https://github.com/versionpress/docs) somewhere on the local drive)
 
 
 ## Run
