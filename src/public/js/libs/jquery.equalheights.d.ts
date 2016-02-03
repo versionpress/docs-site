@@ -1,3 +1,3 @@
 ﻿interface JQuery {
-    equalHeights(): JQuery;
+  equalHeights(): JQuery;
 }

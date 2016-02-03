@@ -1,3 +1,3 @@
 ﻿interface JQuery {
-    toc(options?: Object): any;
+  toc(options?:Object): any;
 }

@@ -1,3 +1,3 @@
 ﻿interface JQuery {
-    Stickyfill(): void;
+  Stickyfill(): void;
 }
