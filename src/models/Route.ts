@@ -18,7 +18,7 @@ export class Route {
 
   constructor(rootPath: string, file: string, since: number, language: string) {
     this.since = since;
-    this.content = "";
+    this.content = '';
     let relativePath = file.replace(rootPath, '');
     let pathComponents = relativePath.split('/');
     pathComponents.shift();

@@ -19,9 +19,9 @@ module RenderService {
         throw err;
       }
       var output: string;
-      if(route.content==="") {
+      if (route.content === '') {
         output = md.Transform(removeFrontMatter(data.toString()));
-        route.content=output;
+        route.content = output;
       }
       page.docsArticle.content = route.content;
       callback(res, page);
