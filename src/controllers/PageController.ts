@@ -15,6 +15,9 @@ module PageController {
 
   'use strict';
 
+  var cfg:ConfigService = ConfigService.getInstance();
+  var rs:RoutingService = RoutingService.getInstance();
+
   /*
    * Return an empty 200 response
    */
@@ -24,19 +27,22 @@ module PageController {
   }
 
   function _renderPage(req:Request, res:Response, language:string) {
-    var cfg:ConfigService = ConfigService.getInstance();
-    var rs:RoutingService = RoutingService.getInstance();
+
     let docsArticle = new DocsArticle();
     docsArticle.title = req.params.article;
     var route:Route = rs.getRouteByUrl(req.path);
     if (typeof route !== "undefined") {
       docsArticle.content = renderDocument(route.path);
       docsArticle.title = route.title;
-      let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
-      page.nextRoute = rs.getNext(route.url, language);
-      page.previousRoute = rs.getPrevious(route.url, language);
+      let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLngAndVersion(language));
       page.language = Language[language];
-      res.status(200).render('index', page);
+      if(route.isValidForCurrentVersion(page.version)) {
+        page.nextRoute = rs.getNext(route.url, language);
+        page.previousRoute = rs.getPrevious(route.url, language);
+        res.status(200).render('index', page);
+      } else {
+        res.status(200).render('future-topic', page);
+      }
     } else {
       docsArticle.title = "Page Not Found";
       let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));

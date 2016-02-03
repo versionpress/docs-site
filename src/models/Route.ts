@@ -1,11 +1,9 @@
-import {BaseModel} from "./BaseModel";
 import fs = require("fs");
 
-export class Route extends BaseModel {
+export class Route {
 
 
     constructor(rootPath:string, file:string, since:number, language:string) {
-        super();
         this.since = since;
         let relativePath = file.replace(rootPath, "");
         let pathComponents = relativePath.split("/");
