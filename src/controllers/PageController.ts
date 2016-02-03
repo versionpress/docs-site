@@ -32,14 +32,15 @@ module PageController {
     docsArticle.title = req.params.article;
     var route:Route = rs.getRouteByUrl(req.path);
     if (typeof route !== "undefined") {
-      docsArticle.content = renderDocument(route.path);
       docsArticle.title = route.title;
-      let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLngAndVersion(language));
+      let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
+      page.nextRoute = rs.getNext(route.url, language);
+      page.previousRoute = rs.getPrevious(route.url, language);
       page.language = Language[language];
       if(route.isValidForCurrentVersion(page.version)) {
         page.nextRoute = rs.getNext(route.url, language);
         page.previousRoute = rs.getPrevious(route.url, language);
-        res.status(200).render('index', page);
+        renderDocument(route.path,page, res, _renderIndex);
       } else {
         res.status(200).render('future-topic', page);
       }
@@ -51,6 +52,9 @@ module PageController {
       res.status(404).render('404', page);
     }
 
+  }
+  function _renderIndex(res:Response, page:Page) {
+    res.status(200).render('index', page);
   }
 }
 

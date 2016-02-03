@@ -1,6 +1,8 @@
 /// <reference path="../../typings/typings.d.ts" />
 var Markdown = require('markdowndeep');
 import fs = require("fs");
+import {Page} from '../models/Page';
+import {Response} from 'express';
 
 module RenderService {
 
@@ -9,11 +11,15 @@ module RenderService {
   md.SafeMode = false;
   md.AutoHeadingIDs = true;
   md.MarkdownInHtml = true;
-  export function renderDocument(file:string) {
-    var output:string;
-    var data = fs.readFileSync(file, 'utf8');
-    output = md.Transform(removeFrontMatter(data).toString());
-    return output;
+
+  export function renderDocument(file:string, page:Page,res:Response, callback:Function) {
+    fs.readFile(file, (err, data) => {
+      if (err) throw err;
+      var output:string;
+      output = md.Transform(removeFrontMatter(data.toString()));
+      page.docsArticle.content = output;
+      callback(res, page);
+    });
   }
 
   function removeFrontMatter(data:string) {
