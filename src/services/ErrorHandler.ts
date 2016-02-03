@@ -15,21 +15,21 @@ module ErrorHandler {
   /**
    * Generates a 500 response
    */
-  let handler = (err:Error, req:Request, res:Response, next:Function, includeStackTrace:boolean) => {
-    var cfg:ConfigService = ConfigService.getInstance();
-    var rs:RoutingService = RoutingService.getInstance();
-    var language:string = Language[req.path.split("/")[1]];
+  let handler = (err: Error, req: Request, res: Response, next: Function, includeStackTrace: boolean) => {
+    var cfg: ConfigService = ConfigService.getInstance();
+    var rs: RoutingService = RoutingService.getInstance();
+    var language: string = Language[req.path.split('/')[1]];
     var docsArticle = new DocsArticle();
-    if (typeof language === "undefined") {
+    if (typeof language === 'undefined') {
       language = rs.languages[0];
     }
     var page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
     page.language = Language[language];
 
     res.status(res.statusCode || 500);
-    if (res.statusCode == 404) {
-      page.url = req.protocol + "://" + cfg.siteRoot + req.path;
-      docsArticle.title = "Page Not Found";
+    if (res.statusCode === 404) {
+      page.url = req.protocol + '://' + cfg.siteRoot + req.path;
+      docsArticle.title = 'Page Not Found';
       res.render('404', page);
 
     } else {
@@ -43,14 +43,14 @@ module ErrorHandler {
   /**
    * 500 error development response
    */
-  export function development(err:Error, req:Request, res:Response, next:Function) {
+  export function development(err: Error, req: Request, res: Response, next: Function) {
     return handler(err, req, res, next, true);
   };
 
   /**
    * 500 error production response
    */
-  export function production(err:Error, req:Request, res:Response, next:Function) {
+  export function production(err: Error, req: Request, res: Response, next: Function) {
     return handler(err, req, res, next, false);
   };
 

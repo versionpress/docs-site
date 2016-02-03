@@ -24,7 +24,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// add moment.
+// Add moment.
 app.locals.moment = moment;
 
 app.locals.dynamicScripts = process.env.WEBPACK;
@@ -45,7 +45,7 @@ app.use('/media', express.static(ConfigService.getInstance().docsDir + '/media')
 app.use(routes);
 
 // Catch 404 and forward to error handler
-app.use((req:express.Request, res:express.Response, next:Function) => {
+app.use((req: express.Request, res: express.Response, next: Function) => {
   let err = new Error('Not Found');
   res.status(404);
   console.log('catching 404 error');

@@ -1,166 +1,31 @@
 /// <reference path="../../typings/typings.d.ts" />
-import fs = require("fs");
-import * as path from 'path';
+import fs = require('fs');
 import {Route} from '../models/Route';
 import {ConfigService} from '../services/ConfigService';
 
 export class RoutingService {
 
-  private static _instance:RoutingService = new RoutingService();
+  private static _instance: RoutingService = new RoutingService();
 
-  private _routes:Array<Route> = [];
+  private _routes: Array<Route> = [];
 
-  private _filteredRoutes:Array<Route> = [];
+  private _filteredRoutes: Array<Route> = [];
 
-  private _flatRoutes:Array<String> = [];
+  private _flatRoutes: Array<String> = [];
 
-  private _languages:Array<string>;
+  private _languages: Array<string>;
 
   constructor() {
     if (RoutingService._instance) {
-      throw new Error("Error: Instantiation failed: Use RoutingService.getInstance() instead of new.");
+      throw new Error('Error: Instantiation failed: Use RoutingService.getInstance() instead of new.');
     }
     RoutingService._instance = this;
     this._init();
-    console.log("RoutingService initialized");
+    console.log('RoutingService initialized');
   }
 
-  public static getInstance():RoutingService {
+  public static getInstance(): RoutingService {
     return RoutingService._instance;
-  }
-
-  get flatRoutes() {
-    return this._flatRoutes;
-  }
-
-
-  private _init():void {
-    const docs_root_folder = process.env.DOCS_SOURCE_FOLDER || '.';
-    const lng = process.env.AVAILABLE_LANGUAGES || 'en';
-    this._languages = lng.split(',');
-    for (var language of this._languages) {
-      this._initializeRoutes(docs_root_folder, language, ConfigService.getInstance().appConfig.displayVersion);
-    }
-  }
-
-  get languages() {
-    return this._languages;
-  }
-
-  public getRouteByUrl(url:string) {
-    var u = url.split("/");
-    u = u.filter(function (v) {
-      return v !== ''
-    });
-    return this._findRoute(u, this._routes);
-  }
-
-  private _findRoute(u:Array<String>, routes:Array<Route>) {
-    for (var j = 0; j < routes.length; j++) {
-      if (routes[j].name === u[0]) {
-        if (routes[j]._routes.length != 0) {
-          u.shift();
-          if (typeof u[0] == "undefined") {
-            return routes[j];
-          }
-          var routes = routes[j]._routes;
-          return this._findRoute(u, routes);
-        } else {
-          return routes[j];
-        }
-      }
-    }
-  }
-
-  public getNext(url:string, language:string) {
-    return this._findSibling(url, language, 1);
-  }
-
-  public getPrevious(url:string, language:string) {
-    console.log(" Searching for previous for " + url);
-    return this._findSibling(url, language, -1);
-  }
-
-  private _findSibling(url:string, language:string, direction:number) {
-    var routeUrl:string = "/" + language + "/" + this._flatRoutes[this._flatRoutes.indexOf(url) + direction];
-    console.log("searching route for " + routeUrl);
-    if (typeof routeUrl !== "undefined") {
-
-      return this.getRouteByUrl(routeUrl);
-    }
-    return null;
-  }
-
-
-  private flatten(routes:Array<Route>) {
-    var flat = [];
-    for (var i = 0; i < routes.length; i++) {
-      if (routes[i]._routes.length != 0) {
-        flat.push(routes[i].url);
-        flat.push.apply(flat, this.flatten(routes[i]._routes));
-      } else {
-        flat.push(routes[i].url);
-      }
-    }
-    return flat;
-  }
-
-  private  _keepRouteInTree(route:Route) {
-    return (route.since <= Number(ConfigService.getInstance().appConfig.displayVersion));
-  }
-
-
-  public getRoutesForLanguage(language:string) {
-    for (var i = 0; i < this._routes.length; i++) {
-      if (this._routes[i].language === language) {
-        return this._routes[i];
-      }
-    }
-  }
-
-  private _filterRoutesForVersion(route:Route) {
-    if(this._keepRouteInTree(route)) {
-      var currentRoute = Route.newFromRoute(route);
-      if (route._routes.length != 0) {
-        for (var i = 0; i < route._routes.length; i++) {
-          var childRoute = this._filterRoutesForVersion(route._routes[i]);
-          if(typeof childRoute!=="undefined") {
-            currentRoute.addChild(childRoute);
-          }
-        }
-      }
-
-      return currentRoute;
-    }
-
-  }
-
-  public getRoutesForLngAndVersion(language:string) {
-    for (var i = 0; i < this._filteredRoutes.length; i++) {
-      if (this._filteredRoutes[i].language === language) {
-        return this._filteredRoutes[i];
-      }
-    }
-  }
-
-
-  private  _initializeRoutes(rootPath:string, language:string, version:string) {
-    var path = rootPath + "/" + language;
-    RoutingService._walkDir(path, path, null, version, language, (err, routes) => {
-      if (!err) {
-        this._routes.push(routes);
-        this._filteredRoutes.push(this._filterRoutesForVersion(routes));
-        this._flatRoutes = this.flatten(this._filteredRoutes);
-      }
-    });
-  }
-
-  private static getVersionFromConfig(dir:string) {
-    var configFile = path.resolve(dir, "config.yaml");
-    if (fs.existsSync(configFile)) {
-      return ConfigService.getDirConfig(configFile).since;
-    }
-    return 0;
   }
 
   /**
@@ -172,20 +37,24 @@ export class RoutingService {
    * @param callback callback function
    * @private
    */
-  private static _walkDir(dir:string, rootPath:string, version:string, limitVersion:string, language:string, callback:Function) {
+  private static _walkDir(dir: string, rootPath: string, version: string, limitVersion: string, language: string, callback: Function) {
     fs.readdir(dir, function (err, list) {
-      if (err) return callback(err);
+      if (err) {
+        return callback(err);
+      }
 
-      var since = RoutingService.getVersionFromConfig(dir);
+      var since = ConfigService.getInstance().getVersionFromConfig(dir);
       list.sort();
       var index = list.indexOf('_index.md');
       list.splice(index, 1);
       var file = dir + '/_index.md';
       var parentRoute = new Route(rootPath, file, since, language);
       var i = 0;
-      (function next(parentRoute:Route) {
+      (function next(parentRoute: Route) {
         var file = list[i++];
-        if (!file) return callback(null, parentRoute);
+        if (!file) {
+          return callback(null, parentRoute);
+        }
         file = dir + '/' + file;
         fs.stat(file, function (err, stat) {
           if (stat && stat.isDirectory()) {
@@ -194,13 +63,13 @@ export class RoutingService {
               next(parentRoute);
             });
           } else {
-            var fName = file.substr(file.lastIndexOf("/") + 1);
+            var fName = file.substr(file.lastIndexOf('/') + 1);
 
-            if (fName === 'config.yaml') {
+            if (fName === ConfigService.getInstance().configFileName) {
               console.log('skipping CONFIG ' + file);
             } else {
               var fMatter = ConfigService.getFrontMatter(file);
-              if (fMatter != null) {
+              if (fMatter !== null) {
                 var newRoute = new Route(rootPath, file, fMatter.since, language);
                 parentRoute.addChild(newRoute);
               } else {
@@ -212,6 +81,126 @@ export class RoutingService {
           }
         });
       })(parentRoute);
+    });
+  }
+
+  get flatRoutes() {
+    return this._flatRoutes;
+  }
+
+  get languages() {
+    return this._languages;
+  }
+
+  public getRouteByUrl(url: string) {
+    var u = url.split('/');
+    u = u.filter(function (v) {
+      return v !== '';
+    });
+    return this._findRoute(u, this._routes);
+  }
+
+  public getNext(url: string, language: string) {
+    return this._findSibling(url, language, 1);
+  }
+
+  public getPrevious(url: string, language: string) {
+    return this._findSibling(url, language, -1);
+  }
+
+  public getRoutesForLanguage(language: string) {
+    for (var i = 0; i < this._routes.length; i++) {
+      if (this._routes[i].language === language) {
+        return this._routes[i];
+      }
+    }
+  }
+
+  public getRoutesForLngAndVersion(language: string) {
+    for (var i = 0; i < this._filteredRoutes.length; i++) {
+      if (this._filteredRoutes[i].language === language) {
+        return this._filteredRoutes[i];
+      }
+    }
+  }
+
+  private _init(): void {
+    var docsRootFolder = process.env.DOCS_SOURCE_FOLDER || '.';
+    const lng = process.env.AVAILABLE_LANGUAGES || 'en';
+    this._languages = lng.split(',');
+    for (var language of this._languages) {
+      this._initializeRoutes(docsRootFolder, language, ConfigService.getInstance().appConfig.displayVersion);
+    }
+  }
+
+  private _findRoute(u: Array<String>, routes: Array<Route>) {
+    for (var j = 0; j < routes.length; j++) {
+      if (routes[j].name === u[0]) {
+        if (routes[j]._routes.length !== 0) {
+          u.shift();
+          if (typeof u[0] === 'undefined') {
+            return routes[j];
+          }
+          var routes = routes[j]._routes;
+          return this._findRoute(u, routes);
+        } else {
+          return routes[j];
+        }
+      }
+    }
+  }
+
+  private _findSibling(url: string, language: string, direction: number) {
+    var routeUrl: string = '/' + language + '/' + this._flatRoutes[this._flatRoutes.indexOf(url) + direction];
+    if (typeof routeUrl !== 'undefined') {
+
+      return this.getRouteByUrl(routeUrl);
+    }
+    return null;
+  }
+
+  private flatten(routes: Array<Route>) {
+    var flat = [];
+    for (var i = 0; i < routes.length; i++) {
+      if (routes[i]._routes.length !== 0) {
+        flat.push(routes[i].url);
+        flat.push.apply(flat, this.flatten(routes[i]._routes));
+      } else {
+        flat.push(routes[i].url);
+      }
+    }
+    return flat;
+  }
+
+  private  _keepRouteInTree(route: Route) {
+    return (route.since <= Number(ConfigService.getInstance().appConfig.displayVersion));
+  }
+
+  private _filterRoutesForVersion(route: Route) {
+    if (this._keepRouteInTree(route)) {
+      var currentRoute = Route.newFromRoute(route);
+      if (route._routes.length !== 0) {
+        for (var i = 0; i < route._routes.length; i++) {
+          var childRoute = this._filterRoutesForVersion(route._routes[i]);
+          if (typeof childRoute !== 'undefined') {
+            currentRoute.addChild(childRoute);
+          }
+        }
+      }
+
+      return currentRoute;
+    }
+
+  }
+
+  private  _initializeRoutes(rootPath: string, language: string, version: string) {
+    var path = rootPath + '/' + language;
+    RoutingService._walkDir(path, path, null, version, language, (err, routes) => {
+      if (!err) {
+        this._routes.push(routes);
+        this._filteredRoutes.push(this._filterRoutesForVersion(routes));
+        this._flatRoutes = this.flatten(this._filteredRoutes);
+      }
     });
   }
 

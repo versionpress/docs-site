@@ -7,11 +7,14 @@
 
 # TypeScript definition files
 /typings
+!/typings/custom/*.*
 !/typings/typings.d.ts
 !/typings/dotenv/dotenv.d.ts
 
 /src/**/*.js
 /src/**/*.map
+
+!/src/public/js/**/*.js
 
 # Environment configuration
 .env

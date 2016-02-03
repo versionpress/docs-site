@@ -11,9 +11,9 @@ module SitemapController {
   /*
    * Return an sitemap.xml
    */
-  export function renderSitemap(req:Request, res:Response) {
-    var cfg:ConfigService = ConfigService.getInstance();
-    var rs:RoutingService = RoutingService.getInstance();
+  export function renderSitemap(req: Request, res: Response) {
+    var cfg: ConfigService = ConfigService.getInstance();
+    var rs: RoutingService = RoutingService.getInstance();
     res.set('Content-Type', 'text/xml');
     res.status(200).render('sitemap', {'routes': rs.flatRoutes, 'siteRoot': cfg.siteRoot});
 
