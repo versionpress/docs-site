@@ -27,6 +27,8 @@ app.set('view engine', 'jade');
 // add moment.
 app.locals.moment = moment;
 
+app.locals.dynamicScripts = process.env.WEBPACK;
+
 app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -34,7 +36,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use('/public/img', express.static(__dirname + '/public/img')); // Serve public files
-app.use('/public/css', express.static(__dirname + '/public/css'));
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/public/css/app.css', express.static(__dirname + '/public/app.css'));
 
 app.use('/media', express.static(ConfigService.getInstance().docsDir + '/media'));
 

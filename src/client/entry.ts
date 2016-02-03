@@ -62,9 +62,9 @@ $(document).ready(() => {
 
     // and also use sticky polyfill, see https://github.com/wilddeer/stickyfill
     $('#page-navigation').Stickyfill();
-    console.log("Docs site scripts loaded");
+
 
   }
-
+  console.log("Docs site scripts loaded");
 
 });
