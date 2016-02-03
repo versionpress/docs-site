@@ -12,7 +12,7 @@ module RenderService {
   md.AutoHeadingIDs = true;
   md.MarkdownInHtml = true;
 
-  export function renderDocumentAsync(file:string, page:Page,res:Response, callback:Function) {
+  export function renderDocument(file:string, page:Page,res:Response, callback:Function) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var output:string;

@@ -9,7 +9,7 @@ import {Route} from '../models/Route';
 import {Language} from '../models/Language';
 import {ConfigService} from '../services/ConfigService';
 import {RoutingService} from '../services/RoutingService';
-import {renderDocumentAsync} from '../services/RenderService';
+import {renderDocument} from '../services/RenderService';
 
 module PageController {
 
@@ -35,7 +35,7 @@ module PageController {
       page.nextRoute = rs.getNext(route.url, language);
       page.previousRoute = rs.getPrevious(route.url, language);
       page.language = Language[language];
-      renderDocumentAsync(route.path,page, res, _renderIndex);
+      renderDocument(route.path,page, res, _renderIndex);
     } else {
       docsArticle.title = "Page Not Found";
       let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
