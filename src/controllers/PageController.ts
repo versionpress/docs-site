@@ -9,7 +9,7 @@ import {Route} from '../models/Route';
 import {Language} from '../models/Language';
 import {ConfigService} from '../services/ConfigService';
 import {RoutingService} from '../services/RoutingService';
-import {renderDocument} from '../services/RenderService';
+import {renderDocumentAsync} from '../services/RenderService';
 
 module PageController {
 
@@ -30,13 +30,12 @@ module PageController {
     docsArticle.title = req.params.article;
     var route:Route = rs.getRouteByUrl(req.path);
     if (typeof route !== "undefined") {
-      docsArticle.content = renderDocument(route.path);
       docsArticle.title = route.title;
       let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
       page.nextRoute = rs.getNext(route.url, language);
       page.previousRoute = rs.getPrevious(route.url, language);
       page.language = Language[language];
-      res.status(200).render('index', page);
+      renderDocumentAsync(route.path,page, res, _renderIndex);
     } else {
       docsArticle.title = "Page Not Found";
       let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
@@ -46,6 +45,10 @@ module PageController {
     }
 
   }
+  function _renderIndex(res:Response, page:Page) {
+    res.status(200).render('index', page);
+  }
 }
+
 
 export = PageController;
