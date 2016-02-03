@@ -8,9 +8,11 @@ export class RoutingService {
 
   private static _instance:RoutingService = new RoutingService();
 
-  private _routes:Array<Route> = new Array();
+  private _routes:Array<Route> = [];
 
-  private _flatRoutes:Array<String> = new Array();
+  private _filteredRoutes:Array<Route> = [];
+
+  private _flatRoutes:Array<String> = [];
 
   private _languages:Array<string>;
 
@@ -103,6 +105,10 @@ export class RoutingService {
     return flat;
   }
 
+  private  _keepRouteInTree(route:Route) {
+    return (route.since <= Number(ConfigService.getInstance().appConfig.displayVersion));
+  }
+
 
   public getRoutesForLanguage(language:string) {
     for (var i = 0; i < this._routes.length; i++) {
@@ -112,27 +118,49 @@ export class RoutingService {
     }
   }
 
+  private _filterRoutesForVersion(route:Route) {
+    if(this._keepRouteInTree(route)) {
+      var currentRoute = Route.newFromRoute(route);
+      if (route._routes.length != 0) {
+        for (var i = 0; i < route._routes.length; i++) {
+          var childRoute = this._filterRoutesForVersion(route._routes[i]);
+          if(typeof childRoute!=="undefined") {
+            currentRoute.addChild(childRoute);
+          }
+        }
+      }
+
+      return currentRoute;
+    }
+
+  }
+
+  public getRoutesForLngAndVersion(language:string) {
+    for (var i = 0; i < this._filteredRoutes.length; i++) {
+      if (this._filteredRoutes[i].language === language) {
+        return this._filteredRoutes[i];
+      }
+    }
+  }
+
+
   private  _initializeRoutes(rootPath:string, language:string, version:string) {
     var path = rootPath + "/" + language;
     RoutingService._walkDir(path, path, null, version, language, (err, routes) => {
       if (!err) {
         this._routes.push(routes);
-        //TODO add language specific flattening
-        this._flatRoutes = this.flatten(this._routes);
+        this._filteredRoutes.push(this._filterRoutesForVersion(routes));
+        this._flatRoutes = this.flatten(this._filteredRoutes);
       }
     });
   }
 
-  private static skipDir(dir:string, limitVersion:string) {
+  private static getVersionFromConfig(dir:string) {
     var configFile = path.resolve(dir, "config.yaml");
     if (fs.existsSync(configFile)) {
-      var since = ConfigService.getDirConfig(configFile).since;
-      if (Number(since) > Number(limitVersion)) {
-        console.log("Skipping dir " + dir);
-        return true;
-      }
+      return ConfigService.getDirConfig(configFile).since;
     }
-    return false;
+    return 0;
   }
 
   /**
@@ -145,55 +173,46 @@ export class RoutingService {
    * @private
    */
   private static _walkDir(dir:string, rootPath:string, version:string, limitVersion:string, language:string, callback:Function) {
+    fs.readdir(dir, function (err, list) {
+      if (err) return callback(err);
 
-    if (!RoutingService.skipDir(dir, limitVersion)) {
-      fs.readdir(dir, function (err, list) {
-        if (err) return callback(err);
-
-        var since = '0';
-        list.sort();
-        var index = list.indexOf('_index.md');
-        list.splice(index, 1);
-        var file = dir + '/_index.md';
-        var parentRoute = new Route(rootPath, file, since, language);
-        var i = 0;
-        (function next(parentRoute:Route) {
-          var file = list[i++];
-          if (!file) return callback(null, parentRoute);
-          file = dir + '/' + file;
-          fs.stat(file, function (err, stat) {
-            if (stat && stat.isDirectory()) {
-              RoutingService._walkDir(file, rootPath, since, limitVersion, language, function (err, res) {
-                parentRoute.addChilds(res);
-                next(parentRoute);
-              });
-            } else {
-              var fName = file.substr(file.lastIndexOf("/") + 1);
-
-              if (fName === 'config.yaml') {
-                console.log('skipping CONFIG ' + file);
-              } else {
-                var fMatter = ConfigService.getFrontMatter(file);
-                if (fMatter != null) {
-                  if (Number(fMatter.since) > Number(limitVersion)) {
-                    console.log("skipping file " + file);
-                  } else {
-                    var newRoute = new Route(rootPath, file, fMatter.since, language);
-                    parentRoute.addChild(newRoute);
-                  }
-                } else {
-                  var newRoute = new Route(rootPath, file, since, language);
-                  parentRoute.addChild(newRoute);
-                }
-              }
+      var since = RoutingService.getVersionFromConfig(dir);
+      list.sort();
+      var index = list.indexOf('_index.md');
+      list.splice(index, 1);
+      var file = dir + '/_index.md';
+      var parentRoute = new Route(rootPath, file, since, language);
+      var i = 0;
+      (function next(parentRoute:Route) {
+        var file = list[i++];
+        if (!file) return callback(null, parentRoute);
+        file = dir + '/' + file;
+        fs.stat(file, function (err, stat) {
+          if (stat && stat.isDirectory()) {
+            RoutingService._walkDir(file, rootPath, since, limitVersion, language, function (err, res) {
+              parentRoute.addChilds(res);
               next(parentRoute);
+            });
+          } else {
+            var fName = file.substr(file.lastIndexOf("/") + 1);
+
+            if (fName === 'config.yaml') {
+              console.log('skipping CONFIG ' + file);
+            } else {
+              var fMatter = ConfigService.getFrontMatter(file);
+              if (fMatter != null) {
+                var newRoute = new Route(rootPath, file, fMatter.since, language);
+                parentRoute.addChild(newRoute);
+              } else {
+                var newRoute = new Route(rootPath, file, since, language);
+                parentRoute.addChild(newRoute);
+              }
             }
-          });
-        })(parentRoute);
-      });
-    } else {
-      return callback(null, null);
-    }
+            next(parentRoute);
+          }
+        });
+      })(parentRoute);
+    });
   }
 
 }
