@@ -2,67 +2,52 @@
 
 This project handles serving of the [user documentation](https://github.com/versionpress/docs). It is deployed as [docs.versionpress.net](http://docs.versionpress.net/).
 
-see [Wiki](https://github.com/versionpress/docs-site/wiki) and [Docs wiki](https://github.com/versionpress/docs/wiki) for usage manual and hints.
 
-##DEVELOPMENT ENVIRONMENT
-
-We prefer code that not only works, but also looks nice. You can extend/develop this project in any editor/IDE that is capable of cooperating with `.editorconfig` (see Download section of [EditorConfig](http://editorconfig.org/)).
 
 ## Setup
 
-This version of `docs-site` is based on Node.js, so before starting several steps should be done.
+1. Install [Node.js](https://nodejs.org).
+    - The project was built using version [v4.2.6 LTS](https://nodejs.org/en/blog/release/v4.2.6/) but should generally run on any Node version.
+2. Install Gulp globally - `npm install -g gulp-cli`
+2. Run `npm install`
+3. In the `./src` folder, create `.env` file from `.env.example` and update the variables as necessary
+    - Specifically, set the `DOCS_SOURCE_ROOT` to point to the `content` folder of a local clone of the [docs repo](https://github.com/versionpress/docs).
 
-- install [Node.js](https://nodejs.org). The project was built using version `v4.2.6 LTS` but it is also running on `v5.5.0 Stable`.
-- perform `npm install`
-- perform `npm install gulp-cli -g`
-- perform `npm install tsd -g`
-- in `./src` folder create `.env` file from `.env.example` and set path (`DOCS_SOURCE_ROOT` variable) to a documentation `content` folder (probably cloned somewhere on the local drive).
+You can now run `gulp help` to see the available commands, e.g., `build` or `watchEndServe` (see below).
 
-#Gulp tasks
+## Building and running
 
-If you type `gulp help` after the project setup, you should see available gulp tasks with description.
+### Development mode
 
-```
-Available tasks
-  build                   Builds the server app (compiles & copies)
-  clean
-  default                 Default task: run build [help]
-  help                    Display this help text.
-  serve                   Launch the server on development mode, autoreloads it when there are code changes [build, webpack-dev-server]
-   --port                 The port # the server should listen to. Defaults to value specified in .env file under PORT, or 3000 if .env not present
-  tslint                  Runs a typescript linter on the application code
-  watch                   Master watch task, adds cumulative watches [tsWatcher, nonTsWatcher]
-  watchAndServe           Launch the server on development mode, autoreloads it when there are code changes, plus registers cumulative watch task [watch, serve]
-   --port                 The port # the server should listen to. Defaults to value specified in .env file under PORT, or 3000 if .env not present
-  webpack                 Builds sources for client side
-  webpack-dev-server      Launches webpack-dev-server
-```
+The application is using webpack and gulp as build and task running tool. The most convinient way to start development on this project is to run
 
-##Running application DEVELOPMENT mode
+    $ gulp watchAndServe
 
-The application is using webpack and gulp as build and task running tool. The most convinient way to start development on this project is to type
+Application is built and Node.js server started. Resources are processed via webpack and provided to client using webpack-dev-server. Application is accessible at http://localhost:3000/.
 
-`gulp watchAndServe`
+If you do not want to use hot module replacement where resources are provided via `webpack-dev-server` running on port `8888`, set variable `WEBPACK` in your `.env` file to `0`. After that, scripts and styles are loaded in a standard way.
 
-into console/terminal. Application is build and Node.js server is starded. Resources are processed via webpack and provided to client using webpack-dev-server. Application is accessible on `http://localhost:3000/`.
+#### Linting
 
-If you do not want to use hot module replacement, where resources are provided via `webpack-dev-server` running on port `8888`, set variable `WEBPACK` in your `.env` file to `0`. After that, scripts and styles are loaded standard way.
+Linting is currently removed from the build process but you can use it manually by typing `gulp tslint` into the console. Linting is performed according to the description file `tslint.json`.
 
-###Linting
-Linting is currently removed from build process, but you can use it manually by typing `gulp tslint` into console. Linting is performed according to the description file `tslint.json` 
+### Production mode
 
-##Running application PRODUCTION mode
+Before deploying to the server, run the command
 
-Before deploying to the server, run command
+    $ gulp build
 
-`gulp build`
+which builds the application and puts all of its files into the `dist` folder.
 
-which builds application and places all of its files into `./dist` folder.
-
-When run on Node.js server use `./dist` as working dir and `server.js` as startup script. Url of deployed the application is same as in development mode. Application server port can be adjusted by setting `PORT` variable in `.env` file.
+When run on a Node.js server, use `dist` as a working dir and `server.js` as a startup script. URL of the deployed application is the same as in development mode, i.e., <http://localhost:3000/>. The port can be adjusted by setting the `PORT` variable in the `.env` file.
 
 **Note**
 
-In production, Node.js server should not be exposed directly to the internet. Some kind of http server ( e.g. [Nginx](http://nginx.org/)) should be placed in front.
+In production, Node.js server should not be exposed directly to the internet. Some kind of http server (e.g., [Nginx](http://nginx.org/)) should be placed in front of it.
 
+
+## Development environment tips
+
+- Please use an IDE / editor that supports `.editorconfig`.
+- Use linting - run `gulp tslint` manually (it's not part of the build process)
 
