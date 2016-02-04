@@ -8,12 +8,11 @@ This project handles serving of the [user documentation](https://github.com/vers
 
 1. Install [Node.js](https://nodejs.org).
     - The project was built using version [v4.2.6 LTS](https://nodejs.org/en/blog/release/v4.2.6/) but should generally run on any Node version.
-2. Install Gulp globally - `npm install -g gulp-cli`
 2. Run `npm install`
 3. In the `./src` folder, create `.env` file from `.env.example` and update the variables as necessary
     - Specifically, set the `DOCS_SOURCE_ROOT` to point to the `content` folder of a local clone of the [docs repo](https://github.com/versionpress/docs).
 
-You can now run `gulp help` to see the available commands, e.g., `build` or `watchEndServe` (see below).
+You can now run `npm run help` to see the available commands, e.g., `build` or `watchAndServe` (see below). We are using gulp locally. Some commands have helpers prepared in `package.json`, for others you should use command `npm run gulp [TASK]`.
 
 ## Building and running
 
@@ -21,7 +20,7 @@ You can now run `gulp help` to see the available commands, e.g., `build` or `wat
 
 The application is using webpack and gulp as build and task running tool. The most convinient way to start development on this project is to run
 
-    $ gulp watchAndServe
+    $ npm run watchAndServe
 
 Application is built and Node.js server started. Resources are processed via webpack and provided to client using webpack-dev-server. Application is accessible at http://localhost:3000/.
 
@@ -29,13 +28,13 @@ If you do not want to use hot module replacement where resources are provided vi
 
 #### Linting
 
-Linting is currently removed from the build process but you can use it manually by typing `gulp tslint` into the console. Linting is performed according to the description file `tslint.json`.
+Linting is part of the build process and it is performed according to the description file `tslint.json`.
 
 ### Production mode
 
 Before deploying to the server, run the command
 
-    $ gulp build
+    $ npm run build
 
 which builds the application and puts all of its files into the `dist` folder.
 
@@ -49,5 +48,4 @@ In production, Node.js server should not be exposed directly to the internet. So
 ## Development environment tips
 
 - Please use an IDE / editor that supports `.editorconfig`.
-- Use linting - run `gulp tslint` manually (it's not part of the build process)
-
+- Linting is part of the build process. For linting manually - run `npm run lint`.
