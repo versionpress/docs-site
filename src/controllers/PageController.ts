@@ -40,7 +40,7 @@ module PageController {
       if (route.isValidForCurrentVersion(page.version)) {
         page.nextRoute = rs.getNext(route.url, language);
         page.previousRoute = rs.getPrevious(route.url, language);
-        renderDocument(route.path, page, res, _renderIndex);
+        renderDocument(route, page, res, _renderIndex);
       } else {
         res.status(200).render('future-topic', page);
       }

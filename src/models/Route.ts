@@ -12,11 +12,13 @@ export class Route {
   file: string;
   level: number;
   name: string;
+  content: string;
   _routes: Array<Route>;
   lastModified: Date;
 
   constructor(rootPath: string, file: string, since: number, language: string) {
     this.since = since;
+    this.content = '';
     let relativePath = file.replace(rootPath, '');
     let pathComponents = relativePath.split('/');
     pathComponents.shift();
@@ -53,6 +55,7 @@ export class Route {
     newRoute.path = route.path;
     newRoute.language = route.language;
     newRoute.name = route.name;
+    newRoute.content = route.content;
     newRoute.title = route.title;
     newRoute._routes = [];
     newRoute.lastModified = route.lastModified;

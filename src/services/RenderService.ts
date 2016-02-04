@@ -2,6 +2,7 @@
 var markdown = require('markdowndeep');
 import fs = require('fs');
 import {Page} from '../models/Page';
+import {Route} from '../models/Route';
 import {Response} from 'express';
 
 module RenderService {
@@ -12,14 +13,17 @@ module RenderService {
   md.AutoHeadingIDs = true;
   md.MarkdownInHtml = true;
 
-  export function renderDocument(file: string, page: Page, res: Response, callback: Function) {
-    fs.readFile(file, (err, data) => {
+  export function renderDocument(route: Route, page: Page, res: Response, callback: Function) {
+    fs.readFile(route.path, (err, data) => {
       if (err) {
         throw err;
       }
       var output: string;
-      output = md.Transform(removeFrontMatter(data.toString()));
-      page.docsArticle.content = output;
+      if (route.content === '') {
+        output = md.Transform(removeFrontMatter(data.toString()));
+        route.content = output;
+      }
+      page.docsArticle.content = route.content;
       callback(res, page);
     });
   }
