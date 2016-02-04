@@ -81,7 +81,7 @@ gulp.task('webpack', 'Builds sources for client side', function () {
  */
 gulp.task('build', 'Builds the server app (compiles & copies)', function (callback) {
     $.runSequence('clean',
-      ['compile'],
+      ['tslint','compile'],
       'copyNonTs',
       'webpack',
       callback)

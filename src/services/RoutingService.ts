@@ -141,7 +141,7 @@ export class RoutingService {
           if (typeof u[0] === 'undefined') {
             return routes[j];
           }
-          var routes = routes[j]._routes;
+          routes = routes[j]._routes;
           return this._findRoute(u, routes);
         } else {
           return routes[j];
