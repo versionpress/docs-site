@@ -12,7 +12,9 @@ This project handles serving of the [user documentation](https://github.com/vers
 3. In the `./src` folder, create `.env` file from `.env.example` and update the variables as necessary
     - Specifically, set the `DOCS_SOURCE_ROOT` to point to the `content` folder of a local clone of the [docs repo](https://github.com/versionpress/docs).
 
-You can now run `npm run help` to see the available commands, e.g., `build` or `watchAndServe` (see below). We are using gulp locally. Some commands have helpers prepared in `package.json`, for others you should use command `npm run gulp [TASK]`.
+**Note about Gulp:** Having Gulp CLI installed globally (`npm install -g gulp-cli`) is optional. If you have it, you can run `gulp ...` instead of `npm run gulp ...` in the examples below, and there are shortcuts for common tasks like `npm run build`. Both variants will use a local Gulp version so they are really equivalent.
+
+You can now run `npm run help` to see the available commands, e.g., `build` or `watchAndServe` (see below).
 
 ## Building and running
 
