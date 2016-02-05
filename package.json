@@ -6,7 +6,11 @@
   "scripts": {
     "postinstall": "./node_modules/.bin/tsd reinstall --save",
     "prebuild": "npm run clean",
-    "lint": "gulp tslint"
+    "gulp": "./node_modules/.bin/gulp",
+    "lint": "./node_modules/.bin/gulp tslint",
+    "build": "./node_modules/.bin/gulp build",
+    "watchAndServe": "./node_modules/.bin/gulp watchAndServe",
+    "help": "./node_modules/.bin/gulp help"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
