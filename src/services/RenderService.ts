@@ -20,12 +20,25 @@ module RenderService {
       }
       var output: string;
       if (route.content === '') {
-        output = md.Transform(removeFrontMatter(data.toString()));
+        output = md.Transform(removeVersionInvalidSections(removeFrontMatter(data.toString()), page.version));
         route.content = output;
       }
       page.docsArticle.content = route.content;
       callback(res, page);
     });
+  }
+
+  function removeVersionInvalidSections(data: string, version: string) {
+    // Regexp example and tests https://regex101.com/r/oU1qT5/5
+    var versionedRegex = new RegExp('^(--- ([\\d|.]*))((.|\\r\\n?|\\n)*?)(---)$','mg');
+    var m;
+    while ((m = versionedRegex.exec(data)) !== null) {
+      if (m.index === versionedRegex.lastIndex) {
+        versionedRegex.lastIndex++;
+      }
+      console.log(m);
+    }
+    return data;
   }
 
   function removeFrontMatter(data: string) {
