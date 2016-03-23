@@ -1,7 +1,7 @@
 'use strict';
 
 //Dependencies
-let gulp = require('gulp'),
+var gulp = require('gulp'),
   $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'del', 'run-sequence']
   }),
@@ -37,10 +37,14 @@ gulp.task('copyNonTs', false, function () {
  * Lints typescript code
  */
 gulp.task('tslint', 'Runs a typescript linter on the application code', function () {
-    gulp.src(config.tsLinter.sources)
-      .pipe($.tslint(config.tsLinter.options))
-      .pipe($.tslint.report(config.tsLinter.reporter))
-  }
+      if (process.env.TS_LINT == '0') {
+        $.util.log($.util.colors.yellow('NOTICE'), ' linting of Typescript files is disabled in environment TS_LINT variable');
+      } else {
+          gulp.src(config.tsLinter.sources)
+              .pipe($.tslint(config.tsLinter.options))
+              .pipe($.tslint.report(config.tsLinter.reporter));
+      }
+    }
 );
 
 /**
