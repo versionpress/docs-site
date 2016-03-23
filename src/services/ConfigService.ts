@@ -60,8 +60,17 @@ export class ConfigService {
   }
 
   private _init(): void {
-    this._docsDir = process.env.DOCS_SOURCE_FOLDER || '.';
-    this._appConfig = YAML.load(path.resolve(this._docsDir, this._configFileName));
+    this._docsDir = process.env.DOCS_SOURCE_FOLDER;
+    if (typeof this._docsDir === 'undefined') {
+      throw new Error('DOCS_SOURCE_FOLDER environment variable not set.');
+    }
+    var configPath = path.resolve(this._docsDir, this._configFileName);
+    try {
+      fs.accessSync(configPath, fs.F_OK);
+    } catch (e) {
+      throw new Error(this._configFileName + ' not found! you have probably not set DOCS_SOURCE_FOLDER environment variable correctly.');
+    }
+    this._appConfig = YAML.load(configPath);
     this._siteRoot = process.env.WEBSITE_ROOT;
   }
 
