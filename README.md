@@ -46,8 +46,13 @@ When run on a Node.js server, use `dist` as a working dir and `server.js` as a s
 
 In production, Node.js server should not be exposed directly to the internet. Some kind of http server (e.g., [Nginx](http://nginx.org/)) should be placed in front of it.
 
+## Deployment
+Built application can be deployed "old fashion way" by uploading `dist`, `node_modules` folders to a server and running command `node server.js` from `dist` folder. Any other modern ways such as containerized run or cloud deploy can be used.
 
 ## Development environment tips
 
 - Please use an IDE / editor that supports `.editorconfig`.
 - Linting is part of the build process. For linting manually - run `npm run lint`.
+
+
+
