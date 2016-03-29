@@ -3,12 +3,10 @@
 
 // Load environment variables from file if present
 import dotenv = require('dotenv');
-import fs = require('fs');
 dotenv.load({
   silent: true,
-  path: fs.existsSync('src/.env') ? 'src/.env' : './.env'
+  path: __dirname + '/.env'
 });
-
 // Boot server
 import * as debug from 'debug';
 import app from './app';
