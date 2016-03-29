@@ -5,17 +5,23 @@ let gulp = require('gulp'),
     pattern: ['gulp-*']
   }),
   environment = require('./lib/environment.js');
+var browserSync = require('browser-sync');
 
-gulp.task('webpack-dev-server', 'Launches webpack-dev-server', function () {
+gulp.task('webpack-dev-server', 'Launches webpack-dev-server', ['build'], function () {
   require("../webpack/webpack.dev.server.js");
 });
 
 gulp.task('serve', 'Launch the server on development mode, autoreloads it when there are code changes', ['build', 'webpack-dev-server'], function () {
 
+  require('dotenv').load({
+    silent: true,
+    path: './dist/.env'
+  });
+
   var nodemonConfiguration = {
     script: './dist/server.js',
-    ext: 'jade ts', //reload when any of these file extensions changes
-    ignore: [],
+    watch: ['dist', process.env.DOCS_SOURCE_FOLDER],
+    ext: 'jade js md',
     env: {
       'NODE_ENV': 'development'
     }
@@ -29,7 +35,11 @@ gulp.task('serve', 'Launch the server on development mode, autoreloads it when t
   $.nodemon(nodemonConfiguration)
     //.on('change', ['lint'])
     .on('restart', function () {
-      console.log('restarted!')
+      console.log('restarted!');
+    })
+    .on('start', function() {
+      // 'restart' is too early; browsers need to be reloaded after the new Node process fully started
+      browserSync.reload();
     });
 
 }, {
