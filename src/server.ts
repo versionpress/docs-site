@@ -3,9 +3,10 @@
 
 // Load environment variables from file if present
 import dotenv = require('dotenv');
+import fs = require('fs');
 dotenv.load({
   silent: true,
-  path: 'src/.env'
+  path: fs.existsSync('src/.env') ? 'src/.env' : './.env'
 });
 
 // Boot server
