@@ -20,16 +20,16 @@ var tsProject = $.typescript.createProject('tsconfig.json');
  * Cleans the dist folder
  */
 gulp.task('clean', function () {
-  $.del(['dist'])
+  return $.del(['dist']);
 });
 
 /**
  * Precopies all non-ts files into the dist folder
  */
 gulp.task('copyNonTs', false, function () {
-    gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts', '!src/public/js/**/*','!src/public/less/**/*'])
-      .pipe($.chmod(666))
-      .pipe(gulp.dest('dist'))
+  return gulp.src(['src/.env', 'src/**/*', '!src/**/*.ts', '!src/public/js/**/*', '!src/public/less/**/*'])
+    .pipe($.chmod(666))
+    .pipe(gulp.dest('dist'))
   }
 );
 
@@ -40,7 +40,7 @@ gulp.task('tslint', 'Runs a typescript linter on the application code', function
       if (process.env.TS_LINT == '0') {
         $.util.log($.util.colors.yellow('NOTICE'), ' linting of Typescript files is disabled in environment TS_LINT variable');
       } else {
-          gulp.src(config.tsLinter.sources)
+          return gulp.src(config.tsLinter.sources)
               .pipe($.tslint(config.tsLinter.options))
               .pipe($.tslint.report(config.tsLinter.reporter));
       }
@@ -59,7 +59,7 @@ gulp.task('compile', false, function () {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('webpack', 'Builds sources for client side', function () {
+gulp.task('webpack', 'Builds sources for client side', function (cb) {
 
   webpack(webpackConfig, function (err, stats) {
     var jsonStats = stats.toJson();
@@ -77,6 +77,8 @@ gulp.task('webpack', 'Builds sources for client side', function () {
       chunks: false,
       chunkModules: false
     }));
+
+    cb();
   });
 });
 
