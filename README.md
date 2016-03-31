@@ -1,7 +1,6 @@
-#VersionPress Docs Site #
+# VersionPress Docs Site
 
 This project handles serving of the [user documentation](https://github.com/versionpress/docs). It is deployed as [docs.versionpress.net](http://docs.versionpress.net/).
-
 
 
 ## Setup
@@ -16,6 +15,7 @@ This project handles serving of the [user documentation](https://github.com/vers
 
 You can now run `npm run help` to see the available commands, e.g., `build` or `watchAndServe` (see below).
 
+
 ## Building and running
 
 ### Development mode
@@ -28,9 +28,11 @@ Application is built and Node.js server started. Resources are processed via web
 
 If you do not want to use hot module replacement where resources are provided via `webpack-dev-server` running on port `8888`, set variable `WEBPACK` in your `.env` file to `0`. After that, scripts and styles are loaded in a standard way.
 
+
 #### Linting
 
 Linting is part of the build process and it is performed according to the description file `tslint.json`.
+
 
 ### Production mode
 
@@ -46,8 +48,10 @@ When run on a Node.js server, use `dist` as a working dir and `server.js` as a s
 
 In production, Node.js server should not be exposed directly to the internet. Some kind of http server (e.g., [Nginx](http://nginx.org/)) should be placed in front of it.
 
+
 ## Deployment
 Built application can be deployed "old fashion way" by uploading `dist`, `node_modules` folders to a server and running command `node server.js` from `dist` folder. Any other modern ways such as containerized run or cloud deploy can be used.
+
 
 ## Development environment tips
 
