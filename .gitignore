@@ -1,24 +1,22 @@
-# IDEA project files
+# Project files
 .idea
 
-# Build dirs
-/dist
-/node_modules
 
-# TypeScript definition files
+# Downloaded dependencies
+/node_modules
 /typings
 !/typings/custom/*.*
 !/typings/typings.d.ts
 !/typings/dotenv/dotenv.d.ts
 
+
+# Build artifacts
+/dist
 /src/**/*.js
 /src/**/*.map
-
+/src/public/*.css
 !/src/public/js/**/*.js
 
-# Environment configuration
-.env
-
-
 # Other
+.env
 tsd-debug.log

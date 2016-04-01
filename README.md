@@ -1,62 +1,47 @@
 # VersionPress Docs Site
 
-This project handles serving of the [user documentation](https://github.com/versionpress/docs). It is deployed as [docs.versionpress.net](http://docs.versionpress.net/).
+This project handles serving of the [user documentation](https://github.com/versionpress/docs). It is deployed to [docs.versionpress.net](http://docs.versionpress.net/).
 
 
-## Setup
+## Running locally
 
-1. Install [Node.js](https://nodejs.org).
-    - The project was built using version [v4.2.6 LTS](https://nodejs.org/en/blog/release/v4.2.6/) but should generally run on any Node version.
-2. Run `npm install`
-3. In the `./src` folder, create `.env` file from `.env.example` and update the variables as necessary
-    - Specifically, set the `DOCS_SOURCE_ROOT` to point to the `content` folder of a local clone of the [docs repo](https://github.com/versionpress/docs).
+1. Install [Node.js](https://nodejs.org) 4.2.6 LTS or newer.
+5. Run `npm install`.
+3. In the `src` folder, create `.env` from `.env.example` and update the values as necessary.
+    - Specifically, check that `DOCS_SOURCE_ROOT` points to the `content` folder of a cloned [docs repo](https://github.com/versionpress/docs).
+4. Run `npm run watch`. This will build the project, watch the source files (both JS and Markdown) and open the browser for you.
 
-**Note about Gulp:** Having Gulp CLI installed globally (`npm install -g gulp-cli`) is optional. If you have it, you can run `gulp ...` instead of `npm run gulp ...` in the examples below, and there are shortcuts for common tasks like `npm run build`. Both variants will use a local Gulp version so they are really equivalent.
-
-You can now run `npm run help` to see the available commands, e.g., `build` or `watchAndServe` (see below).
+By default, the browser will open at **<http://localhost:3001>** (3000 is the Node.js port, Browsersync runs its own tiny webserver at a port incremented by 1).
 
 
-## Building and running
+## Editing Markdown files
 
-### Development mode
-
-The application is using webpack and gulp as build and task running tool. The most convinient way to start development on this project is to run
-
-    $ npm run watchAndServe
-
-Application is built and Node.js server started. Resources are processed via webpack and provided to client using webpack-dev-server. Application is accessible at http://localhost:3000/.
-
-If you do not want to use hot module replacement where resources are provided via `webpack-dev-server` running on port `8888`, set variable `WEBPACK` in your `.env` file to `0`. After that, scripts and styles are loaded in a standard way.
+Markdown files in the `docs` repo that you specified using the `DOCS_SOURCE_ROOT` environment variable are automatically watched. Just edit them and see the site re-rendered in the browser automatically.
 
 
-#### Linting
+## Developing the docs site
 
-Linting is part of the build process and it is performed according to the description file `tslint.json`.
+### Server-side (Node.js) code
+
+While the `watch` task is running, simply edit any TypeScript, Jade or similar file and the Node server will be reloaded and browsers refreshed via Browsersync.
+
+The project can be built manually using `npm run build`.
+
+### Client-side code (JS, LESS, ...) 
+
+While the `watch` task is running, you can edit any client-side file, e.g., LESS file, client-side JS / TS etc. It will be automatically compiled for you and browsers will be refreshed via Browsersync.
+
+Note: this doesn't use webpack dev server yet so it is quite slow, somewhere around 3-5 seconds. We'll add webpack dev server in the future if we find the workflow too painful.
 
 
-### Production mode
+## Gulp tasks
 
-Before deploying to the server, run the command
+Build is automated via Gulp. Common actions have `npm run xyz` aliases so you don't even need to have Gulp CLI installed globally but if you do, `gulp xyz` will work equally well.
 
-    $ npm run build
-
-which builds the application and puts all of its files into the `dist` folder.
-
-When run on a Node.js server, use `dist` as a working dir and `server.js` as a startup script. URL of the deployed application is the same as in development mode, i.e., <http://localhost:3000/>. The port can be adjusted by setting the `PORT` variable in the `.env` file.
-
-**Note**
-
-In production, Node.js server should not be exposed directly to the internet. Some kind of http server (e.g., [Nginx](http://nginx.org/)) should be placed in front of it.
+Run `gulp help` to see the available tasks or inspect `package.json` to see the predefined `npm run` aliases.
 
 
 ## Deployment
-Built application can be deployed "old fashion way" by uploading `dist`, `node_modules` folders to a server and running command `node server.js` from `dist` folder. Any other modern ways such as containerized run or cloud deploy can be used.
 
-
-## Development environment tips
-
-- Please use an IDE / editor that supports `.editorconfig`.
-- Linting is part of the build process. For linting manually - run `npm run lint`.
-
-
+AWS Elastic Beanstalk runs the app. TODO: document the deployment.
 

@@ -1,7 +1,7 @@
 /// <reference path="../../typings/typings.d.ts" />
 
 import * as $ from 'jquery';
-import '../public/less/style-docs.less';
+require('../public/less/style-docs.less');
 
 window['jQuery'] = $;
 window['$'] = $;
