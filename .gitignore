@@ -13,6 +13,7 @@
 
 /src/**/*.js
 /src/**/*.map
+/src/public/*.css
 
 !/src/public/js/**/*.js
 
