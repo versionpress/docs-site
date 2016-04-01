@@ -37,7 +37,7 @@ app.use(cookieParser());
 
 app.use('/public/img', express.static(__dirname + '/public/img')); // Serve public files
 app.use('/public', express.static(__dirname + '/public'));
-app.use('/public/css/app.css', express.static(__dirname + '/public/app.css'));
+app.use('/public/bundle.js', express.static(__dirname + '/public/bundle.js'));
 
 app.use('/media', express.static(ConfigService.getInstance().docsDir + '/media'));
 
