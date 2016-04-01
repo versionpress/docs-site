@@ -29,9 +29,9 @@ The project can be built manually using `npm run build`.
 
 ### Client-side code (JS, LESS, ...) 
 
-You should still have the `watch` task running for this but client-side code is currently not built automatically. Run `gulp compile-client` (or directly `webpack` if you have it installed globally) after editing LESS files and similar. Or, you can run the full `npm run build` if you want, it will just be a bit slower. 
+While the `watch` task is running, you can edit any client-side file, e.g., LESS file, client-side JS / TS etc. It will be automatically compiled for you and browsers will be refreshed via Browsersync.
 
-If you have the `watch` task running as suggested above, the assets will be copied to the running Node.js site automatically and browsers will be refreshed for you.
+Note: this doesn't use webpack dev server yet so it is quite slow, somewhere around 3-5 seconds. We'll add webpack dev server in the future if we find the workflow too painful.
 
 
 ## Gulp tasks

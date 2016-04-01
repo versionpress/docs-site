@@ -90,7 +90,7 @@ gulp.task('nodemon', false, ['build'], function() {
     });
 
   gulp.watch(['src/**/*.ts'], ['compile-server']);
-  gulp.watch(['src/.env', 'src/**/*', '!src/**/*.ts'], ['copy-files']);
+  gulp.watch(['src/.env', 'src/**/*', '!src/**/*.ts'], ['compile-client', 'copy-files']);
 });
 
 
