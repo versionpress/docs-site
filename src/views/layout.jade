@@ -50,8 +50,8 @@ html
             if(previousRoute)
               div.previous-topic
                 div.caption Previous:
-                  div.link
-                    a(href="/#{language}/#{previousRoute.url}") #{previousRoute.url == "" ? "Home" : previousRoute.title}
+                div.link
+                  a(href="/#{language}/#{previousRoute.url}") #{previousRoute.url == "" ? "Home" : previousRoute.title}
             if(nextRoute)
               div.next-topic
                 div.caption Next:
