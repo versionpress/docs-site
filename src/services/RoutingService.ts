@@ -2,6 +2,8 @@
 import fs = require('fs');
 import {Route} from '../models/Route';
 import {ConfigService} from '../services/ConfigService';
+import * as VersionUtils  from '../utils/VersionUtils';
+import * as semver from 'semver';
 
 export class RoutingService {
 
@@ -32,7 +34,7 @@ export class RoutingService {
    * Traverses directories and returns Route collection which are allowed for provided version
    * @param dir directory to scan
    * @param rootPath root path used as constant during traversing
-   * @param version version stored into Route 0 if null provided
+   * @param version version stored into Route '0' if null provided
    * @param limitVersion version which should article match (be same or lower)
    * @param callback callback function
    * @private
@@ -173,7 +175,7 @@ export class RoutingService {
   }
 
   private  _keepRouteInTree(route: Route) {
-    return (route.since <= Number(ConfigService.getInstance().appConfig.displayVersion));
+     return semver.lte(VersionUtils.versionToSemver(route.since), VersionUtils.versionToSemver(ConfigService.getInstance().appConfig.displayVersion), true);
   }
 
   private _filterRoutesForVersion(route: Route) {
@@ -203,5 +205,4 @@ export class RoutingService {
       }
     });
   }
-
 }

@@ -56,7 +56,7 @@ export class ConfigService {
     if (fs.existsSync(configFile)) {
       return ConfigService.getDirConfig(configFile).since;
     }
-    return 0;
+    return '0';
   }
 
   private _init(): void {
