@@ -4,7 +4,7 @@
   "repository": "https://github.com/versionpress/docs-site",
   "private": true,
   "scripts": {
-    "postinstall": "./node_modules/.bin/tsd reinstall --save",
+    "postinstall": "./node_modules/.bin/typings install --save",
     "gulp": "./node_modules/.bin/gulp",
     "build": "./node_modules/.bin/gulp build",
     "watch": "./node_modules/.bin/gulp watch",
@@ -36,11 +36,12 @@
     "gulp-nodemon": "^2.0.6",
     "gulp-typescript": "^2.10.0",
     "gulp-util": "^3.0.7",
+    "less": "^2.6.1",
     "less-loader": "^2.2.2",
     "run-sequence": "^1.1.5",
     "style-loader": "^0.13.0",
     "ts-loader": "^0.7.2",
-    "tsd": "^0.6.5",
+    "typings": "^0.8.1",
     "webpack": "^1.12.10",
     "webpack-stream": "^3.1.0"
   }

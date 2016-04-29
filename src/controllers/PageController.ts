@@ -1,4 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
 /// <reference path="../models/DocsArticle.ts" />
 /// <reference path="../models/Page.ts" />
 
@@ -18,9 +17,7 @@ module PageController {
   var cfg: ConfigService = ConfigService.getInstance();
   var rs: RoutingService = RoutingService.getInstance();
 
-  /*
-   * Return an empty 200 response
-   */
+
   export function renderPage(req: Request, res: Response) {
     var language: string = req.path.split('/')[1];
     return _renderPage(req, res, language);

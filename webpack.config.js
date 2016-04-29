@@ -21,7 +21,10 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap!autoprefixer?browsers=last 2 version!less?sourceMap=true')
+        loader: ExtractTextPlugin.extract(
+            'css?sourceMap!' +
+            'less?sourceMap'
+        )
       }
     ]
   },

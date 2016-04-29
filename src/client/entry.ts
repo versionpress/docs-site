@@ -1,5 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
-
 import * as $ from 'jquery';
 require('../public/less/style-docs.less');
 
