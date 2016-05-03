@@ -23,7 +23,7 @@ module ErrorHandler {
     if (typeof language === 'undefined') {
       language = rs.languages[0];
     }
-    var page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
+    var page = new Page(docsArticle, cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
     page.language = Language[language];
 
     res.status(res.statusCode || 500);

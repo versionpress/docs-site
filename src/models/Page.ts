@@ -6,7 +6,7 @@ import {Language} from './Language';
 
 export class Page {
 
-  version: string;
+  displayVersion: string;
   docsArticle: DocsArticle;
   rootRoute: Route;
   previousRoute: Route;
@@ -16,9 +16,9 @@ export class Page {
   errorMessage: string;
   error: any;
 
-  constructor(article: DocsArticle, version: string, rootRoute: Route) {
+  constructor(article: DocsArticle, displayVersion: string, rootRoute: Route) {
     this.docsArticle = article;
-    this.version = version;
+    this.displayVersion = displayVersion;
     this.rootRoute = rootRoute;
   }
 

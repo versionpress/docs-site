@@ -19,7 +19,7 @@ html
             | VersionPress Documentation
             span.docs-for-version for version
               = ' '
-              span.docs-version #{version)
+              span.docs-version #{displayVersion)
         ul(class="nav navbar-nav navbar-right")
           li
             a(href="http://versionpress.net") VersionPress Home
@@ -30,7 +30,7 @@ html
             div.outline-header
               | Docs for
               = ' '
-              strong: | VersionPress #{version}
+              strong: | VersionPress #{displayVersion}
             ul#menu
               li
                 a(href="/#{language}") Home

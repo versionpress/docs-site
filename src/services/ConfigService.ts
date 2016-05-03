@@ -2,6 +2,8 @@
 import * as YAML from 'yamljs';
 import * as path from 'path';
 import fs = require('fs');
+import * as VersionUtils  from '../utils/VersionUtils';
+import {SemVer} from 'semver';
 
 export class ConfigService {
 
@@ -54,9 +56,9 @@ export class ConfigService {
   public getVersionFromConfig(dir: string) {
     var configFile = path.resolve(dir, this._configFileName);
     if (fs.existsSync(configFile)) {
-      return ConfigService.getDirConfig(configFile).since;
+      return VersionUtils.toSemver(ConfigService.getDirConfig(configFile).since);
     }
-    return '0';
+    return VersionUtils.toSemver('0');
   }
 
   private _init(): void {
@@ -82,8 +84,13 @@ export class ConfigService {
     return this._siteRoot;
   }
 
-  get appConfig() {
-    return this._appConfig;
+
+  public getDisplayVersion() {
+    return this._appConfig.displayVersion;
+  }
+  
+  public getSemverDisplayVersion(){
+    return VersionUtils.toSemver(this._appConfig.displayVersion);
   }
 
   get configFileName() {

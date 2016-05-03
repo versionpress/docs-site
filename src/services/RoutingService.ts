@@ -2,8 +2,8 @@
 import fs = require('fs');
 import {Route} from '../models/Route';
 import {ConfigService} from '../services/ConfigService';
+import {SemVer} from 'semver';
 import * as VersionUtils  from '../utils/VersionUtils';
-import * as semver from 'semver';
 
 export class RoutingService {
 
@@ -39,7 +39,7 @@ export class RoutingService {
    * @param callback callback function
    * @private
    */
-  private static _walkDir(dir: string, rootPath: string, version: string, limitVersion: string, language: string, callback: Function) {
+  private static _walkDir(dir: string, rootPath: string, version: SemVer, limitVersion: SemVer, language: string, callback: Function) {
     fs.readdir(dir, function (err, list) {
       if (err) {
         return callback(err);
@@ -72,7 +72,7 @@ export class RoutingService {
             } else {
               var fMatter = ConfigService.getFrontMatter(file);
               if (fMatter !== null) {
-                var newRoute = new Route(rootPath, file, fMatter.since, language);
+                var newRoute = new Route(rootPath, file, VersionUtils.toSemver(fMatter.since), language);
                 parentRoute.addChild(newRoute);
               } else {
                 var newRoute = new Route(rootPath, file, since, language);
@@ -131,7 +131,7 @@ export class RoutingService {
     const lng = process.env.AVAILABLE_LANGUAGES || 'en';
     this._languages = lng.split(',');
     for (var language of this._languages) {
-      this._initializeRoutes(docsRootFolder, language, ConfigService.getInstance().appConfig.displayVersion);
+      this._initializeRoutes(docsRootFolder, language, ConfigService.getInstance().getSemverDisplayVersion());
     }
   }
 
@@ -175,7 +175,7 @@ export class RoutingService {
   }
 
   private  _keepRouteInTree(route: Route) {
-     return semver.lte(VersionUtils.versionToSemver(route.since), VersionUtils.versionToSemver(ConfigService.getInstance().appConfig.displayVersion), true);
+     return route.since.compare(ConfigService.getInstance().getSemverDisplayVersion()) <= 0;
   }
 
   private _filterRoutesForVersion(route: Route) {
@@ -195,7 +195,7 @@ export class RoutingService {
 
   }
 
-  private  _initializeRoutes(rootPath: string, language: string, version: string) {
+  private  _initializeRoutes(rootPath: string, language: string, version: SemVer) {
     var path = rootPath + '/' + language;
     RoutingService._walkDir(path, path, null, version, language, (err, routes) => {
       if (!err) {
