@@ -91,8 +91,8 @@ export class ConfigService {
     return VersionUtils.toSemver(this._appConfig.displayVersion);
   }
   
-  public getRedirectRules() {
-    return this._appConfig.redirectRules;
+  public getRedirects() {
+    return this._appConfig.redirects;
   }
 
   get configFileName() {

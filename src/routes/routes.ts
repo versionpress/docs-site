@@ -12,9 +12,10 @@ var cfg = ConfigService.getInstance();
 
 for (var language of rs.languages) {
   router.get('/' + language + '/*', function (request, response) {
-    if(rs.shouldBeRedirected(request.path)){
-      console.log("Redirecting " + request.path + " -> " + cfg.getRedirectRules()[request.path]);
-      response.redirect(301, cfg.getRedirectRules()[request.path]);
+    if(rs.shouldBeRedirected(request.path.substring(1))){
+      let redirectPath = cfg.getRedirects()[request.path.substring(1)];
+      console.log("Redirecting " + request.path.substring(1) + " -> " + redirectPath);
+      response.redirect(301, "/" + redirectPath);
     } else {
       renderPage(request, response);
     }

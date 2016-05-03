@@ -102,7 +102,7 @@ export class RoutingService {
   }
 
   public shouldBeRedirected(url: string) {
-    let redirectRules = ConfigService.getInstance().getRedirectRules();
+    let redirectRules = ConfigService.getInstance().getRedirects();
     return (typeof redirectRules!== "undefined") && (typeof redirectRules[url] !== "undefined");
   }
 
