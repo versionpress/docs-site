@@ -15,6 +15,7 @@
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#81b951f1ac437d1eb5ff5171a0bfa6c467634b13",
     "serve-favicon": "github:DefinitelyTyped/DefinitelyTyped/serve-favicon/serve-favicon.d.ts#81b951f1ac437d1eb5ff5171a0bfa6c467634b13",
     "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#81b951f1ac437d1eb5ff5171a0bfa6c467634b13",
-    "yamljs": "github:DefinitelyTyped/DefinitelyTyped/yamljs/yamljs.d.ts#70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e"
+    "yamljs": "github:DefinitelyTyped/DefinitelyTyped/yamljs/yamljs.d.ts#70bf7e2bfeb0d5b1b651ef3219bcc65c8eec117e",
+    "semver": "registry:npm/semver#5.0.0+20160211003958"
   }
 }

@@ -90,6 +90,10 @@ export class ConfigService {
   public getSemverDisplayVersion() {
     return VersionUtils.toSemver(this._appConfig.displayVersion);
   }
+  
+  public getRedirects() {
+    return this._appConfig.redirects;
+  }
 
   get configFileName() {
     return this._configFileName;
