@@ -13,7 +13,7 @@ export class ConfigService {
 
   private _siteRoot: string;
 
-  private _configFileName: string = 'config.yaml';
+  private _configFileName: string = 'config.yml';
 
   constructor() {
     if (ConfigService._instance) {
