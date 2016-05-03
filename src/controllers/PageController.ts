@@ -30,11 +30,11 @@ module PageController {
     var route: Route = rs.getRouteByUrl(req.path);
     if (typeof route !== 'undefined') {
       docsArticle.title = route.title;
-      let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLngAndVersion(language));
+      let page = new Page(docsArticle, cfg.getDisplayVersion(), rs.getRoutesForLngAndVersion(language));
       page.nextRoute = rs.getNext(route.url, language);
       page.previousRoute = rs.getPrevious(route.url, language);
       page.language = Language[language];
-      if (route.isValidForCurrentVersion(page.version)) {
+      if (route.isValidForCurrentVersion(cfg.getSemverDisplayVersion())) {
         page.nextRoute = rs.getNext(route.url, language);
         page.previousRoute = rs.getPrevious(route.url, language);
         renderDocument(route, page, res, _renderIndex);
@@ -43,7 +43,7 @@ module PageController {
       }
     } else {
       docsArticle.title = 'Page Not Found';
-      let page = new Page(docsArticle, cfg.appConfig.displayVersion, rs.getRoutesForLanguage(language));
+      let page = new Page(docsArticle, cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
       page.language = Language[language];
       page.url = req.protocol + '://' + cfg.siteRoot + req.path;
       res.status(404).render('404', page);

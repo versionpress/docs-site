@@ -1,4 +1,6 @@
 import fs = require('fs');
+import * as VersionUtils  from '../utils/VersionUtils';
+import {SemVer} from 'semver';
 
 export class Route {
 
@@ -6,7 +8,7 @@ export class Route {
 
   language: string;
   title: string;
-  since: number;
+  since: SemVer;
   url: string;
   path: string;
   file: string;
@@ -16,7 +18,7 @@ export class Route {
   _routes: Array<Route>;
   lastModified: Date;
 
-  constructor(rootPath: string, file: string, since: number, language: string) {
+  constructor(rootPath: string, file: string, since: SemVer, language: string) {
     this.since = since;
     this.content = '';
     let relativePath = file.replace(rootPath, '');
@@ -47,7 +49,7 @@ export class Route {
   }
 
   public static newFromRoute(route: Route) {
-    var newRoute = new Route('', '', 0, '');
+    var newRoute = new Route('', '', VersionUtils.toSemver('0'), '');
     newRoute.since = route.since;
     newRoute.file = route.file;
     newRoute.url = route.url;
@@ -62,8 +64,8 @@ export class Route {
     return newRoute;
   }
 
-  public isValidForCurrentVersion(version: string): boolean {
-    return Number(this.since) <= Number(version);
+  public isValidForCurrentVersion(version: SemVer): boolean {
+    return this.since.compare(version) <= 0;
   }
 
   public get routes() {

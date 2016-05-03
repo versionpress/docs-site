@@ -1,5 +1,3 @@
-'use strict';
-
 import { Router } from 'express';
 import { renderPage } from '../controllers/PageController';
 import { renderSitemap } from '../controllers/SitemapController';
