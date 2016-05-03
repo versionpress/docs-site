@@ -1,4 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
 var markdown = require('markdowndeep');
 import fs = require('fs');
 import {Page} from '../models/Page';
