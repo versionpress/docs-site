@@ -1,4 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
 import fs = require('fs');
 import * as VersionUtils  from '../utils/VersionUtils';
 import {SemVer} from 'semver';

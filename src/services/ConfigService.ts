@@ -2,7 +2,6 @@ import * as YAML from 'yamljs';
 import * as path from 'path';
 import fs = require('fs');
 import * as VersionUtils  from '../utils/VersionUtils';
-import {SemVer} from 'semver';
 
 export class ConfigService {
 
@@ -88,7 +87,7 @@ export class ConfigService {
     return this._appConfig.displayVersion;
   }
   
-  public getSemverDisplayVersion(){
+  public getSemverDisplayVersion() {
     return VersionUtils.toSemver(this._appConfig.displayVersion);
   }
 

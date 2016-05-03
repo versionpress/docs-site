@@ -13,7 +13,7 @@ module VersionUtils {
      * 10.20-rc1 => 10.20.0-rc1
      *
      */
-    export function toSemver (version: string) {
+    export function toSemver (version: string): SemVer {
         // rhttps://regex101.com/r/cQ5hQ9/1
         let re = /^(\d+(\.\d+)?)(?!\.\d+)(.*)$/;
         let m = re.exec(version);
