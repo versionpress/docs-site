@@ -101,6 +101,11 @@ export class RoutingService {
     return this._findRoute(u, this._routes);
   }
 
+  public shouldBeRedirected(url: string) {
+    let redirectRules = ConfigService.getInstance().getRedirectRules();
+    return (typeof redirectRules!== "undefined") && (typeof redirectRules[url] !== "undefined");
+  }
+
   public getNext(url: string, language: string) {
     return this._findSibling(url, language, 1);
   }

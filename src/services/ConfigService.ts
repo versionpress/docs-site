@@ -13,7 +13,7 @@ export class ConfigService {
 
   private _siteRoot: string;
 
-  private _configFileName: string = 'config.yml';
+  private _configFileName: string = 'config.yaml';
 
   constructor() {
     if (ConfigService._instance) {
@@ -89,6 +89,10 @@ export class ConfigService {
   
   public getSemverDisplayVersion() {
     return VersionUtils.toSemver(this._appConfig.displayVersion);
+  }
+  
+  public getRedirectRules() {
+    return this._appConfig.redirectRules;
   }
 
   get configFileName() {
