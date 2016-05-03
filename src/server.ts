@@ -1,4 +1,3 @@
-/// <reference path="../typings/typings.d.ts" />
 'use strict';
 
 // Load environment variables from file if present

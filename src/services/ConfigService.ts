@@ -1,4 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
 import * as YAML from 'yamljs';
 import * as path from 'path';
 import fs = require('fs');

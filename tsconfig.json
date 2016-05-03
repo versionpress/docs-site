@@ -8,10 +8,15 @@
   },
   "filesGlob" :[
     "src/**/*.ts",
-    "typings/typings.d.ts",
+    "typings/main.d.ts",
+    "typings/custom/*.d.ts",
     "!./node_modules/**/*.ts"
   ],
   "files": [
-    "typings/typings.d.ts"
+    "typings/main.d.ts",
+    "typings/custom/jquery.equalheights.d.ts",
+    "typings/custom/jquery.toc.d.ts",
+    "typings/custom/stickyfill.d.ts",
+    "typings/custom/dotenv.d.ts"
   ]
 }

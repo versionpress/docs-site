@@ -1,4 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
 import { Request, Response } from 'express';
 import {DocsArticle} from '../models/DocsArticle';
 import {ConfigService} from '../services/ConfigService';

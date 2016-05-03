@@ -4,7 +4,7 @@
   "repository": "https://github.com/versionpress/docs-site",
   "private": true,
   "scripts": {
-    "postinstall": "./node_modules/.bin/tsd reinstall --save",
+    "postinstall": "./node_modules/.bin/typings install && typings prune",
     "gulp": "./node_modules/.bin/gulp",
     "build": "./node_modules/.bin/gulp build",
     "watch": "./node_modules/.bin/gulp watch",
@@ -29,6 +29,9 @@
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",
+    "autoprefixer-loader": "3.2.0",
+    "url-loader": "0.5.7",
+    "file-loader": "0.8.5",
     "css-loader": "^0.23.1",
     "del": "^2.2.0",
     "extract-text-webpack-plugin": "^1.0.1",
@@ -37,11 +40,12 @@
     "gulp-nodemon": "^2.0.6",
     "gulp-typescript": "^2.10.0",
     "gulp-util": "^3.0.7",
-    "less-loader": "^2.2.2",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
     "run-sequence": "^1.1.5",
-    "style-loader": "^0.13.0",
-    "ts-loader": "^0.7.2",
-    "tsd": "^0.6.5",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "typings": "^0.8.1",
     "webpack": "^1.12.10",
     "webpack-stream": "^3.1.0"
   }

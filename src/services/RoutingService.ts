@@ -1,4 +1,3 @@
-/// <reference path="../../typings/typings.d.ts" />
 import fs = require('fs');
 import {Route} from '../models/Route';
 import {ConfigService} from '../services/ConfigService';

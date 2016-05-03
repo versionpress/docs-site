@@ -21,7 +21,16 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap!autoprefixer?browsers=last 2 version!less?sourceMap=true')
+        loader: ExtractTextPlugin.extract(
+            'css-loader!' +
+            'autoprefixer-loader?' +
+            '{browsers:["Chrome >= 20", "Firefox >= 24", "Explorer >= 8", "Opera >= 12", "Safari >= 6"]}' +
+            '!less-loader?sourceMap'
+        )
+      },
+      {
+        loader: 'url-loader?limit=32768',
+        test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)(\?.*)?$/
       }
     ]
   },

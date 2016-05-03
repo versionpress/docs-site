@@ -6,8 +6,6 @@
 /node_modules
 /typings
 !/typings/custom/*.*
-!/typings/typings.d.ts
-!/typings/dotenv/dotenv.d.ts
 
 
 # Build artifacts
