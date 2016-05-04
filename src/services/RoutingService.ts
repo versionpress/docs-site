@@ -66,8 +66,8 @@ export class RoutingService {
           } else {
             var fName = file.substr(file.lastIndexOf('/') + 1);
 
-            if (fName === ConfigService.getInstance().configFileName) {
-              console.log('skipping CONFIG ' + file);
+            if (!fName.endsWith('.md')) {
+              console.log('skipping not Markdown file - ' + file);
             } else {
               var fMatter = ConfigService.getFrontMatter(file);
               if (fMatter !== null) {
