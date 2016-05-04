@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import {RoutingService} from '../services/RoutingService';
-import {ConfigService} from '../services/ConfigService';
+import { RoutingService } from '../services/RoutingService';
+import { ConfigService } from '../services/ConfigService';
 
 module SitemapController {
 

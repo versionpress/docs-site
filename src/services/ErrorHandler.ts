@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import {ConfigService} from '../services/ConfigService';
-import {RoutingService} from '../services/RoutingService';
-import {Language} from '../models/Language';
-import {Page} from '../models/Page';
+import { ConfigService } from '../services/ConfigService';
+import { RoutingService } from '../services/RoutingService';
+import { Language } from '../models/Language';
+import { Page } from '../models/Page';
 
 // Error handler service
 

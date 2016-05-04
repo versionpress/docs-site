@@ -1,8 +1,8 @@
 var markdown = require('markdowndeep');
 import fs = require('fs');
-import {Page} from '../models/Page';
-import {Route} from '../models/Route';
-import {Response} from 'express';
+import { Page } from '../models/Page';
+import { Route } from '../models/Route';
+import { Response } from 'express';
 
 module RenderService {
 

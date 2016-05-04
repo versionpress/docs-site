@@ -1,6 +1,5 @@
-/// <reference path="Route.ts" />
-import {Route} from './Route';
-import {Language} from './Language';
+import { Route } from './Route';
+import { Language } from './Language';
 
 export class Page {
 
@@ -12,8 +11,8 @@ export class Page {
   url: string;
   errorMessage: string;
   error: any;
-  title:string;
-  content:string;
+  title: string;
+  content: string;
 
   constructor(displayVersion: string, rootRoute: Route) {
     this.displayVersion = displayVersion;

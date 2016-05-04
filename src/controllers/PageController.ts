@@ -1,12 +1,10 @@
-/// <reference path="../models/Page.ts" />
-
 import { Request, Response } from 'express';
-import {Page} from '../models/Page';
-import {Route} from '../models/Route';
-import {Language} from '../models/Language';
-import {ConfigService} from '../services/ConfigService';
-import {RoutingService} from '../services/RoutingService';
-import {renderDocument} from '../services/RenderService';
+import { Page } from '../models/Page';
+import { Route } from '../models/Route';
+import { Language } from '../models/Language';
+import { ConfigService } from '../services/ConfigService';
+import { RoutingService } from '../services/RoutingService';
+import { renderDocument } from '../services/RenderService';
 
 module PageController {
 
@@ -38,7 +36,7 @@ module PageController {
         res.status(200).render('future-topic', page);
       }
     } else {
-     
+
       let page = new Page(cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
       page.language = Language[language];
       page.title = 'Page Not Found';
