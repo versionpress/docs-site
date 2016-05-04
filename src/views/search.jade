@@ -3,4 +3,14 @@ extends layout
 block content
   div.markdown-body
     h1 Search results
+  script.
+    (function () {
+    var cx = '002250818361510099278:umzm5ak2a1m';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+    })();
   gcse:searchresults-only(queryParameterName="q" linkTarget="_self")
