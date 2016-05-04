@@ -14,8 +14,7 @@ module SearchController {
 
 
   export function renderSearchResults(req:Request, res:Response) {
-    console.log(rs.getRoutesForLngAndVersion(req.query.language));
-    let render = {
+    let page = {
       title: 'Search results',
       language: Language[req.query.language],
       displayVersion: cfg.getDisplayVersion(),
@@ -23,7 +22,7 @@ module SearchController {
       rootRoute: rs.getRoutesForLngAndVersion(req.query.language)
     };
 
-    res.status(200).render('search',render);
+    res.status(200).render('search',page);
   }
 
 }
