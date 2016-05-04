@@ -22,7 +22,7 @@ module RenderService {
         output = md.Transform(removeFrontMatter(data.toString()));
         route.content = output;
       }
-      page.docsArticle.content = route.content;
+      page.content = route.content;
       callback(res, page);
     });
   }

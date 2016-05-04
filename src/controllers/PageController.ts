@@ -1,8 +1,6 @@
-/// <reference path="../models/DocsArticle.ts" />
 /// <reference path="../models/Page.ts" />
 
 import { Request, Response } from 'express';
-import {DocsArticle} from '../models/DocsArticle';
 import {Page} from '../models/Page';
 import {Route} from '../models/Route';
 import {Language} from '../models/Language';
@@ -25,15 +23,13 @@ module PageController {
 
   function _renderPage(req: Request, res: Response, language: string) {
 
-    let docsArticle = new DocsArticle();
-    docsArticle.title = req.params.article;
     var route: Route = rs.getRouteByUrl(req.path);
     if (typeof route !== 'undefined') {
-      docsArticle.title = route.title;
-      let page = new Page(docsArticle, cfg.getDisplayVersion(), rs.getRoutesForLngAndVersion(language));
+      let page = new Page(cfg.getDisplayVersion(), rs.getRoutesForLngAndVersion(language));
       page.nextRoute = rs.getNext(route.url, language);
       page.previousRoute = rs.getPrevious(route.url, language);
       page.language = Language[language];
+      page.title = route.title;
       if (route.isValidForCurrentVersion(cfg.getSemverDisplayVersion())) {
         page.nextRoute = rs.getNext(route.url, language);
         page.previousRoute = rs.getPrevious(route.url, language);
@@ -42,9 +38,10 @@ module PageController {
         res.status(200).render('future-topic', page);
       }
     } else {
-      docsArticle.title = 'Page Not Found';
-      let page = new Page(docsArticle, cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
+     
+      let page = new Page(cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
       page.language = Language[language];
+      page.title = 'Page Not Found';
       page.url = req.protocol + '://' + cfg.siteRoot + req.path;
       res.status(404).render('404', page);
     }
