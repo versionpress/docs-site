@@ -2,7 +2,7 @@ include ./mixins.jade
 doctype html
 html
   head
-    title= docsArticle.title + ' | VersionPress docs'
+    title= title + ' | VersionPress docs'
     link(rel="icon", href="/public/img/favicon.ico")
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -26,6 +26,8 @@ html
     div(class="container body-content")
       div.row
         div#sidebar
+          div#docs-search.outline-box
+            gcse:searchbox-only(resultsUrl="/search?language=#{language}" linktarget="_parent" queryParameterName="q")
           div#docs-navigation.outline-box
             div.outline-header
               | Docs for
@@ -44,7 +46,7 @@ html
             div#page-toc
               ul
                 li
-        div(class="markdown-body main-content")
+        div(class=externalContent ? "main-content" : "markdown-body main-content")
           block content
           div.prev-next-navigation
             if(previousRoute)

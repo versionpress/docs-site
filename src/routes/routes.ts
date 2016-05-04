@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { renderPage } from '../controllers/PageController';
+import { renderSearchResults } from '../controllers/SearchController';
 import { renderSitemap } from '../controllers/SitemapController';
 
 import { RoutingService} from '../services/RoutingService';
@@ -20,7 +21,7 @@ for (var language of rs.languages) {
   });
   router.get('/' + language, renderPage);
 }
-
+router.get('/search', renderSearchResults);
 router.get('/sitemap.xml', renderSitemap);
 
 router.get('/', function (request, response) {
