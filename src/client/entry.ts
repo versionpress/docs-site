@@ -32,7 +32,7 @@ $(document).ready(() => {
   });
 
   if (typeof getUrlVars()['q'] !== 'undefined') {
-    $('#search-box').val(decodeURIComponent(getUrlVars()['q']));
+    $('#search-box').val(decodeURIComponent(getUrlVars()['q'].replace(/\+/, '%20')));
   }
 
   // Add anchors to headings
