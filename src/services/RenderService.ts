@@ -1,16 +1,10 @@
-var markdown = require('markdowndeep');
 import fs = require('fs');
 import { Page } from '../models/Page';
 import { Route } from '../models/Route';
 import { Response } from 'express';
+import * as Marked from 'marked';
 
 module RenderService {
-
-  var md = new markdown.Markdown();
-  md.ExtraMode = true;
-  md.SafeMode = false;
-  md.AutoHeadingIDs = true;
-  md.MarkdownInHtml = true;
 
   export function renderDocument(route: Route, page: Page, res: Response, callback: Function) {
     fs.readFile(route.path, (err, data) => {
@@ -19,8 +13,7 @@ module RenderService {
       }
       var output: string;
       if (route.content === '') {
-        output = md.Transform(removeFrontMatter(data.toString()));
-        route.content = output;
+        route.content = Marked.parse(removeFrontMatter(data.toString()));
       }
       page.content = route.content;
       callback(res, page);
