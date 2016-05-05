@@ -86,11 +86,11 @@ export class ConfigService {
   public getDisplayVersion() {
     return this._appConfig.displayVersion;
   }
-  
+
   public getSemverDisplayVersion() {
     return VersionUtils.toSemver(this._appConfig.displayVersion);
   }
-  
+
   public getRedirects() {
     return this._appConfig.redirects;
   }

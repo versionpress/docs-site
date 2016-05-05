@@ -1,6 +1,3 @@
-'use strict';
-
-// Include dependencies
 import * as express from 'express';
 import * as path from 'path';
 import * as logger from 'morgan';
@@ -8,7 +5,7 @@ import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import * as bodyParser from 'body-parser';
 import * as moment from 'moment';
-import {ConfigService} from './services/ConfigService';
+import { ConfigService } from './services/ConfigService';
 
 // Modular Route definitions
 import * as routes from './routes/routes';

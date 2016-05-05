@@ -1,13 +1,9 @@
-/// <reference path="DocsArticle.ts" />
-/// <reference path="Route.ts" />
-import {Route} from './Route';
-import {DocsArticle} from './DocsArticle';
-import {Language} from './Language';
+import { Route } from './Route';
+import { Language } from './Language';
 
 export class Page {
 
   displayVersion: string;
-  docsArticle: DocsArticle;
   rootRoute: Route;
   previousRoute: Route;
   nextRoute: Route;
@@ -15,9 +11,10 @@ export class Page {
   url: string;
   errorMessage: string;
   error: any;
+  title: string;
+  content: string;
 
-  constructor(article: DocsArticle, displayVersion: string, rootRoute: Route) {
-    this.docsArticle = article;
+  constructor(displayVersion: string, rootRoute: Route) {
     this.displayVersion = displayVersion;
     this.rootRoute = rootRoute;
   }

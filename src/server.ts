@@ -1,5 +1,3 @@
-'use strict';
-
 // Load environment variables from file if present
 import dotenv = require('dotenv');
 dotenv.load({

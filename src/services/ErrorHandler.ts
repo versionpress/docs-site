@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
-import {DocsArticle} from '../models/DocsArticle';
-import {ConfigService} from '../services/ConfigService';
-import {RoutingService} from '../services/RoutingService';
-import {Language} from '../models/Language';
-import {Page} from '../models/Page';
+import { ConfigService } from '../services/ConfigService';
+import { RoutingService } from '../services/RoutingService';
+import { Language } from '../models/Language';
+import { Page } from '../models/Page';
 
 // Error handler service
 
@@ -18,21 +17,20 @@ module ErrorHandler {
     var cfg: ConfigService = ConfigService.getInstance();
     var rs: RoutingService = RoutingService.getInstance();
     var language: string = Language[req.path.split('/')[1]];
-    var docsArticle = new DocsArticle();
     if (typeof language === 'undefined') {
       language = rs.languages[0];
     }
-    var page = new Page(docsArticle, cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
+    var page = new Page(cfg.getDisplayVersion(), rs.getRoutesForLanguage(language));
     page.language = Language[language];
 
     res.status(res.statusCode || 500);
     if (res.statusCode === 404) {
       page.url = req.protocol + '://' + cfg.siteRoot + req.path;
-      docsArticle.title = 'Page Not Found';
+      page.title = 'Page Not Found';
       res.render('404', page);
 
     } else {
-      docsArticle.title = 'Error';
+      page.title = 'Error';
       page.error = includeStackTrace ? err : {};
       page.errorMessage = err.message;
       res.render('error', page);

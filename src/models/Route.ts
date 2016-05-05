@@ -1,6 +1,6 @@
 import fs = require('fs');
 import * as VersionUtils  from '../utils/VersionUtils';
-import {SemVer} from 'semver';
+import { SemVer } from 'semver';
 
 export class Route {
 

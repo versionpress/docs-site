@@ -296,3 +296,29 @@ body {
   border-top: 1px solid @navbar-default-border;
 
 }
+
+/* Google custom search styles
+--------------------------------------------------- */
+#docs-search {
+  padding: 10px;
+  overflow: auto;
+
+  #search-box {
+      font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 1em;
+      text-indent: 3px;
+      height: 30px;
+      width: 100%;
+      margin-right: 5px;
+      float: left;
+      display: block;
+      border: 1px solid #e7e7e7;
+      &:focus {
+          outline-width: 0;
+          border-color: #4183c4 !important;
+      }
+      &:hover {
+          border-color: #ddd;
+      }
+  }
+}

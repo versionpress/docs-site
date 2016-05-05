@@ -1,7 +1,7 @@
 import fs = require('fs');
-import {Route} from '../models/Route';
-import {ConfigService} from '../services/ConfigService';
-import {SemVer} from 'semver';
+import { Route } from '../models/Route';
+import { ConfigService } from '../services/ConfigService';
+import { SemVer } from 'semver';
 import * as VersionUtils  from '../utils/VersionUtils';
 
 export class RoutingService {
@@ -103,9 +103,9 @@ export class RoutingService {
 
   public shouldBeRedirected(url: string) {
     let redirectRules = ConfigService.getInstance().getRedirects();
-    return (typeof redirectRules!== "undefined") && (typeof redirectRules[url] !== "undefined");
+    return (typeof redirectRules !== "undefined") && (typeof redirectRules[url] !== "undefined");
   }
-  
+
   public getRedirectPath(url: string) {
     return ConfigService.getInstance().getRedirects()[url];
   }
@@ -183,7 +183,7 @@ export class RoutingService {
   }
 
   private  _keepRouteInTree(route: Route) {
-     return route.since.compare(ConfigService.getInstance().getSemverDisplayVersion()) <= 0;
+    return route.since.compare(ConfigService.getInstance().getSemverDisplayVersion()) <= 0;
   }
 
   private _filterRoutesForVersion(route: Route) {

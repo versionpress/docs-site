@@ -1,7 +1,7 @@
 import fs = require('fs');
-import {Page} from '../models/Page';
-import {Route} from '../models/Route';
-import {Response} from 'express';
+import { Page } from '../models/Page';
+import { Route } from '../models/Route';
+import { Response } from 'express';
 import * as Marked from 'marked';
 
 module RenderService {
@@ -15,7 +15,7 @@ module RenderService {
       if (route.content === '') {
         route.content = Marked.parse(removeFrontMatter(data.toString()));
       }
-      page.docsArticle.content = route.content;
+      page.content = route.content;
       callback(res, page);
     });
   }
