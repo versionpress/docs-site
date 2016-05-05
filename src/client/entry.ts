@@ -31,6 +31,10 @@ $(document).ready(() => {
     'highlightOffset': 0
   });
 
+  if (typeof getUrlVars()['q'] !== 'undefined') {
+    $('#search-box').val(decodeURIComponent(getUrlVars()['q']));
+  }
+
   // Add anchors to headings
   $('h2,h3,h4').each((index, el) => {
     let h = $(el);
@@ -65,6 +69,18 @@ $(document).ready(() => {
 
 
   }
+
+  function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  }
+
   console.log('Docs site scripts loaded');
 
 });
