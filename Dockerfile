@@ -1,4 +1,4 @@
-FROM node:5.5
+FROM mhart/alpine-node:6.2.1
 
 MAINTAINER VersionPress / Martin Stiborský "info@versionpress.net"
 
@@ -8,12 +8,14 @@ WORKDIR /opt/docs-site
 
 RUN npm install
 RUN npm install --global gulp-cli
-RUN ./node_modules/.bin/typings install && ./node_modules/.bin/typings prune && npm run build
+RUN ./node_modules/.bin/typings install && \
+./node_modules/.bin/typings prune && \
+npm run build
 
-RUN cp src/.env.example src/.env
-RUN sed -i 's/^\(DOCS_SOURCE_FOLDER=\).*/\1\/opt\/docs\/content/' src/.env
-RUN sed -i 's/^\(WEBPACK=\).*/\10/' src/.env
+RUN cp src/.env.example dist/.env
+RUN sed -i 's/^\(DOCS_SOURCE_FOLDER=\).*/\1\/opt\/docs\/content/' dist/.env
+RUN sed -i 's/^\(WEBPACK=\).*/\10/' dist/.env
 
 EXPOSE 3000
 
-CMD ["npm", "run", "watch"]
+CMD ["node", "dist/server.js"]
