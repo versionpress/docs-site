@@ -1,32 +1,28 @@
-NAME = quay.io/versionpress/docs-site
-VERSION = latest
+.PHONY: all build push check-env
 
-.PHONY: all build push
+IMAGE_TAG := quay.io/versionpress/docs-site
+IMAGE_VERSION := 2
 
-all: build
+check-env:
+ifndef DOCS_REPO_PATH
+    $(error DOCS_REPO_PATH is undefined)
+endif
 
 build:
-	docker build -t $(NAME):$(VERSION) --rm .
+	docker build -t $(IMAGE_TAG):$(IMAGE_VERSION) .
 
 push:
-	docker push $(NAME):$(VERSION)
+	docker push $(IMAGE_TAG):$(IMAGE_VERSION)
 
-#test:
-#	env NAME=$(NAME) VERSION=$(VERSION) ./test/runner.sh
+run: check-env
+	docker run --rm \
+	-p 3000:3000 \
+	-v ${DOCS_REPO_PATH}:/opt/docs \
+	$(IMAGE_TAG):$(IMAGE_VERSION)
 
-#tag_latest:
-#	docker tag -f $(NAME):$(VERSION) $(NAME):latest
-
-#release: test tag_latest
-#	@if ! docker images $(NAME) | awk '{ print $$2 }' | grep -q -F $(VERSION); then echo "$(NAME) version $(VERSION) is not yet built. Please run 'make build'"; false; fi
-#	@if ! head -n 1 Changelog.md | grep -q 'release date'; then echo 'Please note the release date in Changelog.md.' && false; fi
-#	docker push $(NAME)
-#	@echo "*** Don't forget to create a tag. git tag rel-$(VERSION) && git push origin rel-$(VERSION)"
-
-#ssh:
-#	chmod 600 image/services/sshd/keys/insecure_key
-#	@ID=$$(docker ps | grep -F "$(NAME):$(VERSION)" | awk '{ print $$1 }') && \
-#		if test "$$ID" = ""; then echo "Container is not running."; exit 1; fi && \
-#		IP=$$(docker inspect $$ID | grep IPAddr | sed 's/.*: "//; s/".*//') && \
-#		echo "SSHing into $$IP" && \
-#		ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i image/services/sshd/keys/insecure_key root@$$IP
+bash: check-env
+	docker run --rm -ti \
+	-p 3000:3000 \
+	-v ${DOCS_REPO_PATH}:/opt/docs \
+	$(IMAGE_TAG):$(IMAGE_VERSION) \
+	/bin/sh
