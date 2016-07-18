@@ -1,7 +1,9 @@
-.PHONY: all build push check-env
+.PHONY: all check-env build push run bash
 
 IMAGE_TAG := quay.io/versionpress/docs-site
 IMAGE_VERSION := 2
+
+all: build
 
 check-env:
 ifndef DOCS_REPO_PATH
