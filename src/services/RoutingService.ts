@@ -1,4 +1,5 @@
-import fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
 import { Route } from '../models/Route';
 import { ConfigService } from '../services/ConfigService';
 import { SemVer } from 'semver';
@@ -64,9 +65,8 @@ export class RoutingService {
               next(parentRoute);
             });
           } else {
-            var fName = file.substr(file.lastIndexOf('/') + 1);
-
-            if (!fName.endsWith('.md')) {
+            var fName = path.basename(file);
+            if (path.extname(fName) !== '.md') {
               console.log('skipping not Markdown file - ' + file);
             } else {
               var fMatter = ConfigService.getFrontMatter(file);
