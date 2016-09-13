@@ -1,7 +1,7 @@
 version: '2'
 services:
   docs-site:
-    image: quay.io/versionpress/docs-site:2
+    image: versionpress/docs-site:3
     volumes:
       - $DOCS_REPO_PATH:/opt/docs
     ports:
