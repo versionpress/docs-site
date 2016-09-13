@@ -31,4 +31,11 @@ router.get('/', function (request, response) {
     response.redirect(301, '/' + rs.languages[0]);
 });
 
+router.get('/healthz', function (request, response) {
+    response.set({
+      "X-Health": "OK"
+    });
+    response.status(200).send("OK");
+});
+
 export = router;

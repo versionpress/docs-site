@@ -1,7 +1,7 @@
 .PHONY: all check-env build push run bash
 
 IMAGE_TAG := versionpress/docs-site
-IMAGE_VERSION := 3
+IMAGE_VERSION := 4
 
 all: build
 
