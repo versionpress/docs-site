@@ -1,7 +1,7 @@
 .PHONY: all check-env build push run bash
 
-IMAGE_TAG := quay.io/versionpress/docs-site
-IMAGE_VERSION := 2
+IMAGE_TAG := versionpress/docs-site
+IMAGE_VERSION := 3
 
 all: build
 

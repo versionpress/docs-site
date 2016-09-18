@@ -43,5 +43,28 @@ Run `gulp help` to see the available tasks or inspect `package.json` to see the 
 
 ## Deployment
 
-AWS Elastic Beanstalk runs the app. TODO: document the deployment.
+Production deployment: https://docs.versionpress.net/en
 
+The docs-site is now running on our Kubernetes cluster and I still owe a deployment documentation here (TODO @stibi)
+
+## Docker
+
+https://hub.docker.com/r/versionpress/docs-site/
+
+You can use the `docker-compose.yml` to run the docs-site locally in a Docker container, or run `make run` (on Linux,
+MacOS) for the same thing, a Docker container will start.
+
+In both cases, make sure that you have exported a variable with path to the `versionpress/docs` content, example:
+
+```
+$ export DOCS_REPO_PATH=/home/stibi/dev/projects/versionpress/docs
+$ docker-compose up
+Starting docssite_docs-site_1
+Attaching to docssite_docs-site_1
+docs-site_1  | ConfigService initialized
+docs-site_1  | RoutingService initialized
+docs-site_1  | skipping not Markdown file - /opt/docs/content/en/03-sync/config.yml
+docs-site_1  | GET / 301 4.581 ms - 37
+```
+
+Now you can access the docs-site at `http://127.0.0.1:3000`
