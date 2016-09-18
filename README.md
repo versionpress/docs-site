@@ -51,8 +51,8 @@ The docs-site is now running on our Kubernetes cluster and I still owe a deploym
 
 https://hub.docker.com/r/versionpress/docs-site/
 
-You can use the `docker-compose.yml` to run the docs-site locally in a docker container, or run `make run` (on Linux,
-MacOS) for the same thing, a docker container will start.
+You can use the `docker-compose.yml` to run the docs-site locally in a Docker container, or run `make run` (on Linux,
+MacOS) for the same thing, a Docker container will start.
 
 In both cases, make sure that you have exported a variable with path to the `versionpress/docs` content, example:
 
