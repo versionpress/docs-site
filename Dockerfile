@@ -6,9 +6,10 @@ RUN mkdir -p /opt/docs-site
 ADD . /opt/docs-site/
 WORKDIR /opt/docs-site
 
-RUN cp src/.env.example src/.env
-RUN sed -i 's/^\(DOCS_SOURCE_FOLDER=\).*/\1\/opt\/docs\/content/' src/.env
-RUN sed -i 's/^\(WEBPACK=\).*/\10/' src/.env
+ENV DOCS_SOURCE_FOLDER /opt/docs
+ENV AVAILABLE_LANGUAGES en
+ENV WEBSITE_ROOT docs.versionpress.net
+ENV PORT 3000
 
 RUN npm install
 RUN npm install --global gulp-cli
