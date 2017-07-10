@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:6.2.1
+FROM mhart/alpine-node:8
 
 MAINTAINER VersionPress / Martin Stiborský "info@versionpress.net"
 
@@ -11,8 +11,8 @@ ENV AVAILABLE_LANGUAGES en
 ENV WEBSITE_ROOT docs.versionpress.net
 ENV PORT 3000
 
-RUN npm install
-RUN npm install --global gulp-cli
+RUN npm install gulp-cli -g
+RUN yarn
 RUN ./node_modules/.bin/typings install && \
 ./node_modules/.bin/typings prune && \
 npm run build

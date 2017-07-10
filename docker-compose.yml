@@ -1,7 +1,7 @@
 version: '2'
 services:
   docs-site:
-    image: versionpress/docs-site:3
+    image: versionpress/docs-site:5
     volumes:
       - $DOCS_REPO_PATH:/opt/docs
     ports:
